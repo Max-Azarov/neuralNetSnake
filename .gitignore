@@ -1,2 +1,5 @@
 debug/
 release/
+input.txt
+outputIdeal.txt
+weights.bin
