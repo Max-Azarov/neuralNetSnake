@@ -4,7 +4,7 @@
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
-    Snake window(true, true);
+    Snake window(false, false);
 
     window.resize(400, 400);
     window.setWindowTitle("Snake");
