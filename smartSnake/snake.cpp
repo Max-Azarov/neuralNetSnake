@@ -373,6 +373,7 @@ void Snake::snakeTraining() {
                 if ( error > m_acceptError ) {
                     count++;
                 }
+                qApp->processEvents();
             }
             sumError = sumError / countOfSet; // vSize;
 qDebug() << count << "=== Total error:" << sumError << "===";

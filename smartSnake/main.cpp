@@ -1,14 +1,11 @@
 #include <QApplication>
-#include "snake.h"
+#include "gameWindow.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
-    Snake window(false, false);
+    GameWindow window;
 
-    window.resize(400, 400);
-    window.setWindowTitle("Snake");
-    window.setToolTip("Snake");
     window.move(960, 0);
     window.show();
 
