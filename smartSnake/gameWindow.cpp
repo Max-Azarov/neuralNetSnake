@@ -1,45 +1,193 @@
+#include <list>
+#include <QPushButton>
+
 #include "gameWindow.h"
 
 GameWindow::GameWindow(QWidget *parent) :
     QWidget{parent}
 {
-    m_pSnake = new Snake(false, false, this);
+    QGridLayout* pGLayout = new QGridLayout;
+    QSize cellSize {60, 26};
+    std::list<QWidget*> widgets;
+
+    // >> First row Neural Net
+    int rowNumber = 0;
+    QLabel* lblNN = new QLabel("Neural Net");
+    widgets.push_back(lblNN);
+    QLineEdit* leInNeuron = new QLineEdit("100");
+    leInNeuron->setToolTip("Count of inputs neural net (equal to the number of cells on the screen)");
+    leInNeuron->setEnabled(false);
+    widgets.push_back(leInNeuron);
+    leInNeuron->setAlignment(Qt::AlignCenter);
+    QLineEdit* leFirstLayer = new QLineEdit("100");
+    leFirstLayer->setToolTip("Count of neurons in the first hidden layer");
+    widgets.push_back(leFirstLayer);
+    QLineEdit* leSecondLayer = new QLineEdit("200");
+    leSecondLayer->setToolTip("Count of neurons in the second hidden layer");
+    widgets.push_back(leSecondLayer);
+    QLineEdit* leOutNeuron = new QLineEdit("4");
+    leOutNeuron->setToolTip("Count of outputs neural net (equal to the number of possible directions: right, left, up, down)");
+    widgets.push_back(leOutNeuron);
+    leOutNeuron->setEnabled(false);
+    QHBoxLayout* hblNN = new QHBoxLayout;
+    hblNN->addWidget(leInNeuron);
+    hblNN->addWidget(leFirstLayer);
+    hblNN->addWidget(leSecondLayer);
+    hblNN->addWidget(leOutNeuron);
+    QGroupBox* gbNN = new QGroupBox("Neural Net");
+    gbNN->setLayout(hblNN);
+
+    QLineEdit* leAError = new QLineEdit("0.01");
+    leAError->setToolTip("Acceptable error");
+    widgets.push_back(leAError);
+    QHBoxLayout* hblAError = new QHBoxLayout;
+    hblAError->addWidget(leAError);
+    QGroupBox* gbAError = new QGroupBox("Acceptable error");
+    gbAError->setLayout(hblAError);
+
+    pGLayout->addWidget(gbNN, rowNumber, 0, 1, 5, Qt::AlignCenter);
+    pGLayout->addWidget(gbAError, rowNumber, 5);
+    // << First row
+
+    // >> Second row A =
+    rowNumber++;
+    QLabel* lblA = new QLabel("A =");
+    widgets.push_back(lblA);
+    lblA->setToolTip("The learning rate of the neural network");
+    QLineEdit* leA = new QLineEdit("0.1");
+    leA->setToolTip("The learning rate of the neural network");
+    widgets.push_back(leA);
+    QLabel* lblE = new QLabel("E =");
+    widgets.push_back(lblE);
+    lblE->setToolTip("The learning moment of the neural network");
+    QLineEdit* leE = new QLineEdit("0.05");
+    leE->setToolTip("The learning moment of the neural network");
+    widgets.push_back(leE);
+
+    pGLayout->addWidget(lblA, rowNumber, 0);
+    pGLayout->addWidget(leA, rowNumber, 1);
+    pGLayout->addWidget(lblE, rowNumber, 2);
+    pGLayout->addWidget(leE, rowNumber, 3);
+    // << Second row
+
+    // >> Third row New weights
+    rowNumber++;
+    QCheckBox* cbNewWeights = new QCheckBox("New weights");
+    //cbNewWeights->setCheckState(Qt::Checked);
+    cbNewWeights->setToolTip("Do need to assign new random weights to synapses");
+    QCheckBox* cbNewTrainingData = new QCheckBox("New training data");
+    //cbNewWeights->setCheckState(Qt::Checked);
+    cbNewTrainingData->setToolTip("Do need to assign new training data for neural network "
+                                  "training (the existing training set is deleted)");
+    //QLabel* lblSnakeSpeed = new QLabel("Snake\nspeed");
+    //widgets.push_back(lblSnakeSpeed);
+    //lblSnakeSpeed->setToolTip("Snake speed in steps per second");
+    QLineEdit* leSnakeSpeed = new QLineEdit("10");
+    leSnakeSpeed->setToolTip("Snake speed in steps per second");
+    widgets.push_back(leSnakeSpeed);
+    QHBoxLayout* hblSnakeSpeed = new QHBoxLayout;
+    hblSnakeSpeed->addWidget(leSnakeSpeed);
+    QGroupBox* gbSnakeSpeed = new QGroupBox("Snake speed");
+    gbSnakeSpeed->setLayout(hblSnakeSpeed);
+
+    pGLayout->addWidget(cbNewWeights, rowNumber, 0, 1, 2, Qt::AlignCenter);
+    pGLayout->addWidget(cbNewTrainingData, rowNumber, 2, 1, 2, Qt::AlignCenter);
+    pGLayout->addWidget(gbSnakeSpeed, rowNumber, 5);
+    //pGLayout->addWidget(leSnakeSpeed, rowNumber, 5);
+    // << Third rowNumber
+
+    // >> Fourth row Snake
+    rowNumber++;
+    m_pSnake = new Snake(false, true, this);
     m_pSnake->setWindowTitle("Snake");
     m_pSnake->setToolTip("Snake");
     m_pSnake->setFixedSize(400,400);
 
-    QGridLayout* pGLayout = new QGridLayout;
-    QSize cellSize {60, 50};
+    pGLayout->addWidget(m_pSnake, rowNumber, 0, 1, 6, Qt::AlignCenter);
+    // << Fourth row
 
-    QLabel* lblNN = new QLabel("Neural Net");
-    QLineEdit* leInNeuron = new QLineEdit("100");
-    leInNeuron->setToolTip("Count of inputs neural net");
-    leInNeuron->setEnabled(false);
-    leInNeuron->setFixedSize(cellSize);
-    QLineEdit* leFirstLayer = new QLineEdit;
-    leFirstLayer->setToolTip("Count of neurons in the first hidden layer");
-    leFirstLayer->setFixedSize(cellSize);
-    QLineEdit* leSecondLayer = new QLineEdit;
-    leSecondLayer->setToolTip("Count of neurons in the second hidden layer");
-    leSecondLayer->setFixedSize(cellSize);
-    QLineEdit* leOutNeuron = new QLineEdit("4");
-    leOutNeuron->setToolTip("Count of outputs neural net");
-    leOutNeuron->setFixedSize(cellSize);
-    leOutNeuron->setEnabled(false);
-    QLabel* lblAError = new QLabel("Acceptable\nerror");
-    lblAError->setFixedSize(cellSize);
-    QLineEdit* leAError = new QLineEdit;
-    leAError->setToolTip("Acceptable error");
-    leAError->setFixedSize(cellSize);
+    // Fifth row Count of starts
+    rowNumber++;
+    QLabel* lblCountOfSetsTitle = new QLabel("Count of\nstarts");
+    widgets.push_back(lblCountOfSetsTitle);
+    lblCountOfSetsTitle->setToolTip("Count of runs contained in the training set");
+    QLabel* lblCountOfStepsTitle = new QLabel("Count of\nsteps");
+    widgets.push_back(lblCountOfStepsTitle);
+    lblCountOfStepsTitle->setToolTip("Number of steps completed by snakes in the current run");
+    QLabel* lblAverageCountOfSetsTitle = new QLabel("Average\nsteps count");
+    widgets.push_back(lblAverageCountOfSetsTitle);
+    lblAverageCountOfSetsTitle->setToolTip("The average number of steps of the snake, starting with waking up");
+    QLabel* lblCountOfEatenFruitsTitle = new QLabel("Count of\neaten fruits");
+    widgets.push_back(lblCountOfEatenFruitsTitle);
+    lblCountOfEatenFruitsTitle->setToolTip("The count of fruits eaten in the current run");
 
-    pGLayout->addWidget(lblNN, 0, 0, 1, 6, Qt::AlignCenter);
-    pGLayout->addWidget(leInNeuron, 1, 0, Qt::AlignCenter);
-    pGLayout->addWidget(leFirstLayer, 1, 1, Qt::AlignCenter);
-    pGLayout->addWidget(leSecondLayer, 1, 2, Qt::AlignCenter);
-    pGLayout->addWidget(leOutNeuron, 1, 3, Qt::AlignCenter);
-    pGLayout->addWidget(lblAError, 1, 4, Qt::AlignCenter);
-    pGLayout->addWidget(leAError, 1, 5, Qt::AlignCenter);
-    pGLayout->addWidget(m_pSnake, 2, 0, 1, 6, Qt::AlignCenter);
+    pGLayout->addWidget(lblCountOfSetsTitle, rowNumber, 0, Qt::AlignCenter);
+    pGLayout->addWidget(lblCountOfStepsTitle, rowNumber, 2, Qt::AlignCenter);
+    pGLayout->addWidget(lblCountOfEatenFruitsTitle, rowNumber, 3, Qt::AlignCenter);
+    pGLayout->addWidget(lblAverageCountOfSetsTitle, rowNumber, 5, Qt::AlignCenter);
+    // << Fifth row
+
+    // Sixth row
+    rowNumber++;
+    QLabel* lblCountOfSets = new QLabel;
+    widgets.push_back(lblCountOfSets);
+    lblCountOfSets->setToolTip("Count of runs contained in the training set");
+    QLabel* lblCountOfSteps = new QLabel;
+    widgets.push_back(lblCountOfSteps);
+    lblCountOfSteps->setToolTip("Number of steps completed by snakes in the current run");
+    QLabel* lblAverageCountOfSets = new QLabel;
+    widgets.push_back(lblAverageCountOfSets);
+    lblAverageCountOfSets->setToolTip("The average number of steps of the snake, starting with waking up");
+    QLabel* lblCountOfEatenFruits = new QLabel;
+    widgets.push_back(lblCountOfEatenFruits);
+    lblCountOfEatenFruits->setToolTip("The number of fruits eaten in the current run");
+
+    pGLayout->addWidget(lblCountOfSets, rowNumber, 0, Qt::AlignCenter);
+    pGLayout->addWidget(lblCountOfSteps, rowNumber, 2, Qt::AlignCenter);
+    pGLayout->addWidget(lblCountOfEatenFruits, rowNumber, 3, Qt::AlignCenter);
+    pGLayout->addWidget(lblAverageCountOfSets, rowNumber, 5, Qt::AlignCenter);
+    // << Sixth row
+
+    // Next row Number of high error
+    rowNumber++;
+    QLabel* lblCountOfErrorHigherTitle = new QLabel("Number of\nhigh error");
+    widgets.push_back(lblCountOfErrorHigherTitle);
+    lblCountOfErrorHigherTitle->setToolTip("Count of cases is higher than the acceptable error");
+    QLabel* lblErrorTitle = new QLabel("Current\nvalue of\ntotal error");
+    lblErrorTitle->setFixedSize(cellSize.width(), cellSize.height()*2);
+    lblErrorTitle->setAlignment(Qt::AlignCenter);
+    lblErrorTitle->setToolTip("Current error value");
+
+    QListWidget* lwCountOfErrorHigher = new QListWidget;
+    lwCountOfErrorHigher->setFixedSize(cellSize.width(), cellSize.height()*2);
+    lwCountOfErrorHigher->setToolTip("Count of cases is higher than the acceptable error");
+    QListWidget* lwError = new QListWidget;
+    lwError->setFixedSize(cellSize.width(), cellSize.height()*2);
+    lwError->setToolTip("Current error value");
+
+    pGLayout->addWidget(lblCountOfErrorHigherTitle, rowNumber, 1, Qt::AlignCenter);
+    pGLayout->addWidget(lwCountOfErrorHigher, rowNumber, 2, Qt::AlignCenter);
+    pGLayout->addWidget(lwError, rowNumber, 3, Qt::AlignCenter);
+    pGLayout->addWidget(lblErrorTitle, rowNumber, 4, Qt::AlignCenter);
+    // << Next row
+
+    // Next row Buttons
+    rowNumber++;
+    QPushButton* btnStart = new QPushButton("St&art");
+    QPushButton* btnStop = new QPushButton("St&op");
+
+    pGLayout->addWidget(btnStart, rowNumber, 0, Qt::AlignCenter);
+    pGLayout->addWidget(btnStop, rowNumber, 5, Qt::AlignCenter);
+    // << Next row
+
+    for (auto it = std::begin(widgets); it != std::end(widgets); ++it) {
+        (*it)->setFixedSize(cellSize);
+        QLineEdit* tempLE = dynamic_cast<QLineEdit*>(*it);
+        if (tempLE) tempLE->setAlignment(Qt::AlignCenter);
+        QLabel* tempLbl = dynamic_cast<QLabel*>(*it);
+        if (tempLbl) tempLbl->setAlignment(Qt::AlignCenter);
+    }
 
     setLayout(pGLayout);
+    //setFixedSize(470, 750);
 }
