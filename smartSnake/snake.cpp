@@ -20,7 +20,7 @@ Snake::Snake(bool clearFile, bool newSynapseWeights, QWidget *parent) :
     m_delay { 1 },
     m_loopMotion { false },
     m_clearFiles { clearFile }, // При первом пуске должно быть true
-    m_acceptError { 0.01 },
+    m_acceptError { 0.02 },
     m_countOfStepsToNextTest { 1000 },
     m_setCount { 0 },
     neuroNet{ { 100, 100, 200, 4 }, { 10, 1, 1 },

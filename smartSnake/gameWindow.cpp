@@ -100,7 +100,7 @@ GameWindow::GameWindow(QWidget *parent) :
 
     // >> Fourth row Snake
     rowNumber++;
-    m_pSnake = new Snake(false, true, this);
+    m_pSnake = new Snake(false, false, this);
     m_pSnake->setWindowTitle("Snake");
     m_pSnake->setToolTip("Snake");
     m_pSnake->setFixedSize(400,400);
