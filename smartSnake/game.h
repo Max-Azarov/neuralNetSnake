@@ -18,7 +18,7 @@ public:
 
 public slots:
     void on_sldSnakeSpeed_valueChanged(int);
-    //void on_sldSnakeSpeed_sliderReleased();
+    void on_sldSnakeSpeed_sliderReleased();
     //void on_sldSnakeSpeed_sliderPressed();
 
     void on_leSnakeSpeed_returnPressed();

@@ -3,10 +3,13 @@
 
 #include <QWidget>
 #include <QImage>
+#include <QTimer>
+
 #include "enums.h"
 #include "neuroNet/net.h"
 
 class Snake : public QWidget {
+    Q_OBJECT
 private:
     const bool m_directionSelectedByNeuroNet = true;
     DIRECTION m_direction;
@@ -60,6 +63,9 @@ private:
     size_t m_countOfStepsToNextTest;
     size_t m_setCount;
 
+    QTimer* pTimer;
+    bool mutex;
+
 private:
     void loadTextures();
     bool collision(const int* const snakeX, const int* const snakeY);
@@ -92,17 +98,18 @@ private:
 
 public:
     Snake(QWidget *parent = nullptr);
-    void setDelay(size_t delay) { m_delay = delay; }
+    void setDelay(size_t delay);// { m_delay = delay; }
     virtual ~Snake();
 
 protected:
-    void timerEvent(QTimerEvent *);
     void paintEvent(QPaintEvent *);
     void keyPressEvent(QKeyEvent *);
 
 private:
     Net* neuroNet;
 
+public slots:
+    void slotLoop();
 
 };
 

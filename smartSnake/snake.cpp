@@ -10,6 +10,8 @@
 #include <sstream>
 
 
+
+
 Snake::~Snake() {
     delete neuroNet;
 }
@@ -19,7 +21,7 @@ Snake::Snake(QWidget *parent) :
     m_delay { 100 },
     m_loopMotion { false },
     m_clearFiles { true }, // При первом пуске должно быть true
-    m_acceptError { 0.015 },
+    m_acceptError { 0.1 },
     m_countOfStepsToNextTest { 1000 },
     m_setCount { 0 },
     neuroNet{ new Net({ 100, 100, 200, 4 }, { 10, 1, 1 },
@@ -31,8 +33,13 @@ Snake::Snake(QWidget *parent) :
         srand(static_cast<unsigned int>(time(nullptr)));
         startRandom = true;
     }
-
-    setStyleSheet("background-color:black;");
+    // Делаем черный фон
+    QPalette pall;
+    pall.setColor(backgroundRole(), Qt::darkGreen);
+    setPalette(pall);
+    setAutoFillBackground(true);
+    // <<
+    //setStyleSheet("background-color:black");
     loadTextures();
     m_numberOfCellsPerSide = static_cast<int>(sqrt(NUM_CELLS));
     m_cellSize = WIDTH / m_numberOfCellsPerSide;
@@ -60,12 +67,22 @@ Snake::Snake(QWidget *parent) :
     averageNumberOfSteps(true);
 
     initGame();
+    pTimer = new QTimer(this);
+    connect(pTimer, SIGNAL(timeout()), SLOT(slotLoop()));
+    pTimer->start(m_delay);
+}
+
+void Snake::setDelay(size_t delay) {
+    m_delay = delay;
+    //pTimer->setInterval(m_delay);
+    mutex = true;
+    pTimer->stop();
+    pTimer->start(m_delay);
 }
 
 // Основной цикл игры
-void Snake::timerEvent(QTimerEvent *e) {
-    Q_UNUSED(e)
-    if (!m_gameOver) {
+void Snake::slotLoop() {
+    if ( !mutex ) {
         movement(); // Передвижение с проверкой будующего столкновения
         isTheFruitEaten(); // съела фрукт
         //isSnakeLooped(); // Зациклилась
@@ -73,6 +90,7 @@ void Snake::timerEvent(QTimerEvent *e) {
         learning(); // учится
     }
     update();
+    mutex = false;
 }
 
 void Snake::initGame() {
@@ -88,8 +106,6 @@ void Snake::initGame() {
 
     initiallyPositionSnake();
     locateFruit();
-
-    timerId = QObject::startTimer((int)m_delay);
 }
 
 void Snake::locateFruit() {

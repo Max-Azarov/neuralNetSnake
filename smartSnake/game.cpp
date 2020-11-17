@@ -15,7 +15,14 @@ Game::Game(QWidget *parent) :
 void Game::on_sldSnakeSpeed_valueChanged(int value) {
     //slider
     ui->leSnakeSpeed->setText(QString::number(value));
-    setSnakeSpeed(value);
+    //setSnakeSpeed(value);
+}
+
+void Game::on_sldSnakeSpeed_sliderReleased() {
+    //slider
+    int speed = ui->sldSnakeSpeed->value();
+    ui->leSnakeSpeed->setText(QString::number(speed));
+    setSnakeSpeed(speed);
 }
 
 void Game::on_leSnakeSpeed_returnPressed() {
