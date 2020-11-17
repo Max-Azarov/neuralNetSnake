@@ -96,10 +96,14 @@ private:
     //void disableUselessSynapses();
     void createFile(const std::string & fileName, bool clearFile);
 
+
 public:
     Snake(QWidget *parent = nullptr);
     void setDelay(size_t delay);// { m_delay = delay; }
     virtual ~Snake();
+
+    void stop();
+    void start();
 
 protected:
     void paintEvent(QPaintEvent *);

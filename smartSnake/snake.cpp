@@ -35,7 +35,7 @@ Snake::Snake(QWidget *parent) :
     }
     // Делаем черный фон
     QPalette pall;
-    pall.setColor(backgroundRole(), Qt::darkGreen);
+    pall.setColor(backgroundRole(), Qt::black);
     setPalette(pall);
     setAutoFillBackground(true);
     // <<
@@ -69,15 +69,24 @@ Snake::Snake(QWidget *parent) :
     initGame();
     pTimer = new QTimer(this);
     connect(pTimer, SIGNAL(timeout()), SLOT(slotLoop()));
-    pTimer->start(m_delay);
+    //pTimer->start(m_delay);
 }
 
 void Snake::setDelay(size_t delay) {
     m_delay = delay;
-    //pTimer->setInterval(m_delay);
     mutex = true;
     pTimer->stop();
     pTimer->start(m_delay);
+}
+
+void Snake::stop() {
+    mutex = true;
+    pTimer->stop();
+}
+
+void Snake::start() {
+    setDelay(m_delay);
+    slotLoop();
 }
 
 // Основной цикл игры

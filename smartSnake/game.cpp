@@ -5,17 +5,16 @@
 
 Game::Game(QWidget *parent) :
     QMainWindow{parent},
-    ui{ new Ui::MainWindow }
+    ui{ new Ui::MainWindow },
+    m_bStart {false}
 {
     ui->setupUi(this);
     snake = ui->snake;
-    //connect(ui->sldSnakeSpeed )
 }
 
 void Game::on_sldSnakeSpeed_valueChanged(int value) {
     //slider
     ui->leSnakeSpeed->setText(QString::number(value));
-    //setSnakeSpeed(value);
 }
 
 void Game::on_sldSnakeSpeed_sliderReleased() {
@@ -40,16 +39,41 @@ void Game::on_cbSnakeSpeed_stateChanged(int state) {
         setSnakeSpeed(1000);
     }
     else {
+        // Qt::unchecked
         ui->sldSnakeSpeed->setEnabled(true);
         ui->leSnakeSpeed->setEnabled(true);
         setSnakeSpeed(ui->sldSnakeSpeed->value());
     }
 }
 
+void Game::on_btnStart_released() {
+    if (m_bStart) {
+        snake->stop();
+        ui->btnStart->setText("Старт");
+        m_bStart = false;
+    }
+    else {
+        setSnakeSpeed();
+        snake->start();
+        ui->btnStart->setText("Стоп");
+        m_bStart = true;
+    }
+}
+
 void Game::setSnakeSpeed(int speed) {
-    int delay;
     int num_msInSec = 1000;
     speed = (speed <= 0) ? 1 : speed;
-    delay = num_msInSec / speed;
-    snake->setDelay(delay);
+    m_delay = num_msInSec / speed;
+    if (m_bStart) {
+        snake->setDelay(m_delay);
+    }
+}
+
+void Game::setSnakeSpeed() {
+    int num_msInSec = 1000;
+    int speed = ui->sldSnakeSpeed->value();
+    m_delay = num_msInSec / speed;
+    if (m_bStart) {
+        snake->setDelay(m_delay);
+    }
 }

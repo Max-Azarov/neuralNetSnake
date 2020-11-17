@@ -1214,7 +1214,7 @@
      </spacer>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,1,1,1,1">
+     <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="2,1,2">
       <item>
        <spacer name="horizontalSpacer_6">
         <property name="orientation">
@@ -1250,32 +1250,6 @@
         </property>
         <property name="text">
          <string>Старт</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_5">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnStop">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Стоп</string>
         </property>
        </widget>
       </item>
@@ -1320,7 +1294,6 @@
  </customwidgets>
  <tabstops>
   <tabstop>btnStart</tabstop>
-  <tabstop>btnStop</tabstop>
   <tabstop>sldSnakeSpeed</tabstop>
   <tabstop>leSnakeSpeed</tabstop>
   <tabstop>leNum1HiddenNN</tabstop>

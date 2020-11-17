@@ -95,8 +95,6 @@ public:
     QHBoxLayout *horizontalLayout_8;
     QSpacerItem *horizontalSpacer_6;
     QPushButton *btnStart;
-    QSpacerItem *horizontalSpacer_5;
-    QPushButton *btnStop;
     QSpacerItem *horizontalSpacer_7;
     QMenuBar *menubar;
 
@@ -588,25 +586,13 @@ public:
 
         horizontalLayout_8->addWidget(btnStart);
 
-        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_8->addItem(horizontalSpacer_5);
-
-        btnStop = new QPushButton(centralwidget);
-        btnStop->setObjectName(QString::fromUtf8("btnStop"));
-        btnStop->setMaximumSize(QSize(16777215, 16777215));
-
-        horizontalLayout_8->addWidget(btnStop);
-
         horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_8->addItem(horizontalSpacer_7);
 
-        horizontalLayout_8->setStretch(0, 1);
+        horizontalLayout_8->setStretch(0, 2);
         horizontalLayout_8->setStretch(1, 1);
-        horizontalLayout_8->setStretch(2, 1);
-        horizontalLayout_8->setStretch(3, 1);
-        horizontalLayout_8->setStretch(4, 1);
+        horizontalLayout_8->setStretch(2, 2);
 
         verticalLayout_2->addLayout(horizontalLayout_8);
 
@@ -616,8 +602,7 @@ public:
         menubar->setEnabled(false);
         menubar->setGeometry(QRect(0, 0, 480, 21));
         MainWindow->setMenuBar(menubar);
-        QWidget::setTabOrder(btnStart, btnStop);
-        QWidget::setTabOrder(btnStop, sldSnakeSpeed);
+        QWidget::setTabOrder(btnStart, sldSnakeSpeed);
         QWidget::setTabOrder(sldSnakeSpeed, leSnakeSpeed);
         QWidget::setTabOrder(leSnakeSpeed, leNum1HiddenNN);
         QWidget::setTabOrder(leNum1HiddenNN, leNum2HiddenNN);
@@ -755,7 +740,6 @@ public:
 "\320\267\320\260 \321\202\320\265\320\272\321\203\321\211\321\203\321\216\n"
 "\321\215\320\277\320\276\321\205\321\203", nullptr));
         btnStart->setText(QCoreApplication::translate("MainWindow", "\320\241\321\202\320\260\321\200\321\202", nullptr));
-        btnStop->setText(QCoreApplication::translate("MainWindow", "\320\241\321\202\320\276\320\277", nullptr));
     } // retranslateUi
 
 };
