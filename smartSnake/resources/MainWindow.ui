@@ -759,7 +759,7 @@
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <item>
-         <widget class="Snake" name="snakeWindow" native="true">
+         <widget class="Snake" name="snake" native="true">
           <property name="minimumSize">
            <size>
             <width>400</width>

@@ -31,7 +31,7 @@ public:
     double getRandom(T firstBoundaryValue, T secondBoundaryValue) {
         static bool bsrand = false;
         if( !bsrand ) {
-            srand(static_cast<size_t>(time(nullptr)));
+            srand(time(NULL));
             bsrand = true;
         }
         double result = firstBoundaryValue > secondBoundaryValue ?

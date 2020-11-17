@@ -9,23 +9,22 @@
 #include <fstream>
 #include <sstream>
 
-#include "neuroNet/synapse.h"
 
-// TYPE_CELL
 Snake::~Snake() {
+    delete neuroNet;
 }
 
-Snake::Snake(bool clearFile, bool newSynapseWeights, QWidget *parent) :
+Snake::Snake(QWidget *parent) :
     QWidget{parent},
-    m_delay { 1 },
+    m_delay { 100 },
     m_loopMotion { false },
-    m_clearFiles { clearFile }, // При первом пуске должно быть true
-    m_acceptError { 0.02 },
+    m_clearFiles { true }, // При первом пуске должно быть true
+    m_acceptError { 0.015 },
     m_countOfStepsToNextTest { 1000 },
     m_setCount { 0 },
-    neuroNet{ { 100, 100, 200, 4 }, { 10, 1, 1 },
-              newSynapseWeights,  // При первом пуске должно быть true
-              }
+    neuroNet{ new Net({ 100, 100, 200, 4 }, { 10, 1, 1 },
+              true  // При первом пуске должно быть true
+              ) }
 {
     static bool startRandom = false;
     if (!startRandom) {
@@ -43,8 +42,8 @@ Snake::Snake(bool clearFile, bool newSynapseWeights, QWidget *parent) :
         m_vField[i].resize(static_cast<unsigned int>(m_numberOfCellsPerSide));
     }
 
-    m_vIn.resize(neuroNet.getCountOfInputs());
-    m_vOut.resize(neuroNet.getCountOfOutputs());
+    m_vIn.resize(neuroNet->getCountOfInputs());
+    m_vOut.resize(neuroNet->getCountOfOutputs());
 
     //Создаем файлы
     m_inputData = "input.txt";
@@ -298,8 +297,8 @@ void Snake::learning() {
 DIRECTION Snake::choiceDirectionCheckingCollision() {
     writeData();
     // Подаем данные в нейросеть, ответ записываем в вектор
-    neuroNet.training().forwardPass(m_vIn);
-    neuroNet.getOut(m_vOut);
+    neuroNet->training().forwardPass(m_vIn);
+    neuroNet->getOut(m_vOut);
 
     // Какое из чисел массива больше, туда и пойдет змейка.
     //Номера позиций в массиве 0 - up, 1 - left, 2 - down, 3 - right
@@ -366,9 +365,9 @@ void Snake::snakeTraining() {
                     itIn != std::begin(m_vInTrainingSet);
                     --itIn, --itOut, ++countOfSet )
             {
-                neuroNet.training().forwardPass(*std::prev(itIn));
-                error = neuroNet.training().calculateError(*std::prev(itOut));
-                neuroNet.training().backprop(*std::prev(itOut));
+                neuroNet->training().forwardPass(*std::prev(itIn));
+                error = neuroNet->training().calculateError(*std::prev(itOut));
+                neuroNet->training().backprop(*std::prev(itOut));
                 sumError += error;
                 if ( error > m_acceptError ) {
                     count++;
@@ -378,11 +377,11 @@ void Snake::snakeTraining() {
             sumError = sumError / countOfSet; // vSize;
 qDebug() << count << "=== Total error:" << sumError << "===";
         }
-        while ( count > (double)countOfSet/neuroNet.getCountOfOutputs()
+        while ( count > (double)countOfSet/neuroNet->getCountOfOutputs()
                 || sumError  > m_acceptError);
         // << Обучаем
 
-        neuroNet.training().saveWeightOfSynapses();
+        neuroNet->training().saveWeightOfSynapses();
         averageNumberOfSteps(true);
         m_setCount = 0;
     }

@@ -91,7 +91,7 @@ private:
     void createFile(const std::string & fileName, bool clearFile);
 
 public:
-    Snake(bool clearFile = false, bool newSynapseWeights = false, QWidget *parent = nullptr);
+    Snake(QWidget *parent = nullptr);
     void setDelay(size_t delay) { m_delay = delay; }
     virtual ~Snake();
 
@@ -101,7 +101,7 @@ protected:
     void keyPressEvent(QKeyEvent *);
 
 private:
-    Net neuroNet;
+    Net* neuroNet;
 
 
 };

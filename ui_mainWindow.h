@@ -65,7 +65,7 @@ public:
     QLineEdit *leSnakeSpeed;
     QSpacerItem *horizontalSpacer_4;
     QHBoxLayout *horizontalLayout_6;
-    Snake *snakeWindow;
+    Snake *snake;
     QHBoxLayout *horizontalLayout_12;
     QGroupBox *groupBox;
     QHBoxLayout *horizontalLayout_11;
@@ -378,12 +378,12 @@ public:
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
         horizontalLayout_6->setSizeConstraint(QLayout::SetMinimumSize);
-        snakeWindow = new Snake(centralwidget);
-        snakeWindow->setObjectName(QString::fromUtf8("snakeWindow"));
-        snakeWindow->setMinimumSize(QSize(400, 400));
-        snakeWindow->setMaximumSize(QSize(400, 400));
+        snake = new Snake(centralwidget);
+        snake->setObjectName(QString::fromUtf8("snake"));
+        snake->setMinimumSize(QSize(400, 400));
+        snake->setMaximumSize(QSize(400, 400));
 
-        horizontalLayout_6->addWidget(snakeWindow);
+        horizontalLayout_6->addWidget(snake);
 
 
         verticalLayout_2->addLayout(horizontalLayout_6);
