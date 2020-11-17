@@ -1313,6 +1313,22 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>btnStart</tabstop>
+  <tabstop>btnStop</tabstop>
+  <tabstop>sldSnakeSpeed</tabstop>
+  <tabstop>leSnakeSpeed</tabstop>
+  <tabstop>leNum1HiddenNN</tabstop>
+  <tabstop>leNum2HiddenNN</tabstop>
+  <tabstop>leA</tabstop>
+  <tabstop>leE</tabstop>
+  <tabstop>leAcceptError</tabstop>
+  <tabstop>cbNewWeights</tabstop>
+  <tabstop>cbNewTrainingData</tabstop>
+  <tabstop>leNumInputNN</tabstop>
+  <tabstop>leNumOutputNN</tabstop>
+  <tabstop>teErrors</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

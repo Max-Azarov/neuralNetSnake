@@ -3,8 +3,9 @@
 
 #include <QtWidgets>
 #include "snake.h"
+#include "ui_mainWindow.h"
 
-class GameWindow : public QWidget
+class GameWindow : public QWidget, public Ui::MainWindow
 {
 private:
     Snake* m_pSnake;

@@ -93,7 +93,7 @@ private:
 public:
     Snake(bool clearFile = false, bool newSynapseWeights = false, QWidget *parent = nullptr);
     void setDelay(size_t delay) { m_delay = delay; }
-    ~Snake();
+    virtual ~Snake();
 
 protected:
     void timerEvent(QTimerEvent *);

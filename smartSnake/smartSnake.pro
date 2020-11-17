@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,8 +15,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+TEMPLATE = app
+
 SOURCES += \
-    gameWindow.cpp \
+    game.cpp \
     main.cpp \
     neuroNet/biasNeuron.cpp \
     neuroNet/hiddenNeuron.cpp \
@@ -31,7 +33,7 @@ SOURCES += \
 
 HEADERS += \
     enums.h \
-    gameWindow.h \
+    game.h \
     neuroNet/_neuronet.h \
     neuroNet/biasNeuron.h \
     neuroNet/factory.h \
@@ -44,6 +46,8 @@ HEADERS += \
     neuroNet/synapse.h \
     neuroNet/training.h \
     snake.h
+
+FORMS += resources/mainWindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

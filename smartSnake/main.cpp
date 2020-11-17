@@ -1,12 +1,12 @@
 #include <QApplication>
-#include "gameWindow.h"
+#include "game.h"
 
 #include <QDebug>
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
-    GameWindow window;
+    Game window;
 
     window.move(960, 0);
     window.show();

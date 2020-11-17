@@ -1,0 +1,17 @@
+#include <list>
+#include <QPushButton>
+
+#include "gameWindow.h"
+
+
+GameWindow::GameWindow(QWidget *parent) :
+    QWidget{parent}
+{
+    setupUi()    
+    
+    m_pSnake = new Snake(false, false, this);
+    m_pSnake->setWindowTitle("Snake");
+    m_pSnake->setToolTip("Snake");
+    m_pSnake->setFixedSize(400,400);
+
+}
