@@ -721,6 +721,20 @@ debug\moc_game.cpp: smartSnake\game.h \
 		smartSnake\neuroNet\outputNeuron.h \
 		smartSnake\neuroNet\training.h \
 		ui_mainWindow.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QApplication \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QCheckBox \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QGroupBox \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QHBoxLayout \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLabel \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLineEdit \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMainWindow \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMenuBar \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QPushButton \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSlider \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSpacerItem \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QStatusBar \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QTextEdit \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QVBoxLayout \
 		debug\moc_predefs.h \
 		D:\Qt\5.13.2\msvc2017_64\bin\moc.exe
 	D:\Qt\5.13.2\msvc2017_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Users/monstr/Desktop/smartSnakePro/debug/moc_predefs.h -ID:/Qt/5.13.2/msvc2017_64/mkspecs/win32-msvc -IC:/Users/monstr/Desktop/smartSnakePro/smartSnake -ID:/Qt/5.13.2/msvc2017_64/include -ID:/Qt/5.13.2/msvc2017_64/include/QtWidgets -ID:/Qt/5.13.2/msvc2017_64/include/QtGui -ID:/Qt/5.13.2/msvc2017_64/include/QtANGLE -ID:/Qt/5.13.2/msvc2017_64/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\cppwinrt" smartSnake\game.h -o debug\moc_game.cpp
@@ -1344,7 +1358,20 @@ debug\game.obj: smartSnake\game.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\Q
 		smartSnake\neuroNet\inputNeuron.h \
 		smartSnake\neuroNet\outputNeuron.h \
 		smartSnake\neuroNet\training.h \
-		ui_mainWindow.h
+		ui_mainWindow.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QApplication \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QCheckBox \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QGroupBox \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QHBoxLayout \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLabel \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLineEdit \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMainWindow \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMenuBar \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSlider \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSpacerItem \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QStatusBar \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QTextEdit \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QVBoxLayout
 
 debug\main.obj: smartSnake\main.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QApplication \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qapplication.h \
@@ -1827,6 +1854,19 @@ debug\main.obj: smartSnake\main.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\Q
 		smartSnake\neuroNet\outputNeuron.h \
 		smartSnake\neuroNet\training.h \
 		ui_mainWindow.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QCheckBox \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QGroupBox \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QHBoxLayout \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLabel \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLineEdit \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMainWindow \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMenuBar \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QPushButton \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSlider \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSpacerItem \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QStatusBar \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QTextEdit \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QVBoxLayout \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug
 
 debug\biasNeuron.obj: smartSnake\neuroNet\biasNeuron.cpp smartSnake\neuroNet\biasNeuron.h \
