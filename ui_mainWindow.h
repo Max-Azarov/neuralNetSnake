@@ -21,11 +21,10 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "snake.h"
+#include <snake.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -33,7 +32,6 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout_7;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_5;
     QGroupBox *gBoxNN;
@@ -64,6 +62,7 @@ public:
     QLabel *lblSnakeSpeed;
     QLineEdit *leSnakeSpeed;
     QSpacerItem *horizontalSpacer_4;
+    QCheckBox *cbSnakeSpeed;
     QHBoxLayout *horizontalLayout_6;
     Snake *snake;
     QHBoxLayout *horizontalLayout_12;
@@ -100,15 +99,14 @@ public:
     QPushButton *btnStop;
     QSpacerItem *horizontalSpacer_7;
     QMenuBar *menubar;
-    QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(500, 840);
-        MainWindow->setMinimumSize(QSize(500, 840));
-        MainWindow->setMaximumSize(QSize(500, 840));
+        MainWindow->resize(480, 850);
+        MainWindow->setMinimumSize(QSize(480, 850));
+        MainWindow->setMaximumSize(QSize(480, 850));
         QFont font;
         font.setPointSize(8);
         font.setBold(false);
@@ -116,10 +114,8 @@ public:
         MainWindow->setFont(font);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        verticalLayout_7 = new QVBoxLayout(centralwidget);
-        verticalLayout_7->setObjectName(QString::fromUtf8("verticalLayout_7"));
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setSpacing(2);
+        centralwidget->setMaximumSize(QSize(500, 16777215));
+        verticalLayout_2 = new QVBoxLayout(centralwidget);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
@@ -199,8 +195,8 @@ public:
         horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
         gbTrainingSet = new QGroupBox(centralwidget);
         gbTrainingSet->setObjectName(QString::fromUtf8("gbTrainingSet"));
-        gbTrainingSet->setMinimumSize(QSize(450, 90));
-        gbTrainingSet->setMaximumSize(QSize(450, 90));
+        gbTrainingSet->setMinimumSize(QSize(400, 90));
+        gbTrainingSet->setMaximumSize(QSize(400, 90));
         horizontalLayout_2 = new QHBoxLayout(gbTrainingSet);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         verticalLayout = new QVBoxLayout();
@@ -328,8 +324,9 @@ public:
         sldSnakeSpeed->setObjectName(QString::fromUtf8("sldSnakeSpeed"));
         sldSnakeSpeed->setMinimumSize(QSize(200, 26));
         sldSnakeSpeed->setMaximumSize(QSize(200, 26));
-        sldSnakeSpeed->setMinimum(1);
-        sldSnakeSpeed->setMaximum(100);
+        sldSnakeSpeed->setMinimum(2);
+        sldSnakeSpeed->setMaximum(20);
+        sldSnakeSpeed->setPageStep(1);
         sldSnakeSpeed->setValue(10);
         sldSnakeSpeed->setOrientation(Qt::Horizontal);
 
@@ -368,9 +365,14 @@ public:
 
         layoutSnakeSpeed->addWidget(leSnakeSpeed);
 
-        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer_4 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
         layoutSnakeSpeed->addItem(horizontalSpacer_4);
+
+        cbSnakeSpeed = new QCheckBox(centralwidget);
+        cbSnakeSpeed->setObjectName(QString::fromUtf8("cbSnakeSpeed"));
+
+        layoutSnakeSpeed->addWidget(cbSnakeSpeed);
 
 
         verticalLayout_2->addLayout(layoutSnakeSpeed);
@@ -608,19 +610,12 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_8);
 
-
-        verticalLayout_7->addLayout(verticalLayout_2);
-
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setEnabled(false);
-        menubar->setGeometry(QRect(0, 0, 500, 21));
+        menubar->setGeometry(QRect(0, 0, 480, 21));
         MainWindow->setMenuBar(menubar);
-        statusbar = new QStatusBar(MainWindow);
-        statusbar->setObjectName(QString::fromUtf8("statusbar"));
-        statusbar->setEnabled(false);
-        MainWindow->setStatusBar(statusbar);
         QWidget::setTabOrder(btnStart, btnStop);
         QWidget::setTabOrder(btnStop, sldSnakeSpeed);
         QWidget::setTabOrder(sldSnakeSpeed, leSnakeSpeed);
@@ -703,6 +698,8 @@ public:
         leSnakeSpeed->setToolTip(QCoreApplication::translate("MainWindow", "Snake speed in steps per second", nullptr));
 #endif // QT_CONFIG(tooltip)
         leSnakeSpeed->setText(QCoreApplication::translate("MainWindow", "10", nullptr));
+        cbSnakeSpeed->setText(QCoreApplication::translate("MainWindow", "\320\234\320\260\320\272\321\201.\n"
+"\321\201\320\272\320\276\321\200\320\276\321\201\321\202\321\214", nullptr));
         groupBox->setTitle(QString());
 #if QT_CONFIG(tooltip)
         lblCountOfSetsTitle->setToolTip(QCoreApplication::translate("MainWindow", "Count of runs contained in the training set", nullptr));

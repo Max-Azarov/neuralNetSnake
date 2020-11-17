@@ -137,6 +137,7 @@ void Snake::loadTextures() {
 }
 
 void Snake::movement() {
+    qApp->processEvents();
     ++m_stepCount;
     ++m_stepFromEating;
     if (m_isTheFruitEaten) {

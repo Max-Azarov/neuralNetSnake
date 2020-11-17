@@ -8,7 +8,8 @@
 class Game : public QMainWindow
 {
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
+    Snake* snake;
 
     Q_OBJECT
 public:
@@ -16,13 +17,14 @@ public:
     virtual ~Game() { delete ui; }
 
 public slots:
-    void on_sldSnakeSpeed_sliderMoved(int);
+    void on_sldSnakeSpeed_valueChanged(int);
     //void on_sldSnakeSpeed_sliderReleased();
     //void on_sldSnakeSpeed_sliderPressed();
 
     void on_leSnakeSpeed_returnPressed();
+    void on_cbSnakeSpeed_stateChanged(int state);
 
-public:
+private:
     void setSnakeSpeed(int);
 };
 
