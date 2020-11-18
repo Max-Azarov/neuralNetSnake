@@ -104,6 +104,7 @@ public:
 
     void stop();
     void start();
+    Net* getNet() { return neuroNet; }
 
 protected:
     void paintEvent(QPaintEvent *);

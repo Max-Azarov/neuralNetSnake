@@ -48,15 +48,24 @@ void Game::on_cbSnakeSpeed_stateChanged(int state) {
 
 void Game::on_btnStart_released() {
     if (m_bStart) {
+        // Текущее состояние "Старт" меняем на состояние "Стоп"
+        m_bStart = false;
         snake->stop();
         ui->btnStart->setText("Старт");
-        m_bStart = false;
+        ui->gBoxNN->setEnabled(true);
+        ui->gbTrainingSet->setEnabled(true);
+        ui->cbSnakeSpeed->setEnabled(false);
     }
     else {
+        // Текущее состояние "Стоп"
+        m_bStart = true;
         setSnakeSpeed();
         snake->start();
+        on_sldSnakeSpeed_sliderReleased();
         ui->btnStart->setText("Стоп");
-        m_bStart = true;
+        ui->gBoxNN->setEnabled(false);
+        ui->gbTrainingSet->setEnabled(false);
+        ui->cbSnakeSpeed->setEnabled(true);
     }
 }
 
