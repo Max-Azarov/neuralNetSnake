@@ -64,7 +64,7 @@ private:
     size_t m_setCount;
 
     QTimer* pTimer;
-    bool mutex;
+    bool m_bMutex;
 
 private:
     void loadTextures();

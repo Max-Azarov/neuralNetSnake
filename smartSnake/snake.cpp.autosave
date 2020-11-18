@@ -75,13 +75,11 @@ Snake::Snake(QWidget *parent) :
 
 void Snake::setDelay(size_t delay) {
     m_delay = delay;
-    //m_bMutex = true;
     pTimer->stop();
     pTimer->start(m_delay);
 }
 
 void Snake::stop() {
-    //m_bMutex = true;
     pTimer->stop();
 }
 
