@@ -24,6 +24,7 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_countOfStepsToNextTest { 1000 }
     , m_setCount { 0 }
     , m_bMutex { false }
+  , m_bStop { true }
 //    , neuroNet{ new Net({ 100, 100, 200, 4 }, { 10, 1, 1 },
 //            true  // При первом пуске должно быть true
 //            ) }
@@ -77,10 +78,12 @@ void Snake::setDelay(size_t delay) {
 
 void Snake::stop() {
     pTimer->stop();
+    m_bStop = true;
 }
 
 void Snake::start() {
     setDelay(m_delay);
+    m_bStop = false;
     slotLoop();
 }
 
@@ -374,8 +377,7 @@ void Snake::snakeTraining() {
     double error;
     size_t countOfSet;
     size_t count;
-    //double multiplicator = NUM_CELLS;
-    if ( m_setCount >/* multiplicator**/m_average * m_average ) {
+    if ( m_setCount > m_average * m_average && !m_bStop) {
         do {
             count = 0;
             error = 0;
@@ -387,6 +389,7 @@ void Snake::snakeTraining() {
                     itIn != std::begin(m_vInTrainingSet);
                     --itIn, --itOut, ++countOfSet )
             {
+                qApp->processEvents();
                 neuroNet->training().forwardPass(*std::prev(itIn));
                 error = neuroNet->training().calculateError(*std::prev(itOut));
                 neuroNet->training().backprop(*std::prev(itOut));
@@ -394,8 +397,9 @@ void Snake::snakeTraining() {
                 if ( error > m_acceptError ) {
                     count++;
                 }
-                qApp->processEvents();
+                if (m_bStop) break;
             }
+            if (m_bStop) break;
             sumError = sumError / countOfSet; // vSize;
 qDebug() << count << "=== Total error:" << sumError << "===";
         }

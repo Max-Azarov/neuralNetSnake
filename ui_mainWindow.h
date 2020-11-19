@@ -150,6 +150,7 @@ public:
 
         leNum1HiddenNN = new QLineEdit(gBoxNN);
         leNum1HiddenNN->setObjectName(QString::fromUtf8("leNum1HiddenNN"));
+        leNum1HiddenNN->setEnabled(false);
         leNum1HiddenNN->setMinimumSize(QSize(50, 26));
         leNum1HiddenNN->setMaximumSize(QSize(50, 26));
         leNum1HiddenNN->setFont(font1);
@@ -159,6 +160,7 @@ public:
 
         leNum2HiddenNN = new QLineEdit(gBoxNN);
         leNum2HiddenNN->setObjectName(QString::fromUtf8("leNum2HiddenNN"));
+        leNum2HiddenNN->setEnabled(false);
         leNum2HiddenNN->setMinimumSize(QSize(50, 26));
         leNum2HiddenNN->setMaximumSize(QSize(50, 26));
         leNum2HiddenNN->setFont(font1);
@@ -206,6 +208,7 @@ public:
 
         leNumOfHiddenLayersNN = new QLineEdit(gBoxNN);
         leNumOfHiddenLayersNN->setObjectName(QString::fromUtf8("leNumOfHiddenLayersNN"));
+        leNumOfHiddenLayersNN->setEnabled(false);
         leNumOfHiddenLayersNN->setMinimumSize(QSize(50, 26));
         leNumOfHiddenLayersNN->setMaximumSize(QSize(50, 26));
         leNumOfHiddenLayersNN->setFont(font1);
@@ -593,7 +596,7 @@ public:
 #if QT_CONFIG(tooltip)
         cbNewWeights->setToolTip(QCoreApplication::translate("MainWindow", "Do need to assign new random weights to synapses", nullptr));
 #endif // QT_CONFIG(tooltip)
-        cbNewWeights->setText(QCoreApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\265 \320\262\320\265\321\201\320\260 \321\201\320\270\320\275\320\260\320\277\321\201\320\276\320\262", nullptr));
+        cbNewWeights->setText(QCoreApplication::translate("MainWindow", "\320\241\320\261\321\200\320\276\321\201\320\270\321\202\321\214 \320\277\320\260\321\200\320\260\320\274\320\265\321\202\321\200\321\213 \320\275\320\265\320\271\321\200\320\276\321\201\320\265\321\202\320\270", nullptr));
 #if QT_CONFIG(tooltip)
         lblNumOfHiddenLayersNN->setToolTip(QCoreApplication::translate("MainWindow", "Acceptable error", nullptr));
 #endif // QT_CONFIG(tooltip)

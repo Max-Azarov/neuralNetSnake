@@ -91,6 +91,16 @@ void Game::on_leNumOfHiddenLayersNN_editingFinished() {
 
 void Game::on_cbNewWeights_stateChanged(int state) {
     m_bIsInitNet = true;
+    if (state) {
+        ui->leNum1HiddenNN->setEnabled(true);
+        ui->leNum2HiddenNN->setEnabled(true);
+        ui->leNumOfHiddenLayersNN->setEnabled(true);
+    }
+    if (!state) {
+        ui->leNum1HiddenNN->setEnabled(false);
+        ui->leNum2HiddenNN->setEnabled(false);
+        ui->leNumOfHiddenLayersNN->setEnabled(false);
+    }
 }
 
 void Game::initNet() {

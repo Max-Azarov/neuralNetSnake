@@ -65,6 +65,7 @@ private:
 
     QTimer* pTimer;
     bool m_bMutex;
+    bool m_bStop;
 
 private:
     void loadTextures();

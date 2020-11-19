@@ -159,6 +159,9 @@
        </item>
        <item>
         <widget class="QLineEdit" name="leNum1HiddenNN">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="minimumSize">
           <size>
            <width>50</width>
@@ -191,6 +194,9 @@
        </item>
        <item>
         <widget class="QLineEdit" name="leNum2HiddenNN">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="minimumSize">
           <size>
            <width>50</width>
@@ -274,7 +280,7 @@
           <string>Do need to assign new random weights to synapses</string>
          </property>
          <property name="text">
-          <string>Новые веса синапсов</string>
+          <string>Сбросить параметры нейросети</string>
          </property>
         </widget>
        </item>
@@ -341,6 +347,9 @@
        </item>
        <item>
         <widget class="QLineEdit" name="leNumOfHiddenLayersNN">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="minimumSize">
           <size>
            <width>50</width>
