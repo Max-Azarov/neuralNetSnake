@@ -41,6 +41,7 @@ private:
     void initNet();
     void readSettings();
     void writeSettings();
+    void setTrainingParameters();
 };
 
 #endif // GAMEWINDOW_H

@@ -19,7 +19,7 @@ Snake::~Snake() {
 Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_delay { 100 }
     , m_loopMotion { false }
-    , m_clearFiles { true } // При первом пуске должно быть true
+//    , m_clearFiles { true } // При первом пуске должно быть true
     , m_acceptError { 0.1 }
     , m_countOfStepsToNextTest { 1000 }
     , m_setCount { 0 }
@@ -54,8 +54,8 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     m_inputData = "input.txt";
     m_outputDataIdeal = "outputIdeal.txt";
 
-    createFile(m_inputData, m_clearFiles);
-    createFile(m_outputDataIdeal, m_clearFiles);
+//    createFile(m_inputData, m_clearFiles);
+//    createFile(m_outputDataIdeal, m_clearFiles);
 
     m_vInTrainingSet.clear();
     m_vOutTrainingSet.clear();
@@ -659,4 +659,15 @@ void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t>
     neuroNet = new Net(vNeuron, vSynapse);
     m_vIn.resize(neuroNet->getCountOfInputs());
     m_vOut.resize(neuroNet->getCountOfOutputs());
+}
+
+void Snake::clearFiles(bool clear) {
+    m_clearFiles = clear;
+    createFile(m_inputData, clear);
+    createFile(m_outputDataIdeal, clear);
+    if (clear) {
+        m_vInTrainingSet.clear();
+        m_vOutTrainingSet.clear();
+        readDataToTrainingSet();
+    }
 }

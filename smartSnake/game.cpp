@@ -63,10 +63,11 @@ void Game::on_btnStart_released() {
     else {
         // Текущее состояние "Стоп"
         m_bStart = true;
-        if (m_bIsInitNet) {
+        if (m_bIsInitNet || ui->cbNewWeights->checkState()) {
             initNet();
             m_bIsInitNet = false;
         }
+        setTrainingParameters();
         setSnakeSpeed();
         m_pSnake->start();
         on_sldSnakeSpeed_sliderReleased();
@@ -97,6 +98,7 @@ void Game::on_cbNewWeights_stateChanged(int state) {
         ui->leNumOfHiddenLayersNN->setEnabled(true);
     }
     if (!state) {
+        // Qt::unchecked
         ui->leNum1HiddenNN->setEnabled(false);
         ui->leNum2HiddenNN->setEnabled(false);
         ui->leNumOfHiddenLayersNN->setEnabled(false);
@@ -158,4 +160,11 @@ void Game::writeSettings() {
     m_settings.setValue("/leE", ui->leE->text());
     m_settings.setValue("/leAcceptError", ui->leAcceptError->text());
     m_settings.endGroup();
+}
+
+void Game::setTrainingParameters() {
+    m_pSnake->getNet()->parameters().setA(ui->leA->text().toDouble());
+    m_pSnake->getNet()->parameters().setE(ui->leE->text().toDouble());
+    m_pSnake->setAcceptError(ui->leAcceptError->text().toDouble());
+    m_pSnake->clearFiles(ui->cbNewTrainingData->checkState());
 }

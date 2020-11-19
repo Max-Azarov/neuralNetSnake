@@ -31,7 +31,7 @@ private:
     int timerId;
     size_t m_stepFromEating;
 
-    std::vector<std::vector<TYPE_CELL>> m_vField; // В векторе будет содержаться типы клеток поля в координатах х, у
+    std::vector<std::vector<TYPE_CELL>> m_vField; // В векторе содержатся типы клеток поля в координатах х, у
 
     QImage res_head;
     QImage res_body;
@@ -98,6 +98,7 @@ private:
     void createFile(const std::string & fileName, bool clearFile);
 
 
+
 public:
     Snake(QWidget *parent = nullptr);
     void setDelay(size_t delay);// { m_delay = delay; }
@@ -108,6 +109,8 @@ public:
     Net* getNet() { return neuroNet; }
     void resetNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse);
     void setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse);
+    void setAcceptError(double acceptError) { m_acceptError = acceptError; }
+    void clearFiles(bool clear = true);
 
 protected:
     void paintEvent(QPaintEvent *);
