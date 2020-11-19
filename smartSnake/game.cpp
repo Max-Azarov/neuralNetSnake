@@ -13,6 +13,8 @@ Game::Game(QWidget *parent) :
     ui->setupUi(this);
     m_pSnake = ui->snake;
     readSettings();
+
+    connect(m_pSnake, SIGNAL(signalRunInfo()), this, SLOT(slotRunInfo()));
 }
 
 void Game::on_sldSnakeSpeed_valueChanged(int value) {
@@ -75,19 +77,25 @@ void Game::on_btnStart_released() {
         ui->gBoxNN->setEnabled(false);
         ui->gbTrainingSet->setEnabled(false);
         on_cbSnakeSpeed_stateChanged(ui->cbSnakeSpeed->checkState());
+
+        ui->leNum1HiddenNN->setText(ui->leNum1HiddenNN->text());
+        qDebug() << ui->leNum1HiddenNN->text();
     }
 }
 
 void Game::on_leNum1HiddenNN_editingFinished() {
     m_bIsInitNet = true;
+    intValidate(ui->leNum1HiddenNN, "10");
 }
 
 void Game::on_leNum2HiddenNN_editingFinished() {
     m_bIsInitNet = true;
+    intValidate(ui->leNum2HiddenNN, "10");
 }
 
 void Game::on_leNumOfHiddenLayersNN_editingFinished() {
     m_bIsInitNet = true;
+    intValidate(ui->leNumOfHiddenLayersNN, "2");
 }
 
 void Game::on_cbNewWeights_stateChanged(int state) {
@@ -167,4 +175,21 @@ void Game::setTrainingParameters() {
     m_pSnake->getNet()->parameters().setE(ui->leE->text().toDouble());
     m_pSnake->setAcceptError(ui->leAcceptError->text().toDouble());
     m_pSnake->clearFiles(ui->cbNewTrainingData->checkState());
+}
+
+void Game::slotRunInfo() {
+    ui->lblCountOfSets->setText(QString::number(m_pSnake->getNumTrainingSet()));
+    ui->lblAverageCountOfSets->setText(QString::number(m_pSnake->getAverage()));
+    ui->lblCountOfSteps->setText(QString::number(m_pSnake->getStepCount()));
+    //ui->lblCountOfSteps->setText(QString::number(m_pSnake->getStepCount()));
+}
+
+void Game::intValidate(QLineEdit* const le, const QString& valueForInvalid ) {
+    QIntValidator intValidator;
+    intValidator.setBottom(valueForInvalid.toInt());
+    QString text = le->text();
+    int pos = le->cursorPosition();
+    if ( !(intValidator.validate(text, pos) == QValidator::Acceptable) ) {
+        le->setText(QString::number(intValidator.bottom()));
+    }
 }

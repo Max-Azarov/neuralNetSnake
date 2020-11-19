@@ -307,7 +307,7 @@ void Snake::learning() {
         }
         // Записываем строчки в обучающую выборку
         //if ( m_stepCount < m_average ) {
-            addDataToTrainingSet();
+        addDataToTrainingSet();
         //}
 
         snakeTraining();
@@ -633,6 +633,7 @@ void Snake::averageNumberOfSteps(bool restart) {
 qDebug() << m_vInTrainingSet.size() << ">>>" << m_stepCount
                 << "<<<\taverage:" << m_average
                 << "<<<";
+    emit signalRunInfo();
     // << Считаем среднее количество шагов
 }
 

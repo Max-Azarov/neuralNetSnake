@@ -3,6 +3,7 @@
 
 #include <QtWidgets>
 #include <QSettings>
+#include <QValidator>
 #include "snake.h"
 #include "ui_mainWindow.h"
 
@@ -15,6 +16,7 @@ private:
     int m_delay;
     bool m_bIsInitNet;
     QSettings m_settings;
+
 
     Q_OBJECT
 public:
@@ -42,6 +44,10 @@ private:
     void readSettings();
     void writeSettings();
     void setTrainingParameters();
+    void intValidate(QLineEdit* const le, const QString& valueForInvalid);
+
+public slots:
+    void slotRunInfo();
 };
 
 #endif // GAMEWINDOW_H

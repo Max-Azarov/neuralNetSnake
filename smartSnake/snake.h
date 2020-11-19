@@ -111,6 +111,9 @@ public:
     void setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse);
     void setAcceptError(double acceptError) { m_acceptError = acceptError; }
     void clearFiles(bool clear = true);
+    double getAverage() const { return m_average; }
+    size_t getNumTrainingSet() const { return m_vInTrainingSet.size(); }
+    size_t getStepCount() const { return m_stepCount; }
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -121,6 +124,9 @@ private:
 
 public slots:
     void slotLoop();
+
+signals:
+    void signalRunInfo();
 
 };
 

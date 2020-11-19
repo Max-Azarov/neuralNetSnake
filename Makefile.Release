@@ -710,6 +710,7 @@ release\moc_game.cpp: smartSnake\game.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qwizard.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qtwidgetsversion.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QSettings \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QValidator \
 		smartSnake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
 		smartSnake\enums.h \
@@ -1475,6 +1476,7 @@ release\game.obj: smartSnake\game.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qwizard.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qtwidgetsversion.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QSettings \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QValidator \
 		smartSnake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
 		smartSnake\enums.h \
@@ -1971,6 +1973,7 @@ release\main.obj: smartSnake\main.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qwizard.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qtwidgetsversion.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QSettings \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QValidator \
 		smartSnake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
 		smartSnake\enums.h \

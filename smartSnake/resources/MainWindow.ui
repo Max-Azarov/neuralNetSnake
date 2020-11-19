@@ -875,13 +875,13 @@
            <widget class="QLabel" name="lblCountOfSets">
             <property name="minimumSize">
              <size>
-              <width>30</width>
+              <width>40</width>
               <height>15</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>30</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -938,13 +938,13 @@
            <widget class="QLabel" name="lblCountOfSteps">
             <property name="minimumSize">
              <size>
-              <width>30</width>
+              <width>40</width>
               <height>15</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>30</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -996,13 +996,13 @@
            <widget class="QLabel" name="lblCountOfEatenFruits">
             <property name="minimumSize">
              <size>
-              <width>30</width>
+              <width>40</width>
               <height>15</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>30</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -1053,13 +1053,13 @@
            <widget class="QLabel" name="lblAverageCountOfSets">
             <property name="minimumSize">
              <size>
-              <width>30</width>
+              <width>40</width>
               <height>15</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>30</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -1144,6 +1144,7 @@
         </property>
         <property name="text">
          <string>Значение
+средней
 ошибки
 за текущую
 эпоху</string>
