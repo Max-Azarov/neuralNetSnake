@@ -3,15 +3,25 @@
 #include <cmath>
 
 Neuron::Neuron() {
-    static size_t id = 0;
-    m_id = id;
+
+    m_id = incId();
     //std::cout << "Create Neuron " << m_id << std::endl;
-    id++;
     m_delta = 0;
     m_in = 0;
     m_out = 0;
     m_status = ON;
     m_typeActivation = SIGMOID;
+}
+
+int Neuron::incId(bool reset) {
+    static size_t id = 0;
+    if (!reset) {
+        ++id;
+    }
+    else {
+        id = 0;
+    }
+    return id;
 }
 
 void Neuron::activationFunction()

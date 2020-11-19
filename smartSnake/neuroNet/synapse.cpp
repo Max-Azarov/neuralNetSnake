@@ -2,11 +2,20 @@
 
 Synapse::Synapse()
 {
-    static size_t id = 0;
-    m_id = id;
+    m_id = incId();
     //std::cout << "Create Synapse " << m_id << std::endl;
-    id++;
     m_status = ON;
+}
+
+int Synapse::incId(bool reset) {
+    static size_t id = 0;
+    if (!reset) {
+        ++id;
+    }
+    else {
+        id = 0;
+    }
+    return id;
 }
 
 void Synapse::updateWeight(double delta, Parameters& parameters)

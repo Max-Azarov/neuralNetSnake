@@ -52,7 +52,7 @@ public:
         double e = 0.1, double a = 0.05
         );
 
-    ~Net();
+    virtual ~Net();
 
     void initNet(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse);
     void createFile(const std::string & fileName, bool clearFile);

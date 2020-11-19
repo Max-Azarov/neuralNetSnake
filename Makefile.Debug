@@ -710,6 +710,7 @@ debug\moc_game.cpp: smartSnake\game.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qwidgetaction.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qwizard.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qtwidgetsversion.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QSettings \
 		smartSnake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
 		smartSnake\enums.h \
@@ -735,7 +736,6 @@ debug\moc_game.cpp: smartSnake\game.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QPushButton \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSlider \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSpacerItem \
-		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QStatusBar \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QTextEdit \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QVBoxLayout \
 		debug\moc_predefs.h \
@@ -1475,6 +1475,7 @@ debug\game.obj: smartSnake\game.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\Q
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qwidgetaction.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qwizard.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qtwidgetsversion.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QSettings \
 		smartSnake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
 		smartSnake\enums.h \
@@ -1499,7 +1500,6 @@ debug\game.obj: smartSnake\game.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\Q
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMenuBar \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSlider \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSpacerItem \
-		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QStatusBar \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QTextEdit \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QVBoxLayout
 
@@ -1971,6 +1971,7 @@ debug\main.obj: smartSnake\main.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\Q
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qwidgetaction.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qwizard.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qtwidgetsversion.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QSettings \
 		smartSnake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
 		smartSnake\enums.h \
@@ -1995,7 +1996,6 @@ debug\main.obj: smartSnake\main.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\Q
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QPushButton \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSlider \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSpacerItem \
-		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QStatusBar \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QTextEdit \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QVBoxLayout \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug

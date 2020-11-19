@@ -16,18 +16,17 @@ Snake::~Snake() {
     delete neuroNet;
 }
 
-Snake::Snake(QWidget *parent) :
-    QWidget{parent},
-    m_delay { 100 },
-    m_loopMotion { false },
-    m_clearFiles { true }, // При первом пуске должно быть true
-    m_acceptError { 0.1 },
-    m_countOfStepsToNextTest { 1000 },
-    m_setCount { 0 },
-    m_bMutex { false },
-    neuroNet{ new Net({ 100, 100, 200, 4 }, { 10, 1, 1 },
-              true  // При первом пуске должно быть true
-              ) }
+Snake::Snake(QWidget *parent) : QWidget{parent}
+    , m_delay { 100 }
+    , m_loopMotion { false }
+    , m_clearFiles { true } // При первом пуске должно быть true
+    , m_acceptError { 0.1 }
+    , m_countOfStepsToNextTest { 1000 }
+    , m_setCount { 0 }
+    , m_bMutex { false }
+//    , neuroNet{ new Net({ 100, 100, 200, 4 }, { 10, 1, 1 },
+//            true  // При первом пуске должно быть true
+//            ) }
 {
     static bool startRandom = false;
     if (!startRandom) {
@@ -49,9 +48,6 @@ Snake::Snake(QWidget *parent) :
     for (unsigned int i = 0; i < m_vField.size(); ++i) {
         m_vField[i].resize(static_cast<unsigned int>(m_numberOfCellsPerSide));
     }
-
-    m_vIn.resize(neuroNet->getCountOfInputs());
-    m_vOut.resize(neuroNet->getCountOfOutputs());
 
     //Создаем файлы
     m_inputData = "input.txt";
@@ -75,13 +71,11 @@ Snake::Snake(QWidget *parent) :
 
 void Snake::setDelay(size_t delay) {
     m_delay = delay;
-    //m_bMutex = true;
     pTimer->stop();
     pTimer->start(m_delay);
 }
 
 void Snake::stop() {
-    //m_bMutex = true;
     pTimer->stop();
 }
 
@@ -650,4 +644,15 @@ void Snake::createFile(const std::string & fileName, bool clearFile) {
     }
     file.close();
 
+}
+
+void Snake::resetNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse) {
+    delete neuroNet;
+    setNN(vNeuron, vSynapse);
+}
+
+void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse) {
+    neuroNet = new Net(vNeuron, vSynapse);
+    m_vIn.resize(neuroNet->getCountOfInputs());
+    m_vOut.resize(neuroNet->getCountOfOutputs());
 }

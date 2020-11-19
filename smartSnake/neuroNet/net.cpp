@@ -6,6 +6,11 @@
 #include <sstream>
 
 Net::~Net() {
+    synapse.clear();
+    neuron.clear();
+    //std::cout << "Delete Net\n";
+    Synapse::incId(true);
+    Neuron::incId(true);
 }
 
 Net::Net(const std::vector<size_t> & vNeuron,

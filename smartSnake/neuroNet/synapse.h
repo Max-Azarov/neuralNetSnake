@@ -23,6 +23,7 @@ protected:
     double m_grad;
     double m_delta;
     size_t m_id;
+    //static size_t id;
 
     STATUS m_status;
     Parameters* m_parameters;
@@ -31,6 +32,8 @@ public:
     Synapse();
 
     size_t getID() const { return m_id; }
+
+    static int incId(bool reset = false);
 
     virtual void info() { std::cout << "Synapse "
                             << "\tweight=" << m_weight
