@@ -926,7 +926,7 @@
             <property name="text">
              <string>Количество
 шагов
-в текущем
+в последнем
 запуске</string>
             </property>
             <property name="alignment">

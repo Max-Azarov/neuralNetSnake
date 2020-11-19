@@ -79,7 +79,7 @@ void Game::on_btnStart_released() {
         on_cbSnakeSpeed_stateChanged(ui->cbSnakeSpeed->checkState());
 
         ui->leNum1HiddenNN->setText(ui->leNum1HiddenNN->text());
-        qDebug() << ui->leNum1HiddenNN->text();
+        //qDebug() << ui->leNum1HiddenNN->text();
     }
 }
 
@@ -179,9 +179,9 @@ void Game::setTrainingParameters() {
 
 void Game::slotRunInfo() {
     ui->lblCountOfSets->setText(QString::number(m_pSnake->getNumTrainingSet()));
-    ui->lblAverageCountOfSets->setText(QString::number(m_pSnake->getAverage()));
     ui->lblCountOfSteps->setText(QString::number(m_pSnake->getStepCount()));
     //ui->lblCountOfSteps->setText(QString::number(m_pSnake->getStepCount()));
+    ui->lblAverageCountOfSets->setText(QString::number(m_pSnake->getAverage(), 'f', 2));
 }
 
 void Game::intValidate(QLineEdit* const le, const QString& valueForInvalid ) {

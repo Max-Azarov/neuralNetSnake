@@ -404,8 +404,8 @@ public:
 
         lblCountOfSets = new QLabel(centralwidget);
         lblCountOfSets->setObjectName(QString::fromUtf8("lblCountOfSets"));
-        lblCountOfSets->setMinimumSize(QSize(30, 15));
-        lblCountOfSets->setMaximumSize(QSize(30, 20));
+        lblCountOfSets->setMinimumSize(QSize(40, 15));
+        lblCountOfSets->setMaximumSize(QSize(40, 20));
         lblCountOfSets->setAlignment(Qt::AlignCenter);
 
         horizontalLayout->addWidget(lblCountOfSets);
@@ -428,8 +428,8 @@ public:
 
         lblCountOfSteps = new QLabel(centralwidget);
         lblCountOfSteps->setObjectName(QString::fromUtf8("lblCountOfSteps"));
-        lblCountOfSteps->setMinimumSize(QSize(30, 15));
-        lblCountOfSteps->setMaximumSize(QSize(30, 20));
+        lblCountOfSteps->setMinimumSize(QSize(40, 15));
+        lblCountOfSteps->setMaximumSize(QSize(40, 20));
         lblCountOfSteps->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_2->addWidget(lblCountOfSteps);
@@ -450,8 +450,8 @@ public:
 
         lblCountOfEatenFruits = new QLabel(centralwidget);
         lblCountOfEatenFruits->setObjectName(QString::fromUtf8("lblCountOfEatenFruits"));
-        lblCountOfEatenFruits->setMinimumSize(QSize(30, 15));
-        lblCountOfEatenFruits->setMaximumSize(QSize(30, 20));
+        lblCountOfEatenFruits->setMinimumSize(QSize(40, 15));
+        lblCountOfEatenFruits->setMaximumSize(QSize(40, 20));
         lblCountOfEatenFruits->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_4->addWidget(lblCountOfEatenFruits);
@@ -472,8 +472,8 @@ public:
 
         lblAverageCountOfSets = new QLabel(centralwidget);
         lblAverageCountOfSets->setObjectName(QString::fromUtf8("lblAverageCountOfSets"));
-        lblAverageCountOfSets->setMinimumSize(QSize(30, 15));
-        lblAverageCountOfSets->setMaximumSize(QSize(30, 20));
+        lblAverageCountOfSets->setMinimumSize(QSize(40, 15));
+        lblAverageCountOfSets->setMaximumSize(QSize(40, 20));
         lblAverageCountOfSets->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_6->addWidget(lblAverageCountOfSets);
@@ -702,6 +702,7 @@ public:
         lblErrorTitle->setToolTip(QCoreApplication::translate("MainWindow", "Count of runs contained in the training set", nullptr));
 #endif // QT_CONFIG(tooltip)
         lblErrorTitle->setText(QCoreApplication::translate("MainWindow", "\320\227\320\275\320\260\321\207\320\265\320\275\320\270\320\265\n"
+"\321\201\321\200\320\265\320\264\320\275\320\265\320\271\n"
 "\320\276\321\210\320\270\320\261\320\272\320\270\n"
 "\320\267\320\260 \321\202\320\265\320\272\321\203\321\211\321\203\321\216\n"
 "\321\215\320\277\320\276\321\205\321\203", nullptr));
