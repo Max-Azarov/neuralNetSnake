@@ -15,6 +15,7 @@ Game::Game(QWidget *parent) :
     readSettings();
 
     connect(m_pSnake, SIGNAL(signalRunInfo()), this, SLOT(slotRunInfo()));
+    connect(m_pSnake, SIGNAL(signalErrorInfo()), this, SLOT(slotErrorInfo()));
 }
 
 void Game::on_sldSnakeSpeed_valueChanged(int value) {
@@ -179,9 +180,12 @@ void Game::setTrainingParameters() {
 
 void Game::slotRunInfo() {
     ui->lblCountOfSets->setText(QString::number(m_pSnake->getNumTrainingSet()));
+    ui->lblCountRun->setText(QString::number(m_pSnake->getNumTrainingSet() / m_pSnake->getNet()->getCountOfOutputs()));
     ui->lblCountOfSteps->setText(QString::number(m_pSnake->getStepCount()));
-    //ui->lblCountOfSteps->setText(QString::number(m_pSnake->getStepCount()));
     ui->lblAverageCountOfSets->setText(QString::number(m_pSnake->getAverage(), 'f', 2));
+    ui->lblErrorRun->setText(ui->leAcceptError->text());
+    ui->lblCountOfEatenFruits->setText(QString::number(m_pSnake->getSnakeLength() - 3));
+    ui->lblStatus->setText("Змейка проснулась, получает опыт");
 }
 
 void Game::intValidate(QLineEdit* const le, const QString& valueForInvalid ) {
@@ -192,4 +196,18 @@ void Game::intValidate(QLineEdit* const le, const QString& valueForInvalid ) {
     if ( !(intValidator.validate(text, pos) == QValidator::Acceptable) ) {
         le->setText(QString::number(intValidator.bottom()));
     }
+}
+
+void Game::slotErrorInfo() {
+    m_infoCount.push_front(QString::number(m_pSnake->getInfoCount()));
+    if (m_infoCount.size() > 5) {
+        m_infoCount.removeLast();
+    }
+    ui->lblCountOfErrorHigher->setText(m_infoCount.join('\n'));
+    m_infoError.push_front(QString::number(m_pSnake->getSummError(), 'f', 4));
+    if (m_infoError.size() > 5) {
+        m_infoError.removeLast();
+    }
+    ui->lblError->setText(m_infoError.join('\n'));
+    ui->lblStatus->setText("Змейка спит, проснется, когда обучится");
 }

@@ -9,6 +9,7 @@
 
 class Game : public QMainWindow
 {
+    Q_OBJECT
 private:
     Ui::MainWindow* ui;
     Snake* m_pSnake;
@@ -16,9 +17,9 @@ private:
     int m_delay;
     bool m_bIsInitNet;
     QSettings m_settings;
+    QStringList m_infoCount;
+    QStringList m_infoError;
 
-
-    Q_OBJECT
 public:
     Game(QWidget *parent = nullptr);
     virtual ~Game() { writeSettings(); delete ui; }
@@ -48,6 +49,7 @@ private:
 
 public slots:
     void slotRunInfo();
+    void slotErrorInfo();
 };
 
 #endif // GAMEWINDOW_H

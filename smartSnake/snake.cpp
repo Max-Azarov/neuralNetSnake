@@ -401,7 +401,10 @@ void Snake::snakeTraining() {
             }
             if (m_bStop) break;
             sumError = sumError / countOfSet; // vSize;
-qDebug() << count << "=== Total error:" << sumError << "===";
+            //qDebug() << count << "=== Total error:" << sumError << "===";
+            m_infoSumError = sumError;
+            m_infoCount = count;
+            emit signalErrorInfo();
         }
         while ( count > (double)countOfSet/neuroNet->getCountOfOutputs()
                 || sumError  > m_acceptError);
@@ -630,9 +633,9 @@ void Snake::averageNumberOfSteps(bool restart) {
     m_average = static_cast<double> (m_averageNumberOfSteps.first) /
                 static_cast<double> (m_averageNumberOfSteps.second);
 
-qDebug() << m_vInTrainingSet.size() << ">>>" << m_stepCount
-                << "<<<\taverage:" << m_average
-                << "<<<";
+//qDebug() << m_vInTrainingSet.size() << ">>>" << m_stepCount
+//                << "<<<\taverage:" << m_average
+//                << "<<<";
     emit signalRunInfo();
     // << Считаем среднее количество шагов
 }

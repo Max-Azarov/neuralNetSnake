@@ -67,6 +67,9 @@ private:
     bool m_bMutex;
     bool m_bStop;
 
+    double m_infoSumError;
+    size_t m_infoCount;
+
 private:
     void loadTextures();
     bool collision(const int* const snakeX, const int* const snakeY);
@@ -114,6 +117,9 @@ public:
     double getAverage() const { return m_average; }
     size_t getNumTrainingSet() const { return m_vInTrainingSet.size(); }
     size_t getStepCount() const { return m_stepCount; }
+    double getSummError() const { return m_infoSumError; }
+    size_t getInfoCount() const { return m_infoCount; }
+    size_t getSnakeLength() const { return m_snakeLength; }
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -127,6 +133,7 @@ public slots:
 
 signals:
     void signalRunInfo();
+    void signalErrorInfo();
 
 };
 

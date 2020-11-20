@@ -726,6 +726,7 @@ debug\moc_game.cpp: smartSnake\game.h \
 		smartSnake\neuroNet\outputNeuron.h \
 		smartSnake\neuroNet\training.h \
 		ui_mainWindow.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QAction \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QApplication \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QCheckBox \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QGroupBox \
@@ -733,11 +734,12 @@ debug\moc_game.cpp: smartSnake\game.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLabel \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLineEdit \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMainWindow \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMenu \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMenuBar \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QPushButton \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSlider \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSpacerItem \
-		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QTextEdit \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QToolBar \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QVBoxLayout \
 		debug\moc_predefs.h \
 		D:\Qt\5.13.2\msvc2017_64\bin\moc.exe
@@ -1492,6 +1494,7 @@ debug\game.obj: smartSnake\game.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\Q
 		smartSnake\neuroNet\outputNeuron.h \
 		smartSnake\neuroNet\training.h \
 		ui_mainWindow.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QAction \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QApplication \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QCheckBox \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QGroupBox \
@@ -1499,10 +1502,11 @@ debug\game.obj: smartSnake\game.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\Q
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLabel \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLineEdit \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMainWindow \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMenu \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMenuBar \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSlider \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSpacerItem \
-		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QTextEdit \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QToolBar \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QVBoxLayout
 
 debug\main.obj: smartSnake\main.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QApplication \
@@ -1989,17 +1993,19 @@ debug\main.obj: smartSnake\main.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\Q
 		smartSnake\neuroNet\outputNeuron.h \
 		smartSnake\neuroNet\training.h \
 		ui_mainWindow.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QAction \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QCheckBox \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QGroupBox \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QHBoxLayout \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLabel \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLineEdit \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMainWindow \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMenu \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QMenuBar \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QPushButton \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSlider \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSpacerItem \
-		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QTextEdit \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QToolBar \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QVBoxLayout \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug
 

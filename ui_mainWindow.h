@@ -10,6 +10,7 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGroupBox>
@@ -17,11 +18,12 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include <snake.h>
@@ -31,8 +33,9 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *action;
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout_2;
+    QVBoxLayout *verticalLayout_5;
     QGroupBox *gBoxNN;
     QHBoxLayout *horizontalLayout_3;
     QLineEdit *leNumInputNN;
@@ -73,42 +76,55 @@ public:
     QLabel *lblAverageCountOfSetsTitle;
     QLabel *lblAverageCountOfSets;
     QHBoxLayout *horizontalLayout_10;
+    QVBoxLayout *verticalLayout_2;
+    QLabel *lblCountRunTitle;
+    QLabel *lblCountRun;
     QSpacerItem *horizontalSpacer_9;
     QLabel *lblCountOfErrorHigherTitle;
-    QTextEdit *teErrors;
+    QSpacerItem *horizontalSpacer_2;
+    QLabel *lblCountOfErrorHigher;
+    QSpacerItem *horizontalSpacer;
+    QLabel *lblError;
     QLabel *lblErrorTitle;
     QSpacerItem *horizontalSpacer_13;
+    QVBoxLayout *verticalLayout_4;
+    QLabel *lblErrorRunTitle;
+    QLabel *lblErrorRun;
     QPushButton *btnStart;
-    QLabel *lblStatusBar;
+    QLabel *lblStatus;
     QMenuBar *menubar;
+    QMenu *menu;
+    QToolBar *toolBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(630, 691);
+        MainWindow->resize(685, 712);
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
-        MainWindow->setMinimumSize(QSize(630, 691));
-        MainWindow->setMaximumSize(QSize(630, 692));
+        MainWindow->setMinimumSize(QSize(685, 712));
+        MainWindow->setMaximumSize(QSize(685, 712));
         QFont font;
         font.setPointSize(8);
         font.setBold(false);
         font.setWeight(50);
         MainWindow->setFont(font);
+        action = new QAction(MainWindow);
+        action->setObjectName(QString::fromUtf8("action"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
         centralwidget->setSizePolicy(sizePolicy);
         centralwidget->setMinimumSize(QSize(0, 0));
         centralwidget->setMaximumSize(QSize(2000, 1080));
-        verticalLayout_2 = new QVBoxLayout(centralwidget);
-        verticalLayout_2->setSpacing(4);
-        verticalLayout_2->setContentsMargins(6, 6, 6, 6);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_5 = new QVBoxLayout(centralwidget);
+        verticalLayout_5->setSpacing(4);
+        verticalLayout_5->setContentsMargins(6, 6, 6, 6);
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
         gBoxNN = new QGroupBox(centralwidget);
         gBoxNN->setObjectName(QString::fromUtf8("gBoxNN"));
         gBoxNN->setEnabled(true);
@@ -217,7 +233,7 @@ public:
         horizontalLayout_3->addWidget(leNumOfHiddenLayersNN);
 
 
-        verticalLayout_2->addWidget(gBoxNN);
+        verticalLayout_5->addWidget(gBoxNN);
 
         gbTrainingSet = new QGroupBox(centralwidget);
         gbTrainingSet->setObjectName(QString::fromUtf8("gbTrainingSet"));
@@ -307,7 +323,7 @@ public:
         horizontalLayout_5->addWidget(leAcceptError);
 
 
-        verticalLayout_2->addWidget(gbTrainingSet);
+        verticalLayout_5->addWidget(gbTrainingSet);
 
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(4);
@@ -485,11 +501,29 @@ public:
         horizontalLayout_7->addLayout(verticalLayout_7);
 
 
-        verticalLayout_2->addLayout(horizontalLayout_7);
+        verticalLayout_5->addLayout(horizontalLayout_7);
 
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setSpacing(4);
         horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setSpacing(4);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        lblCountRunTitle = new QLabel(centralwidget);
+        lblCountRunTitle->setObjectName(QString::fromUtf8("lblCountRunTitle"));
+        lblCountRunTitle->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_2->addWidget(lblCountRunTitle);
+
+        lblCountRun = new QLabel(centralwidget);
+        lblCountRun->setObjectName(QString::fromUtf8("lblCountRun"));
+        lblCountRun->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_2->addWidget(lblCountRun);
+
+
+        horizontalLayout_10->addLayout(verticalLayout_2);
+
         horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_10->addItem(horizontalSpacer_9);
@@ -501,12 +535,29 @@ public:
 
         horizontalLayout_10->addWidget(lblCountOfErrorHigherTitle);
 
-        teErrors = new QTextEdit(centralwidget);
-        teErrors->setObjectName(QString::fromUtf8("teErrors"));
-        teErrors->setMaximumSize(QSize(16777215, 60));
-        teErrors->setReadOnly(true);
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_10->addWidget(teErrors);
+        horizontalLayout_10->addItem(horizontalSpacer_2);
+
+        lblCountOfErrorHigher = new QLabel(centralwidget);
+        lblCountOfErrorHigher->setObjectName(QString::fromUtf8("lblCountOfErrorHigher"));
+        lblCountOfErrorHigher->setMinimumSize(QSize(75, 65));
+        lblCountOfErrorHigher->setMaximumSize(QSize(75, 65));
+        lblCountOfErrorHigher->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+
+        horizontalLayout_10->addWidget(lblCountOfErrorHigher);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_10->addItem(horizontalSpacer);
+
+        lblError = new QLabel(centralwidget);
+        lblError->setObjectName(QString::fromUtf8("lblError"));
+        lblError->setMinimumSize(QSize(75, 65));
+        lblError->setMaximumSize(QSize(75, 65));
+        lblError->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+
+        horizontalLayout_10->addWidget(lblError);
 
         lblErrorTitle = new QLabel(centralwidget);
         lblErrorTitle->setObjectName(QString::fromUtf8("lblErrorTitle"));
@@ -519,13 +570,34 @@ public:
 
         horizontalLayout_10->addItem(horizontalSpacer_13);
 
-        horizontalLayout_10->setStretch(0, 1);
-        horizontalLayout_10->setStretch(1, 1);
-        horizontalLayout_10->setStretch(2, 5);
-        horizontalLayout_10->setStretch(3, 1);
-        horizontalLayout_10->setStretch(4, 1);
+        verticalLayout_4 = new QVBoxLayout();
+        verticalLayout_4->setSpacing(4);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        lblErrorRunTitle = new QLabel(centralwidget);
+        lblErrorRunTitle->setObjectName(QString::fromUtf8("lblErrorRunTitle"));
+        lblErrorRunTitle->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_2->addLayout(horizontalLayout_10);
+        verticalLayout_4->addWidget(lblErrorRunTitle);
+
+        lblErrorRun = new QLabel(centralwidget);
+        lblErrorRun->setObjectName(QString::fromUtf8("lblErrorRun"));
+        lblErrorRun->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_4->addWidget(lblErrorRun);
+
+
+        horizontalLayout_10->addLayout(verticalLayout_4);
+
+        horizontalLayout_10->setStretch(1, 2);
+        horizontalLayout_10->setStretch(2, 2);
+        horizontalLayout_10->setStretch(3, 1);
+        horizontalLayout_10->setStretch(4, 2);
+        horizontalLayout_10->setStretch(5, 1);
+        horizontalLayout_10->setStretch(6, 2);
+        horizontalLayout_10->setStretch(7, 2);
+        horizontalLayout_10->setStretch(8, 2);
+
+        verticalLayout_5->addLayout(horizontalLayout_10);
 
         btnStart = new QPushButton(centralwidget);
         btnStart->setObjectName(QString::fromUtf8("btnStart"));
@@ -537,19 +609,24 @@ public:
         btnStart->setMinimumSize(QSize(0, 0));
         btnStart->setMaximumSize(QSize(150, 30));
 
-        verticalLayout_2->addWidget(btnStart, 0, Qt::AlignHCenter|Qt::AlignBottom);
+        verticalLayout_5->addWidget(btnStart, 0, Qt::AlignHCenter|Qt::AlignBottom);
 
-        lblStatusBar = new QLabel(centralwidget);
-        lblStatusBar->setObjectName(QString::fromUtf8("lblStatusBar"));
+        lblStatus = new QLabel(centralwidget);
+        lblStatus->setObjectName(QString::fromUtf8("lblStatus"));
 
-        verticalLayout_2->addWidget(lblStatusBar);
+        verticalLayout_5->addWidget(lblStatus);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setEnabled(false);
-        menubar->setGeometry(QRect(0, 0, 630, 21));
+        menubar->setEnabled(true);
+        menubar->setGeometry(QRect(0, 0, 685, 21));
+        menu = new QMenu(menubar);
+        menu->setObjectName(QString::fromUtf8("menu"));
         MainWindow->setMenuBar(menubar);
+        toolBar = new QToolBar(MainWindow);
+        toolBar->setObjectName(QString::fromUtf8("toolBar"));
+        MainWindow->addToolBar(Qt::TopToolBarArea, toolBar);
         QWidget::setTabOrder(btnStart, leSnakeSpeed);
         QWidget::setTabOrder(leSnakeSpeed, sldSnakeSpeed);
         QWidget::setTabOrder(sldSnakeSpeed, cbSnakeSpeed);
@@ -561,9 +638,12 @@ public:
         QWidget::setTabOrder(leA, leE);
         QWidget::setTabOrder(leE, cbNewTrainingData);
         QWidget::setTabOrder(cbNewTrainingData, leAcceptError);
-        QWidget::setTabOrder(leAcceptError, teErrors);
-        QWidget::setTabOrder(teErrors, leNumInputNN);
+        QWidget::setTabOrder(leAcceptError, leNumInputNN);
         QWidget::setTabOrder(leNumInputNN, leNumOutputNN);
+
+        menubar->addAction(menu->menuAction());
+        menu->addAction(action);
+        toolBar->addSeparator();
 
         retranslateUi(MainWindow);
 
@@ -573,6 +653,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "smartSnake", nullptr));
+        action->setText(QCoreApplication::translate("MainWindow", "\320\230\320\275\321\204\320\276\321\200\320\274\320\260\321\206\320\270\321\217 \320\276 \320\277\321\200\320\270\320\273\320\276\320\266\320\265\320\275\320\270\320\270", nullptr));
 #if QT_CONFIG(tooltip)
         gBoxNN->setToolTip(QCoreApplication::translate("MainWindow", "Neural net parameters", nullptr));
 #endif // QT_CONFIG(tooltip)
@@ -661,7 +742,7 @@ public:
 #endif // QT_CONFIG(tooltip)
         lblCountOfStepsTitle->setText(QCoreApplication::translate("MainWindow", "\320\232\320\276\320\273\320\270\321\207\320\265\321\201\321\202\320\262\320\276\n"
 "\321\210\320\260\320\263\320\276\320\262\n"
-"\320\262 \321\202\320\265\320\272\321\203\321\211\320\265\320\274\n"
+"\320\262 \320\277\320\276\321\201\320\273\320\265\320\264\320\275\320\265\320\274\n"
 "\320\267\320\260\320\277\321\203\321\201\320\272\320\265", nullptr));
 #if QT_CONFIG(tooltip)
         lblCountOfSteps->setToolTip(QCoreApplication::translate("MainWindow", "Number of steps completed by snakes in the current run", nullptr));
@@ -673,7 +754,7 @@ public:
         lblCountOfEatenFruitsTitle->setText(QCoreApplication::translate("MainWindow", "\320\232\320\276\320\273\320\270\321\207\320\265\321\201\321\202\320\262\320\276\n"
 "\321\201\321\212\320\265\320\264\320\265\320\275\320\275\321\213\321\205\n"
 "\321\204\321\200\321\203\320\272\321\202\320\276\320\262\n"
-"\320\262 \321\202\320\265\320\272\321\203\321\211\320\265\320\274\n"
+"\320\262 \320\277\320\276\321\201\320\273\320\265\320\264\320\275\320\265\320\274\n"
 "\320\267\320\260\320\277\321\203\321\201\320\272\320\265", nullptr));
 #if QT_CONFIG(tooltip)
         lblCountOfEatenFruits->setToolTip(QCoreApplication::translate("MainWindow", "The number of fruits eaten in the current run", nullptr));
@@ -690,6 +771,11 @@ public:
         lblAverageCountOfSets->setToolTip(QCoreApplication::translate("MainWindow", "The average number of steps of the snake, starting with waking up", nullptr));
 #endif // QT_CONFIG(tooltip)
         lblAverageCountOfSets->setText(QString());
+        lblCountRunTitle->setText(QCoreApplication::translate("MainWindow", "\320\235\320\265\320\276\320\261\321\205\320\276\320\264\320\270\320\274\320\276\320\265\n"
+"\320\272\320\276\320\273\320\270\321\207\320\265\321\201\321\202\320\262\320\276\n"
+"\321\201\320\273\321\203\321\207\320\260\320\265\320\262, \321\207\321\202\320\276\320\261\321\213\n"
+"\320\277\321\200\320\276\321\201\320\275\321\203\321\202\321\214\321\201\321\217", nullptr));
+        lblCountRun->setText(QString());
 #if QT_CONFIG(tooltip)
         lblCountOfErrorHigherTitle->setToolTip(QCoreApplication::translate("MainWindow", "Count of runs contained in the training set", nullptr));
 #endif // QT_CONFIG(tooltip)
@@ -698,6 +784,8 @@ public:
 "\321\201 \320\277\321\200\320\265\320\262\321\213\321\210\320\265\320\275\320\270\320\265\320\274\n"
 "\320\264\320\276\320\277\321\203\321\201\321\202\320\270\320\274\320\276\320\271\n"
 "\320\276\321\210\320\270\320\261\320\272\320\270", nullptr));
+        lblCountOfErrorHigher->setText(QString());
+        lblError->setText(QString());
 #if QT_CONFIG(tooltip)
         lblErrorTitle->setToolTip(QCoreApplication::translate("MainWindow", "Count of runs contained in the training set", nullptr));
 #endif // QT_CONFIG(tooltip)
@@ -706,8 +794,15 @@ public:
 "\320\276\321\210\320\270\320\261\320\272\320\270\n"
 "\320\267\320\260 \321\202\320\265\320\272\321\203\321\211\321\203\321\216\n"
 "\321\215\320\277\320\276\321\205\321\203", nullptr));
+        lblErrorRunTitle->setText(QCoreApplication::translate("MainWindow", "\320\235\320\265\320\276\320\261\321\205\320\276\320\264\320\270\320\274\320\276\320\265\n"
+"\320\267\320\275\320\260\321\207\320\265\320\275\320\270\320\265\n"
+"\320\276\321\210\320\270\320\261\320\272\320\270, \321\207\321\202\320\276\320\261\321\213\n"
+"\320\277\321\200\320\276\321\201\320\275\321\203\321\202\321\214\321\201\321\217", nullptr));
+        lblErrorRun->setText(QString());
         btnStart->setText(QCoreApplication::translate("MainWindow", "\320\241\321\202\320\260\321\200\321\202", nullptr));
-        lblStatusBar->setText(QString());
+        lblStatus->setText(QString());
+        menu->setTitle(QCoreApplication::translate("MainWindow", "\320\230\320\275\321\204\320\276", nullptr));
+        toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
     } // retranslateUi
 
 };

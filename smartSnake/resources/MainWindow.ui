@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>630</width>
-    <height>691</height>
+    <width>685</width>
+    <height>712</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>630</width>
-    <height>691</height>
+    <width>685</width>
+    <height>712</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>630</width>
-    <height>692</height>
+    <width>685</width>
+    <height>712</height>
    </size>
   </property>
   <property name="font">
@@ -57,7 +57,7 @@
      <height>1080</height>
     </size>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout_5">
     <item>
      <widget class="QGroupBox" name="gBoxNN">
       <property name="enabled">
@@ -984,7 +984,7 @@
              <string>Количество
 съеденных
 фруктов
-в текущем
+в последнем
 запуске</string>
             </property>
             <property name="alignment">
@@ -1081,7 +1081,34 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="1,1,5,1,1">
+     <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,2,2,1,2,1,2,2,2,0">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="lblCountRunTitle">
+          <property name="text">
+           <string>Необходимое
+количество
+случаев, чтобы
+проснуться</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblCountRun">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
       <item>
        <spacer name="horizontalSpacer_9">
         <property name="orientation">
@@ -1119,15 +1146,72 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="teErrors">
-        <property name="maximumSize">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
          <size>
-          <width>16777215</width>
-          <height>60</height>
+          <width>40</width>
+          <height>20</height>
          </size>
         </property>
-        <property name="readOnly">
-         <bool>true</bool>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblCountOfErrorHigher">
+        <property name="minimumSize">
+         <size>
+          <width>75</width>
+          <height>65</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>75</width>
+          <height>65</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblError">
+        <property name="minimumSize">
+         <size>
+          <width>75</width>
+          <height>65</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>75</width>
+          <height>65</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
         </property>
        </widget>
       </item>
@@ -1167,6 +1251,33 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QLabel" name="lblErrorRunTitle">
+          <property name="text">
+           <string>Необходимое
+значение
+ошибки, чтобы
+проснуться</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblErrorRun">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
      </layout>
     </item>
     <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
@@ -1195,7 +1306,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QLabel" name="lblStatusBar">
+     <widget class="QLabel" name="lblStatus">
       <property name="text">
        <string/>
       </property>
@@ -1205,17 +1316,41 @@
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>630</width>
+     <width>685</width>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Инфо</string>
+    </property>
+    <addaction name="action"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="separator"/>
+  </widget>
+  <action name="action">
+   <property name="text">
+    <string>Информация о приложении</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="4" margin="6"/>
  <customwidgets>
@@ -1239,7 +1374,6 @@
   <tabstop>leE</tabstop>
   <tabstop>cbNewTrainingData</tabstop>
   <tabstop>leAcceptError</tabstop>
-  <tabstop>teErrors</tabstop>
   <tabstop>leNumInputNN</tabstop>
   <tabstop>leNumOutputNN</tabstop>
  </tabstops>
