@@ -38,6 +38,9 @@ private slots:
     void on_leNum2HiddenNN_editingFinished();
     void on_leNumOfHiddenLayersNN_editingFinished();
     void on_cbNewWeights_stateChanged(int state);
+    void slotRunInfo();
+    void slotErrorInfo();
+    void slotStatusInfo(const QString&);
 
 private:
     void setSnakeSpeed(int);
@@ -48,9 +51,11 @@ private:
     void setTrainingParameters();
     void intValidate(QLineEdit* const le, const QString& valueForInvalid);
 
-public slots:
-    void slotRunInfo();
-    void slotErrorInfo();
+//public slots:
+
+
+protected:
+    void closeEvent(QCloseEvent* event);
 };
 
 #endif // GAMEWINDOW_H

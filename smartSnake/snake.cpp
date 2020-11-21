@@ -9,8 +9,7 @@
 #include <fstream>
 #include <sstream>
 
-
-
+#include <QApplication>
 
 Snake::~Snake() {
     if (neuroNet) delete neuroNet;
@@ -70,9 +69,10 @@ void Snake::stop() {
     m_bStop = true;
 }
 
-void Snake::start() {
+void Snake::start(bool freedom) {
     setDelay(m_delay);
     m_bStop = false;
+    m_freedom = freedom;
     slotLoop();
 }
 
@@ -84,7 +84,9 @@ void Snake::slotLoop() {
         isTheFruitEaten(); // съела фрукт
         //isSnakeLooped(); // Зациклилась
         isHopelessSituation(); // Попала в ловушку
-        learning(); // учится
+        //effects();
+        if (!m_freedom) learning(); // учится
+        processingSnakeEvents();
         m_bMutex = false;
     }
     update();
@@ -162,7 +164,6 @@ void Snake::movement() {
     if (m_directionSelectedByNeuroNet) {
         m_direction = choiceDirectionCheckingCollision();
         if (m_collision || m_loopMotion) {
-
             return;
         }
     }
@@ -309,11 +310,6 @@ void Snake::learning() {
 
         snakeTraining();
     }
-
-    // После столкновения или безвыходной ситуации начинаем заново
-    if (m_collision || m_isHopelessSituation) {
-        restart();
-    }
 }
 
 DIRECTION Snake::choiceDirectionCheckingCollision() {
@@ -370,11 +366,12 @@ qDebug() << m_stepCount << " " <<   (direction == UP ? "UP " :
 
 void Snake::snakeTraining() {
     // >> Обучаем
-    double sumError;
-    double error;
-    size_t countOfSet;
-    size_t count;
     if ( m_setCount > 10 && m_setCount > m_average * m_average && !m_bStop) {
+        emit signalStatusInfo("learning");
+        double sumError;
+        double error;
+        size_t countOfSet;
+        size_t count;
         do {
             count = 0;
             error = 0;
@@ -406,12 +403,11 @@ void Snake::snakeTraining() {
         while ( count > (double)countOfSet/neuroNet->getCountOfOutputs()
                 || sumError  > m_acceptError);
         // << Обучаем
-
+        emit signalStatusInfo("moving");
         neuroNet->training().saveWeightOfSynapses();
         averageNumberOfSteps(true);
         m_setCount = 0;
     }
-
 }
 
 bool Snake::isHopelessSituation() {
@@ -447,6 +443,7 @@ bool Snake::isSnakeLooped() {
 }
 
 void Snake::restart() {
+    slotGrayBackground100msec();
     killTimer(timerId);
     initGame();
 }
@@ -673,11 +670,26 @@ void Snake::slotBlackBackground() {
     QPalette pall;
     pall.setColor(backgroundRole(), Qt::black);
     setPalette(pall);
+    update();
 }
 
 void Snake::slotGrayBackground100msec() {
     QPalette pall;
     pall.setColor(backgroundRole(), Qt::darkGray);
     setPalette(pall);
+    update();
     QTimer::singleShot(100, this, SLOT(slotBlackBackground()));
+}
+
+void Snake::processingSnakeEvents() {
+    // После столкновения или безвыходной ситуации начинаем заново
+    if (m_collision || m_isHopelessSituation) {
+        restart();
+    }
+}
+
+void Snake::effects() {
+    if (m_collision || m_isHopelessSituation || m_loopMotion) {
+        slotGrayBackground100msec();
+    }
 }

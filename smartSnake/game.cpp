@@ -16,6 +16,8 @@ Game::Game(QWidget *parent) : QMainWindow{parent}
 
     connect(m_pSnake, SIGNAL(signalRunInfo()), this, SLOT(slotRunInfo()));
     connect(m_pSnake, SIGNAL(signalErrorInfo()), this, SLOT(slotErrorInfo()));
+    connect(m_pSnake, SIGNAL(signalStatusInfo(const QString&)), this, SLOT(slotStatusInfo(const QString&)));
+
 }
 
 Game::~Game() {
@@ -67,9 +69,11 @@ void Game::on_btnStart_released() {
         ui->gbTrainingSet->setEnabled(true);
         ui->cbNewWeights->setCheckState(Qt::Unchecked);
         ui->cbNewTrainingData->setCheckState(Qt::Unchecked);
+        ui->cbFreedom->setEnabled(true);
+        slotStatusInfo("stop");
     }
     else {
-        // Текущее состояние "Стоп"
+        // Текущее состояние "Стоп" меняем на состояние "Старт"
         m_bStart = true;
         if (!m_bIsInitNet) {
             initNet();
@@ -77,7 +81,7 @@ void Game::on_btnStart_released() {
         }
         setTrainingParameters();
         setSnakeSpeed();
-        m_pSnake->start();
+        m_pSnake->start(ui->cbFreedom->checkState());
         on_sldSnakeSpeed_sliderReleased();
         ui->btnStart->setText("Стоп");
         ui->gBoxNN->setEnabled(false);
@@ -85,6 +89,8 @@ void Game::on_btnStart_released() {
         on_cbSnakeSpeed_stateChanged(ui->cbSnakeSpeed->checkState());
 
         ui->leNum1HiddenNN->setText(ui->leNum1HiddenNN->text());
+        ui->cbFreedom->setEnabled(false);
+        slotStatusInfo("start");
         //qDebug() << ui->leNum1HiddenNN->text();
     }
 }
@@ -192,7 +198,7 @@ void Game::slotRunInfo() {
     ui->lblAverageCountOfSets->setText(QString::number(m_pSnake->getAverage(), 'f', 2));
     ui->lblErrorRun->setText(ui->leAcceptError->text());
     ui->lblCountOfEatenFruits->setText(QString::number(m_pSnake->getSnakeLength() - 3));
-    ui->lblStatus->setText("Змейка проснулась, получает опыт");
+    slotStatusInfo("moving");
 }
 
 void Game::intValidate(QLineEdit* const le, const QString& valueForInvalid ) {
@@ -216,5 +222,33 @@ void Game::slotErrorInfo() {
         m_infoError.removeLast();
     }
     ui->lblError->setText(m_infoError.join('\n'));
-    ui->lblStatus->setText("Змейка спит. Закончится обучение и она проснётся");
+    //ui->lblStatus->setText("Змейка спит. Закончится обучение и она проснётся");
+}
+
+void Game::closeEvent(QCloseEvent* event)
+{
+    if (m_pSnake->getNet()) m_pSnake->stop();
+    QApplication::quit();
+    event->accept();
+}
+
+void Game::slotStatusInfo(const QString& status) {
+    QString setStatus;
+    if ( status == "learning") {
+        setStatus = "Змейка спит. Закончится обучение и она проснётся";
+    }
+    if ( status == "moving" && ui->cbFreedom->checkState() ) {
+        setStatus = "Змейка просто гуляет, опыт не получает";
+    }
+    if ( status == "moving" && !ui->cbFreedom->checkState() ) {
+        setStatus = "Змейка получает опыт";
+    }
+    if ( (status == "stop") || (status == "moving" && !m_bStart) ) {
+        setStatus = "Стоп";
+    }
+    if ( status == "start" ) {
+        setStatus = "Старт";
+    }
+
+    ui->lblStatus->setText(setStatus);
 }

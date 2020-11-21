@@ -69,6 +69,7 @@ private:
 
     double m_infoSumError;
     size_t m_infoCount;
+    bool m_freedom;
 
 private:
     void loadTextures();
@@ -99,6 +100,8 @@ private:
     void averageNumberOfSteps(bool restart = false);
     //void disableUselessSynapses();
     void createFile(const std::string & fileName, bool clearFile);
+    void processingSnakeEvents();
+    void effects();
 
 public:
     Snake(QWidget *parent = nullptr);
@@ -106,7 +109,7 @@ public:
     virtual ~Snake();
 
     void stop();
-    void start();
+    void start(bool freedom);
     Net* getNet() { return neuroNet; }
     void setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse, bool newSynapseWeights);
     void setAcceptError(double acceptError) { m_acceptError = acceptError; }
@@ -133,6 +136,7 @@ public slots:
 signals:
     void signalRunInfo();
     void signalErrorInfo();
+    void signalStatusInfo(const QString&);
 
 };
 

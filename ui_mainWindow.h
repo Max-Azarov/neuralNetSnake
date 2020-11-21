@@ -35,7 +35,7 @@ class Ui_MainWindow
 public:
     QAction *action;
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout_5;
+    QVBoxLayout *verticalLayout_3;
     QGroupBox *gBoxNN;
     QHBoxLayout *horizontalLayout_3;
     QLineEdit *leNumInputNN;
@@ -90,7 +90,14 @@ public:
     QVBoxLayout *verticalLayout_4;
     QLabel *lblErrorRunTitle;
     QLabel *lblErrorRun;
+    QHBoxLayout *horizontalLayout_8;
+    QSpacerItem *horizontalSpacer_5;
+    QCheckBox *cbFreedom;
+    QSpacerItem *horizontalSpacer_4;
     QPushButton *btnStart;
+    QSpacerItem *horizontalSpacer_3;
+    QHBoxLayout *horizontalLayout_9;
+    QSpacerItem *horizontalSpacer_6;
     QLabel *lblStatus;
     QMenuBar *menubar;
     QMenu *menu;
@@ -121,10 +128,10 @@ public:
         centralwidget->setSizePolicy(sizePolicy);
         centralwidget->setMinimumSize(QSize(0, 0));
         centralwidget->setMaximumSize(QSize(2000, 1080));
-        verticalLayout_5 = new QVBoxLayout(centralwidget);
-        verticalLayout_5->setSpacing(4);
-        verticalLayout_5->setContentsMargins(6, 6, 6, 6);
-        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
+        verticalLayout_3 = new QVBoxLayout(centralwidget);
+        verticalLayout_3->setSpacing(4);
+        verticalLayout_3->setContentsMargins(6, 6, 6, 6);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         gBoxNN = new QGroupBox(centralwidget);
         gBoxNN->setObjectName(QString::fromUtf8("gBoxNN"));
         gBoxNN->setEnabled(true);
@@ -233,7 +240,7 @@ public:
         horizontalLayout_3->addWidget(leNumOfHiddenLayersNN);
 
 
-        verticalLayout_5->addWidget(gBoxNN);
+        verticalLayout_3->addWidget(gBoxNN);
 
         gbTrainingSet = new QGroupBox(centralwidget);
         gbTrainingSet->setObjectName(QString::fromUtf8("gbTrainingSet"));
@@ -323,7 +330,7 @@ public:
         horizontalLayout_5->addWidget(leAcceptError);
 
 
-        verticalLayout_5->addWidget(gbTrainingSet);
+        verticalLayout_3->addWidget(gbTrainingSet);
 
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(4);
@@ -501,7 +508,7 @@ public:
         horizontalLayout_7->addLayout(verticalLayout_7);
 
 
-        verticalLayout_5->addLayout(horizontalLayout_7);
+        verticalLayout_3->addLayout(horizontalLayout_7);
 
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setSpacing(4);
@@ -597,7 +604,23 @@ public:
         horizontalLayout_10->setStretch(7, 2);
         horizontalLayout_10->setStretch(8, 2);
 
-        verticalLayout_5->addLayout(horizontalLayout_10);
+        verticalLayout_3->addLayout(horizontalLayout_10);
+
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setSpacing(4);
+        horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_8->addItem(horizontalSpacer_5);
+
+        cbFreedom = new QCheckBox(centralwidget);
+        cbFreedom->setObjectName(QString::fromUtf8("cbFreedom"));
+
+        horizontalLayout_8->addWidget(cbFreedom);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_8->addItem(horizontalSpacer_4);
 
         btnStart = new QPushButton(centralwidget);
         btnStart->setObjectName(QString::fromUtf8("btnStart"));
@@ -609,12 +632,33 @@ public:
         btnStart->setMinimumSize(QSize(0, 0));
         btnStart->setMaximumSize(QSize(150, 30));
 
-        verticalLayout_5->addWidget(btnStart, 0, Qt::AlignHCenter|Qt::AlignBottom);
+        horizontalLayout_8->addWidget(btnStart);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_8->addItem(horizontalSpacer_3);
+
+        horizontalLayout_8->setStretch(1, 1);
+        horizontalLayout_8->setStretch(2, 1);
+        horizontalLayout_8->setStretch(3, 1);
+        horizontalLayout_8->setStretch(4, 2);
+
+        verticalLayout_3->addLayout(horizontalLayout_8);
+
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setSpacing(4);
+        horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
+        horizontalSpacer_6 = new QSpacerItem(60, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_9->addItem(horizontalSpacer_6);
 
         lblStatus = new QLabel(centralwidget);
         lblStatus->setObjectName(QString::fromUtf8("lblStatus"));
 
-        verticalLayout_5->addWidget(lblStatus);
+        horizontalLayout_9->addWidget(lblStatus);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_9);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -626,6 +670,7 @@ public:
         MainWindow->setMenuBar(menubar);
         toolBar = new QToolBar(MainWindow);
         toolBar->setObjectName(QString::fromUtf8("toolBar"));
+        toolBar->setEnabled(false);
         MainWindow->addToolBar(Qt::TopToolBarArea, toolBar);
         QWidget::setTabOrder(btnStart, leSnakeSpeed);
         QWidget::setTabOrder(leSnakeSpeed, sldSnakeSpeed);
@@ -799,6 +844,7 @@ public:
 "\320\276\321\210\320\270\320\261\320\272\320\270, \321\207\321\202\320\276\320\261\321\213\n"
 "\320\277\321\200\320\276\321\201\320\275\321\203\321\202\321\214\321\201\321\217", nullptr));
         lblErrorRun->setText(QString());
+        cbFreedom->setText(QCoreApplication::translate("MainWindow", "\320\222\321\213\320\277\321\203\321\201\321\202\320\270\321\202\321\214 \320\267\320\274\320\265\320\271\320\272\321\203 \320\277\320\276\320\263\321\203\320\273\321\217\321\202\321\214", nullptr));
         btnStart->setText(QCoreApplication::translate("MainWindow", "\320\241\321\202\320\260\321\200\321\202", nullptr));
         lblStatus->setText(QString());
         menu->setTitle(QCoreApplication::translate("MainWindow", "\320\230\320\275\321\204\320\276", nullptr));

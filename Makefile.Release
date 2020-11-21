@@ -2306,7 +2306,12 @@ release\snake.obj: smartSnake\snake.cpp smartSnake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QPainter \
 		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpainter.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qtextoption.h \
-		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpen.h
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpen.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QApplication \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qapplication.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qdesktopwidget.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qguiapplication.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qinputmethod.h
 
 release\moc_game.obj: release\moc_game.cpp 
 
