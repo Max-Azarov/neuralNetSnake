@@ -100,8 +100,6 @@ private:
     //void disableUselessSynapses();
     void createFile(const std::string & fileName, bool clearFile);
 
-
-
 public:
     Snake(QWidget *parent = nullptr);
     void setDelay(size_t delay);// { m_delay = delay; }
@@ -110,8 +108,7 @@ public:
     void stop();
     void start();
     Net* getNet() { return neuroNet; }
-    void resetNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse);
-    void setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse);
+    void setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse, bool newSynapseWeights);
     void setAcceptError(double acceptError) { m_acceptError = acceptError; }
     void clearFiles(bool clear = true);
     double getAverage() const { return m_average; }
@@ -130,6 +127,8 @@ private:
 
 public slots:
     void slotLoop();
+    void slotBlackBackground();
+    void slotGrayBackground100msec();
 
 signals:
     void signalRunInfo();

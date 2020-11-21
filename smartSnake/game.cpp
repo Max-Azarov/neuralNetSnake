@@ -3,12 +3,12 @@
 
 #include "game.h"
 
-Game::Game(QWidget *parent) :
-    QMainWindow{parent},
-    ui{ new Ui::MainWindow },
-    m_bStart {false},
-    m_bIsInitNet { true },
-    m_settings("monstr", "smartSnake", this)
+Game::Game(QWidget *parent) : QMainWindow{parent}
+  , ui{ new Ui::MainWindow }
+  , m_bStart {false}
+  , m_bIsInitNet { false }
+  , m_settings {"monstr", "smartSnake", this }
+  , m_bNewSynapseWeights { false }
 {
     ui->setupUi(this);
     m_pSnake = ui->snake;
@@ -16,6 +16,11 @@ Game::Game(QWidget *parent) :
 
     connect(m_pSnake, SIGNAL(signalRunInfo()), this, SLOT(slotRunInfo()));
     connect(m_pSnake, SIGNAL(signalErrorInfo()), this, SLOT(slotErrorInfo()));
+}
+
+Game::~Game() {
+    writeSettings();
+    delete ui;
 }
 
 void Game::on_sldSnakeSpeed_valueChanged(int value) {
@@ -66,9 +71,9 @@ void Game::on_btnStart_released() {
     else {
         // Текущее состояние "Стоп"
         m_bStart = true;
-        if (m_bIsInitNet || ui->cbNewWeights->checkState()) {
+        if (!m_bIsInitNet) {
             initNet();
-            m_bIsInitNet = false;
+            m_bIsInitNet = true;
         }
         setTrainingParameters();
         setSnakeSpeed();
@@ -85,26 +90,27 @@ void Game::on_btnStart_released() {
 }
 
 void Game::on_leNum1HiddenNN_editingFinished() {
-    m_bIsInitNet = true;
+    m_bIsInitNet = false;
     intValidate(ui->leNum1HiddenNN, "10");
 }
 
 void Game::on_leNum2HiddenNN_editingFinished() {
-    m_bIsInitNet = true;
+    m_bIsInitNet = false;
     intValidate(ui->leNum2HiddenNN, "10");
 }
 
 void Game::on_leNumOfHiddenLayersNN_editingFinished() {
-    m_bIsInitNet = true;
+    m_bIsInitNet = false;
     intValidate(ui->leNumOfHiddenLayersNN, "2");
 }
 
 void Game::on_cbNewWeights_stateChanged(int state) {
-    m_bIsInitNet = true;
     if (state) {
         ui->leNum1HiddenNN->setEnabled(true);
         ui->leNum2HiddenNN->setEnabled(true);
         ui->leNumOfHiddenLayersNN->setEnabled(true);
+        m_bNewSynapseWeights = true;
+        m_bIsInitNet = false;
     }
     if (!state) {
         // Qt::unchecked
@@ -128,7 +134,7 @@ void Game::initNet() {
     std::vector<size_t> vSynapse(vNeuron.size() - 1, 1);
     vSynapse[0] = 10; // Особенность устройства нейросети змейки
 
-    m_pSnake->resetNN(vNeuron, vSynapse);
+    m_pSnake->setNN(vNeuron, vSynapse, m_bNewSynapseWeights);
 }
 
 void Game::setSnakeSpeed(int speed) {
@@ -169,6 +175,7 @@ void Game::writeSettings() {
     m_settings.setValue("/leE", ui->leE->text());
     m_settings.setValue("/leAcceptError", ui->leAcceptError->text());
     m_settings.endGroup();
+    if (m_pSnake->getNet()) m_pSnake->getNet()->training().saveWeightOfSynapses();
 }
 
 void Game::setTrainingParameters() {
@@ -204,10 +211,10 @@ void Game::slotErrorInfo() {
         m_infoCount.removeLast();
     }
     ui->lblCountOfErrorHigher->setText(m_infoCount.join('\n'));
-    m_infoError.push_front(QString::number(m_pSnake->getSummError(), 'f', 4));
+    m_infoError.push_front(QString::number(m_pSnake->getSummError(), 'f', 6));
     if (m_infoError.size() > 5) {
         m_infoError.removeLast();
     }
     ui->lblError->setText(m_infoError.join('\n'));
-    ui->lblStatus->setText("Змейка спит, проснется, когда обучится");
+    ui->lblStatus->setText("Змейка спит. Закончится обучение и она проснётся");
 }

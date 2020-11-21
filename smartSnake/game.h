@@ -19,10 +19,11 @@ private:
     QSettings m_settings;
     QStringList m_infoCount;
     QStringList m_infoError;
+    bool m_bNewSynapseWeights;
 
 public:
     Game(QWidget *parent = nullptr);
-    virtual ~Game() { writeSettings(); delete ui; }
+    virtual ~Game();// { writeSettings(); delete ui; }
 
 private slots:
     void on_sldSnakeSpeed_valueChanged(int);

@@ -13,34 +13,29 @@
 
 
 Snake::~Snake() {
-    delete neuroNet;
+    if (neuroNet) delete neuroNet;
 }
 
 Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_delay { 100 }
     , m_loopMotion { false }
-//    , m_clearFiles { true } // При первом пуске должно быть true
     , m_acceptError { 0.1 }
     , m_countOfStepsToNextTest { 1000 }
     , m_setCount { 0 }
     , m_bMutex { false }
   , m_bStop { true }
-//    , neuroNet{ new Net({ 100, 100, 200, 4 }, { 10, 1, 1 },
-//            true  // При первом пуске должно быть true
-//            ) }
+  , neuroNet { nullptr }
 {
     static bool startRandom = false;
     if (!startRandom) {
         srand(static_cast<unsigned int>(time(nullptr)));
         startRandom = true;
     }
-    // Делаем черный фон
-    QPalette pall;
-    pall.setColor(backgroundRole(), Qt::black);
-    setPalette(pall);
+
     setAutoFillBackground(true);
-    // <<
-    //setStyleSheet("background-color:black");
+    // Делаем черный фон
+    slotBlackBackground();
+
     loadTextures();
     m_numberOfCellsPerSide = static_cast<int>(sqrt(NUM_CELLS));
     m_cellSize = WIDTH / m_numberOfCellsPerSide;
@@ -50,16 +45,11 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
         m_vField[i].resize(static_cast<unsigned int>(m_numberOfCellsPerSide));
     }
 
-    //Создаем файлы
     m_inputData = "input.txt";
     m_outputDataIdeal = "outputIdeal.txt";
 
-//    createFile(m_inputData, m_clearFiles);
-//    createFile(m_outputDataIdeal, m_clearFiles);
-
     m_vInTrainingSet.clear();
     m_vOutTrainingSet.clear();
-    //m_vAcceptError.clear();
     readDataToTrainingSet();
 
     averageNumberOfSteps(true);
@@ -67,13 +57,12 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     initGame();
     pTimer = new QTimer(this);
     connect(pTimer, SIGNAL(timeout()), SLOT(slotLoop()));
-    //pTimer->start(m_delay);
 }
 
 void Snake::setDelay(size_t delay) {
     m_delay = delay;
     pTimer->stop();
-    pTimer->start(m_delay);
+    pTimer->start((int)m_delay);
 }
 
 void Snake::stop() {
@@ -173,6 +162,7 @@ void Snake::movement() {
     if (m_directionSelectedByNeuroNet) {
         m_direction = choiceDirectionCheckingCollision();
         if (m_collision || m_loopMotion) {
+
             return;
         }
     }
@@ -293,15 +283,22 @@ void Snake::writeData() {
 }
 
 void Snake::learning() {
-    if (m_loopMotion        ||
-        m_collision         ||
-        m_isTheFruitEaten   ||
-        m_isHopelessSituation )
+    if (    m_loopMotion
+        ||  m_collision
+        ||  m_isTheFruitEaten
+        ||  m_isHopelessSituation
+        )
     {
 
         if (m_collision || m_isHopelessSituation) {
+            slotGrayBackground100msec();
             badMove();
         }
+
+        if (m_loopMotion) {
+            slotGrayBackground100msec();
+        }
+
         if (m_isTheFruitEaten) {
             goodMove();
         }
@@ -377,7 +374,7 @@ void Snake::snakeTraining() {
     double error;
     size_t countOfSet;
     size_t count;
-    if ( m_setCount > m_average * m_average && !m_bStop) {
+    if ( m_setCount > 10 && m_setCount > m_average * m_average && !m_bStop) {
         do {
             count = 0;
             error = 0;
@@ -654,13 +651,9 @@ void Snake::createFile(const std::string & fileName, bool clearFile) {
 
 }
 
-void Snake::resetNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse) {
-    delete neuroNet;
-    setNN(vNeuron, vSynapse);
-}
-
-void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse) {
-    neuroNet = new Net(vNeuron, vSynapse);
+void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse, bool newSynapseWeights) {
+    if (neuroNet) delete neuroNet;
+    neuroNet = new Net(vNeuron, vSynapse, newSynapseWeights);
     m_vIn.resize(neuroNet->getCountOfInputs());
     m_vOut.resize(neuroNet->getCountOfOutputs());
 }
@@ -674,4 +667,17 @@ void Snake::clearFiles(bool clear) {
         m_vOutTrainingSet.clear();
         readDataToTrainingSet();
     }
+}
+
+void Snake::slotBlackBackground() {
+    QPalette pall;
+    pall.setColor(backgroundRole(), Qt::black);
+    setPalette(pall);
+}
+
+void Snake::slotGrayBackground100msec() {
+    QPalette pall;
+    pall.setColor(backgroundRole(), Qt::darkGray);
+    setPalette(pall);
+    QTimer::singleShot(100, this, SLOT(slotBlackBackground()));
 }

@@ -4,11 +4,12 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+//#include <QDebug>
 
 Net::~Net() {
     synapse.clear();
     neuron.clear();
-    //std::cout << "Delete Net\n";
+    //qDebug() << "Delete Net";
     Synapse::incId(true);
     Neuron::incId(true);
 }

@@ -1,6 +1,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+//#include <QDebug>
 
 #include "training.h"
 #include "net.h"
@@ -104,4 +105,5 @@ void Training::saveWeightOfSynapses() {
         }
     }
     weightsf.close();
+    //qDebug() << "11111";
 }
