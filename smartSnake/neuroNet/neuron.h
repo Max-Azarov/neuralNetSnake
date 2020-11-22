@@ -50,12 +50,14 @@ public:
     void setIn(double in) { m_in = in; }
     double getIn() const { return m_in; }
 
-
     double getOut() const { return m_status == ON ? m_out : 0.0; }
     double getDelta() const { return m_status == ON ? m_delta : 0.0; }
 
     void setStatus(STATUS status) { m_status = status; }
     STATUS getStatus() const { return m_status; }
+
+    void setTypeActivation(TYPE_ACTIVATION typeActivation) { m_typeActivation = typeActivation; }
+    TYPE_ACTIVATION getTypeActivation() const { return m_typeActivation; }
     
     virtual void calculateInCalculateOut();
     virtual void calculateDelta(Parameters& parameters);

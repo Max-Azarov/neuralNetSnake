@@ -135,7 +135,7 @@ void Game::initNet() {
     for (size_t i = 0; i < numHiddenLayers - 1; ++i) {
         vNeuron.push_back(numNeuronInHiddenLayer);
     }
-    vNeuron.push_back(ui->leNumOutputNN->text().toUInt());
+    vNeuron.push_back( 2 * ui->leNumOutputNN->text().toUInt() );
 
     std::vector<size_t> vSynapse(vNeuron.size() - 1, 1);
     vSynapse[0] = 10; // Особенность устройства нейросети змейки

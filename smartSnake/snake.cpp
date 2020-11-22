@@ -8,6 +8,7 @@
 #include <cmath>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 #include <QApplication>
 
@@ -317,7 +318,29 @@ DIRECTION Snake::choiceDirectionCheckingCollision() {
     // Подаем данные в нейросеть, ответ записываем в вектор
     neuroNet->training().forwardPass(m_vIn);
     neuroNet->getOut(m_vOut);
+/*
+    // Вставляем половину выходов в мотивацию, половину в страх
+    auto itMedian = std::begin(m_vOut) + m_vOut.size() / 2;
+    m_vOutMotivation.assign(std::begin(m_vOut), itMedian);
+    m_vOutFear.assign(itMedian, std::end(m_vOut));
+*/
+    // Ищем максимальную мотивацию, минимальный страх. Если мотивация больше 0.5, сравниваем со страхом на этом направлении и, если мотивация больше, идем
+    // в сторону мотивации, в противном случае идем в сторону минимального страха.
+    DIRECTION direction;
+    auto itMedian = std::begin(m_vOut) + m_vOut.size() / 2; // Разделение мотивации и страха
+    // Максимальная мотивация
+    auto indexMaxMotivation = std::max_element(std::begin(m_vOut), itMedian) - std::begin(m_vOut); // индекс максимальной мотивации
+    // Минимальный страх
+    auto indexMinFear = std::min_element(itMedian, std::end(m_vOut)) - std::begin(m_vOut) - m_vOut.size()/2; // индекс минимального страха
 
+    if ( (m_vOut[indexMaxMotivation] < 0.5) || (m_vOut[indexMaxMotivation] < m_vOut[indexMaxMotivation + m_vOut.size()/2]) ) {
+        direction = (DIRECTION)indexMinFear; // Выбираем направление по минимальному страху (недостаточно мотивации или страх больше мотивации
+    }
+    else {
+        direction = (DIRECTION)indexMaxMotivation; // индекс максимальной мотивации
+    }
+
+/*
     // Какое из чисел массива больше, туда и пойдет змейка.
     //Номера позиций в массиве 0 - up, 1 - left, 2 - down, 3 - right
     double dTemp = m_vOut[0];
@@ -328,6 +351,7 @@ DIRECTION Snake::choiceDirectionCheckingCollision() {
             dTemp = m_vOut[i];
         }
     }
+*/
 /*
 qDebug() << m_stepCount << " " <<   (direction == UP ? "UP " :
                                     direction == DOWN ? "DOWN " :
@@ -449,6 +473,7 @@ void Snake::restart() {
 }
 
 void Snake::goodMove() {
+/*
     // Ищем индекс максимального элемента
     // "Поощряем" такой выбор, убираем с других направлений
     size_t maxElement = indexMaxElement();
@@ -458,12 +483,28 @@ void Snake::goodMove() {
         if (m_vOut[i] < 0.0) m_vOut[i] = 0.0;
     }
     m_vOut[indexMaxElement()] = 1.0;
+*/
+    // Добавляем мотивацию в выбранное направление
+    auto itMedian = std::begin(m_vOut) + m_vOut.size() / 2;
+    for ( auto it = std::begin(m_vOut); it != itMedian; ++it) {
+        (*it) = 0.0;
+    }
+    m_vOut[m_direction] = 1.0;
 }
 
 void Snake::badMove() {
-    // Ищем индекс максимального элемента
-    // "Осуждаем" такой выбор, добавляем к другим выборам отнятое
+    // Добавляем страх в выбранное направление
+    auto itMedian = std::begin(m_vOut) + m_vOut.size() / 2;
+    for ( auto it = itMedian; it != std::end(m_vOut); ++it) {
+        (*it) = 0.0;
+    }
+    m_vOut[m_direction + m_vOut.size()/2] = 1.0;
 
+/*
+    // Ищем индекс максимального элемента
+    // Ищем индекс максимального элемента в векторе страхов
+    //size_t indexMaxElement = std::max_element(std::begin(m_vOutFear), std::end(m_vOutFear)) - std::begin(m_vOutFear);
+    // "Осуждаем" такой выбор, добавляем к другим выборам отнятое
     size_t maxElement = indexMaxElement();
     double dTemp = (1.0 - m_vOut[maxElement]) / 3.0; // Неправильный выбор делим на 3 части и распределяем по ровну по остальным сторонам
     for (size_t i = 0; i < m_vOut.size(); ++i) {
@@ -471,6 +512,7 @@ void Snake::badMove() {
         if (m_vOut[i] > 1.0) m_vOut[i] = 1.0;
     }
     m_vOut[maxElement] = 0.0;
+*/
 }
 
 void Snake::addDataToTrainingSet() {
@@ -499,20 +541,38 @@ void Snake::addDataToTrainingSet() {
         std::cerr << "\"" << fileName << "\" could not be opened!" << std::endl;
         exit(EXIT_FAILURE);
     }
+/*
+    // Записываем данные
+    for (size_t i = 0; i < m_vOutMotivation.size(); ++i) {
+        file << m_vOutMotivation[i] << " ";
+    }
+    for (size_t i = 0; i < m_vOutFear.size(); ++i) {
+        file << m_vOutFear[i] << " ";
+    }
+    file << "\n";
+*/
     // Записываем данные
     for (size_t i = 0; i < m_vOut.size(); ++i) {
         file << m_vOut[i] << " ";
-
     }
     file << "\n";
     file.close();
     // << Добавляем данные в файлы обучающих выборок
-
+/*
+    // >> Добавляем данные в вектора обучающих выборок
+    m_vInTrainingSet.push_back(m_vIn);
+    std::vector<double> tempArr{ m_vOutMotivation };
+    tempArr.insert(std::end(tempArr), std::begin(m_vOutFear), std::end(m_vOutFear));
+    m_vOutTrainingSet.push_back(tempArr);
+    //m_vAcceptError.push_back(false);
+    // << Добавляем данные в вектора обучающих выборок
+*/
     // >> Добавляем данные в вектора обучающих выборок
     m_vInTrainingSet.push_back(m_vIn);
     m_vOutTrainingSet.push_back(m_vOut);
     //m_vAcceptError.push_back(false);
     // << Добавляем данные в вектора обучающих выборок
+
 }
 
 size_t Snake::indexMaxElement() {
@@ -651,6 +711,16 @@ void Snake::createFile(const std::string & fileName, bool clearFile) {
 void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse, bool newSynapseWeights) {
     if (neuroNet) delete neuroNet;
     neuroNet = new Net(vNeuron, vSynapse, newSynapseWeights);
+    // Первому из скрытых слоев присваиваем тип активации RELU
+    for ( auto it = std::begin(neuroNet->getNeuron()[1]); it != std::end(neuroNet->getNeuron()[1]); ++it) {
+        (*it)->setTypeActivation(RELU);
+    }
+    /*
+    for ( auto it = std::begin(neuroNet->getNeuron()[2]); it != std::end(neuroNet->getNeuron()[2]); ++it) {
+        (*it)->setTypeActivation(RELU);
+    }
+    */
+    //neuroNet->getNeuron()[1][0]->setTypeActivation(RELU);
     m_vIn.resize(neuroNet->getCountOfInputs());
     m_vOut.resize(neuroNet->getCountOfOutputs());
 }

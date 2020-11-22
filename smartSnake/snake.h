@@ -49,6 +49,8 @@ private:
     // Вектора, содержащие текущие значения входов и выходов нейросети
     std::vector<TYPE_CELL> m_vIn;
     std::vector<double> m_vOut;
+    //std::vector<double> m_vOutMotivation;
+    //std::vector<double> m_vOutFear;
     // Вектора, содержащие обучающие выборки
     std::vector<std::vector<TYPE_CELL>> m_vInTrainingSet;
     std::vector<std::vector<double>> m_vOutTrainingSet;
