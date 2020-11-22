@@ -193,7 +193,7 @@ void Game::setTrainingParameters() {
 
 void Game::slotRunInfo() {
     ui->lblCountOfSets->setText(QString::number(m_pSnake->getNumTrainingSet()));
-    ui->lblCountRun->setText(QString::number(m_pSnake->getNumTrainingSet() / m_pSnake->getNet()->getCountOfOutputs()));
+    ui->lblCountRun->setText(QString::number(2 * m_pSnake->getNumTrainingSet() / m_pSnake->getNet()->getCountOfOutputs()));
     ui->lblCountOfSteps->setText(QString::number(m_pSnake->getStepCount()));
     ui->lblAverageCountOfSets->setText(QString::number(m_pSnake->getAverage(), 'f', 2));
     ui->lblErrorRun->setText(ui->leAcceptError->text());
