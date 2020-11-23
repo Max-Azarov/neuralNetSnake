@@ -44,14 +44,16 @@ double Training::calculateError(const std::vector<double> & idealOut) {
     // Считаем ошибку после обучающей выборки
     // MSE   ERROR = ((I1 - A1)^2 + (I2 - A2)^2 + ... + (In - In)^2) / n
     double tempError = 0.0;
+    double ideal;
     auto itIdealOut = std::begin(idealOut);
     auto itOut = std::begin(p_Net->getOutputNeurons());
     for (   /**/ ;
             itOut != std::end(p_Net->getOutputNeurons());
             ++itOut, ++itIdealOut )
     {
-        tempError += ( ((*itOut)->getOut() - (*itIdealOut)) *
-                       ((*itOut)->getOut() - (*itIdealOut)) );
+        ideal = (*itIdealOut == -1.0) ? (*itOut)->getOut() : *itIdealOut;
+        tempError += ( ((*itOut)->getOut() - (ideal)) *
+                       ((*itOut)->getOut() - (ideal)) );
     }
     m_error = tempError / p_Net->getCountOfOutputs();
     return m_error;
@@ -68,12 +70,13 @@ void Training::backprop(const std::vector<double> & idealOut) {
     // Передача идеальных значений в выходные нейроны
     auto itIdealOut = std::begin(idealOut);
     auto itOut = std::begin(p_Net->getOutputNeurons());
-
+    double ideal;
     for (   /**/ ;
             itOut != std::end(p_Net->getOutputNeurons());
             ++itOut, ++itIdealOut )
     {
-        static_cast<OutputNeuron*>(itOut->get())->setIdealOut(*itIdealOut);
+        ideal = (*itIdealOut == -1.0) ? (*itOut)->getOut() : *itIdealOut;
+        static_cast<OutputNeuron*>(itOut->get())->setIdealOut(ideal);
     }
 
     // Распространяем ошибку в обратном направлении

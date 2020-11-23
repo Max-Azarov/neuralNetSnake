@@ -49,7 +49,7 @@ void Game::on_cbSnakeSpeed_stateChanged(int state) {
         // Qt::PartiallyChecked or Qt::Checked
         ui->sldSnakeSpeed->setEnabled(false);
         ui->leSnakeSpeed->setEnabled(false);
-        setSnakeSpeed(1000);
+        setSnakeSpeed(100);
     }
     else {
         // Qt::unchecked
@@ -135,7 +135,7 @@ void Game::initNet() {
     for (size_t i = 0; i < numHiddenLayers - 1; ++i) {
         vNeuron.push_back(numNeuronInHiddenLayer);
     }
-    vNeuron.push_back( 2 * ui->leNumOutputNN->text().toUInt() );
+    vNeuron.push_back( ui->leNumOutputNN->text().toUInt() );
 
     std::vector<size_t> vSynapse(vNeuron.size() - 1, 1);
     vSynapse[0] = 10; // Особенность устройства нейросети змейки
@@ -193,7 +193,7 @@ void Game::setTrainingParameters() {
 
 void Game::slotRunInfo() {
     ui->lblCountOfSets->setText(QString::number(m_pSnake->getNumTrainingSet()));
-    ui->lblCountRun->setText(QString::number(2 * m_pSnake->getNumTrainingSet() / m_pSnake->getNet()->getCountOfOutputs()));
+    ui->lblCountRun->setText(QString::number(m_pSnake->getNumTrainingSet() / m_pSnake->getNet()->getCountOfOutputs()));
     ui->lblCountOfSteps->setText(QString::number(m_pSnake->getStepCount()));
     ui->lblAverageCountOfSets->setText(QString::number(m_pSnake->getAverage(), 'f', 2));
     ui->lblErrorRun->setText(ui->leAcceptError->text());
