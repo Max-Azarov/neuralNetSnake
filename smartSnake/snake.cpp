@@ -339,9 +339,9 @@ DIRECTION Snake::choiceDirectionCheckingCollision() {
 
     // Какое из чисел массива меньшу, туда и пойдет змейка.
     //Номера позиций в массиве 0 - up, 1 - left, 2 - down, 3 - right
-    direction = (DIRECTION)(std::min_element(std::begin(m_vOut), std::end(m_vOut)) - std::begin(m_vOut)); // индекс минимального элемента
+    //direction = (DIRECTION)(std::min_element(std::begin(m_vOut), std::end(m_vOut)) - std::begin(m_vOut)); // индекс минимального элемента
 
-/*
+
     // Ищем максимальную мотивацию и, если она больше своего страха, идем в эту сторону. В противном случае, ищем следующую по значению мотивацию и сравниваем со страхом
     // Если все мотивации меньше своих страхов, идем туда, где меньше всего страх
     std::vector<double> vMotivation;
@@ -365,7 +365,7 @@ DIRECTION Snake::choiceDirectionCheckingCollision() {
             vMotivation[maxMotivation] = -1.0;
         }
     }
-*/
+
 /*
     // Вставляем половину выходов в мотивацию, половину в страх
     auto itMedian = std::begin(m_vOut) + m_vOut.size() / 2;
@@ -418,7 +418,7 @@ qDebug() << m_stepCount << " " <<   (direction == UP ? "UP " :
                                     direction == DOWN ? "DOWN " :
                                     direction == LEFT ? "LEFT " : "RIGHT ") <<
                                     m_vOut[0]<<" "<<m_vOut[1]<<" "<<m_vOut[2]<<" "<<m_vOut[3]
-                                    //<< "\n" << "        " <<m_vOut[4]<<" "<<m_vOut[5]<<" "<<m_vOut[6]<<" "<<m_vOut[7]
+                                    << "\n" << "        " <<m_vOut[4]<<" "<<m_vOut[5]<<" "<<m_vOut[6]<<" "<<m_vOut[7]
                                     ;
 
     // >> Проверка на будующее столкновение
@@ -557,10 +557,12 @@ void Snake::restart() {
 }
 
 void Snake::goodMove() {
+/*
     // "Поощряем" правильный выбор (0.0), остальные порицаем (1.0)
     //DIRECTION direction = (DIRECTION)(std::min_element(std::begin(m_vOut), std::end(m_vOut)) - std::begin(m_vOut)); // индекс минимального элемента
     m_vOut.assign(neuroNet->getCountOfOutputs(), 1.0);
     m_vOut[m_netChoiseDirection] = 0.0;
+*/
 /*
     // Ищем индекс максимального элемента
     // "Поощряем" такой выбор, убираем с других направлений
@@ -572,15 +574,31 @@ void Snake::goodMove() {
     }
     m_vOut[indexMaxElement()] = 1.0;
 */
-    // Добавляем мотивацию в выбранное направление
-/*
+    // Добавляем мотивацию в выбранное направление, остальную уменьшаем на 50%
     auto itMedian = std::begin(m_vOut) + m_vOut.size() / 2;
     for ( auto it = std::begin(m_vOut); it != itMedian; ++it) {
-        (*it) = 0.0;
+        (*it) = 0.5 * (*it);
+    }
+    m_vOut[m_netChoiseDirection] = 1.0;
+    // Страх не учим
+    for ( auto it = itMedian; it != std::end(m_vOut); ++it) {
+        (*it) = -1.0;
+    }
+/*
+    // Страх уменьшаем
+    for ( auto it = itMedian; it != std::end(m_vOut); ++it) {
+        (*it) = 0.5 * (*it);
     }
 */
-//    m_vOut[m_direction] = 1.0;
+/*
+    // Страх не учим, кроме выбранного
+    for ( auto it = itMedian; it != std::end(m_vOut); ++it) {
+        (*it) = -1.0;
+    }
     // Убавляем страх идти в это направление
+    size_t indexFear = m_netChoiseDirection + m_vOut.size() / 2;
+    m_vOut[indexFear] = 0.0;
+*/
 /*
     double dTemp = (1.0 - m_vOut[m_direction + m_vOut.size()/2]) / 3.0;
     for (size_t i = m_vOut.size()/2; i < m_vOut.size(); ++i) {
@@ -592,12 +610,28 @@ void Snake::goodMove() {
 }
 
 void Snake::badMove() {
+    // Добавляем страх неправильному выбор (1.0), уменьшаем на 50% остальной страх
+    auto itMedian = std::begin(m_vOut) + m_vOut.size() / 2;
+    for ( auto it = itMedian; it != std::end(m_vOut); ++it) {
+        (*it) = 0.5 * (*it);
+    }
+    m_vOut[m_netChoiseDirection + m_vOut.size() / 2] = 1.0;
+
+    // Мотивацию не обучаем (-1.0), кроме выбранного направления
+    double diffMotivation = 0.5 * m_vOut[m_netChoiseDirection];
+    for ( auto it = std::begin(m_vOut); it != itMedian; ++it) {
+        (*it) = -1.0;
+    }
+    // Убавляем мотивацию идти в выбранное направление
+    //m_vOut[m_netChoiseDirection] = diffMotivation;
+
+/*
     // "Осуждаем" неправильный выбор (1.0), уменьшаем на 50% остальные
     for (size_t i = 0; i < m_vOut.size(); ++i) {
         m_vOut[i] = 0.5 * m_vOut[i];
     }
     m_vOut[m_netChoiseDirection] = 1.0;
-
+*/
     // Добавляем страх в выбранное направление
 /*
     auto itMedian = std::begin(m_vOut) + m_vOut.size() / 2;

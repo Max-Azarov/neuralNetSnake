@@ -675,7 +675,7 @@ public:
 #if QT_CONFIG(tooltip)
         leNumOutputNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of outputs neural net (equal to the number of possible directions: right, left, up, down)", nullptr));
 #endif // QT_CONFIG(tooltip)
-        leNumOutputNN->setText(QCoreApplication::translate("MainWindow", "4", nullptr));
+        leNumOutputNN->setText(QCoreApplication::translate("MainWindow", "8", nullptr));
 #if QT_CONFIG(tooltip)
         cbNewWeights->setToolTip(QCoreApplication::translate("MainWindow", "Do need to assign new random weights to synapses", nullptr));
 #endif // QT_CONFIG(tooltip)

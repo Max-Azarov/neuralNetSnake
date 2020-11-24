@@ -255,7 +255,7 @@
           <string>Count of outputs neural net (equal to the number of possible directions: right, left, up, down)</string>
          </property>
          <property name="text">
-          <string>4</string>
+          <string>8</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
