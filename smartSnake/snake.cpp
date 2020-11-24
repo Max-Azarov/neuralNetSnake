@@ -114,14 +114,13 @@ void Snake::initGame() {
 }
 
 void Snake::locateFruit() {
-    int random;
+    int random = 0;
     bool emptyCell = true;
     int temp = (m_numberOfCellsPerSide-2)*(m_numberOfCellsPerSide-2)
             - m_snakeLength - 1; // 2-толщина 2х стенок; 1-клетка, где лежит фрукт
-    if ( temp == 0 ) {
-        random = 0;
+    if ( temp ) {
+        random = rand() % temp;
     }
-    else random = rand() % temp;
     int count = 0;
     for (int x = 1; x < (m_numberOfCellsPerSide - 1); ++x) { // -1 толщина стенки
         for (int y = 1; y < (m_numberOfCellsPerSide - 1); ++y) { // -1 толщина стенки
@@ -160,20 +159,20 @@ void Snake::loadTextures() {
 void Snake::movement() {
     ++m_stepCount;
     ++m_stepFromEating;
-    if (m_isTheFruitEaten) {
-        ++m_snakeLength;
-        m_isTheFruitEaten = false;
-    }
 
     // >> Выбор направления нейросетью
     if (m_directionSelectedByNeuroNet) {
         m_direction = choiceDirectionCheckingCollision();
-        if (m_collision /*|| m_loopMotion*/) {
+        if (m_collision || m_loopMotion) {
             return;
         }
     }
-
     // << Выбор направления нейросетью
+
+    if (m_isTheFruitEaten) {
+        ++m_snakeLength;
+        m_isTheFruitEaten = false;
+    }
 
     for (int i = m_snakeLength - 1; i > 0; --i) {
         snakeX[i] = snakeX[i-1];
@@ -424,13 +423,14 @@ qDebug() << m_stepCount << " " <<   (direction == UP ? "UP " :
 
     // >> Проверка на будующее столкновение
     // Делаем копию змейки
+    int tempSnakeLenth = m_isTheFruitEaten ? m_snakeLength + 1 : m_snakeLength;
     int tempSnakeX[NUM_CELLS];
     int tempSnakeY[NUM_CELLS];
-    for (int i = 0; i < m_snakeLength; ++i) {
+    for (int i = 0; i < tempSnakeLenth; ++i) {
         tempSnakeX[i] = snakeX[i];
         tempSnakeY[i] = snakeY[i];
     }
-    for (int i = m_snakeLength - 1; i > 0; --i) {
+    for (int i = tempSnakeLenth - 1; i > 0; --i) {
         tempSnakeX[i] = tempSnakeX[i-1];
         tempSnakeY[i] = tempSnakeY[i-1];
     }
@@ -593,8 +593,6 @@ void Snake::goodMove() {
 
 void Snake::badMove() {
     // "Осуждаем" неправильный выбор (1.0), уменьшаем на 50% остальные
-    //double dTemp = (1.0 - m_vOut[m_netChoiseDirection]) / 3.0; // Неправильный выбор делим на 3 части и распределяем поровну по остальным сторонам
-    //if (dTemp < 0.1) dTemp = 0.1;
     for (size_t i = 0; i < m_vOut.size(); ++i) {
         m_vOut[i] = 0.5 * m_vOut[i];
     }
@@ -844,7 +842,6 @@ void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t>
         (*it)->setTypeActivation(RELU);
     }
 */
-    //neuroNet->getNeuron()[1][0]->setTypeActivation(RELU);
     m_vIn.resize(neuroNet->getCountOfInputs());
     m_vOut.resize(neuroNet->getCountOfOutputs());
 }

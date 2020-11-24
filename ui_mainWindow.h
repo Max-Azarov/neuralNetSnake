@@ -76,7 +76,6 @@ public:
     QLabel *lblAverageCountOfSetsTitle;
     QLabel *lblAverageCountOfSets;
     QHBoxLayout *horizontalLayout_10;
-    QVBoxLayout *verticalLayout_2;
     QSpacerItem *horizontalSpacer_9;
     QLabel *lblCountOfErrorHigherTitle;
     QSpacerItem *horizontalSpacer_2;
@@ -85,7 +84,6 @@ public:
     QLabel *lblError;
     QLabel *lblErrorTitle;
     QSpacerItem *horizontalSpacer_13;
-    QVBoxLayout *verticalLayout_4;
     QHBoxLayout *horizontalLayout_8;
     QSpacerItem *horizontalSpacer_5;
     QCheckBox *cbFreedom;
@@ -382,8 +380,8 @@ public:
         sizePolicy4.setVerticalStretch(0);
         sizePolicy4.setHeightForWidth(sldSnakeSpeed->sizePolicy().hasHeightForWidth());
         sldSnakeSpeed->setSizePolicy(sizePolicy4);
-        sldSnakeSpeed->setMinimumSize(QSize(30, 0));
-        sldSnakeSpeed->setMaximumSize(QSize(30, 250));
+        sldSnakeSpeed->setMinimumSize(QSize(40, 0));
+        sldSnakeSpeed->setMaximumSize(QSize(40, 250));
         sldSnakeSpeed->setMinimum(2);
         sldSnakeSpeed->setMaximum(20);
         sldSnakeSpeed->setPageStep(1);
@@ -509,12 +507,6 @@ public:
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setSpacing(4);
         horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setSpacing(4);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-
-        horizontalLayout_10->addLayout(verticalLayout_2);
-
         horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_10->addItem(horizontalSpacer_9);
@@ -561,20 +553,14 @@ public:
 
         horizontalLayout_10->addItem(horizontalSpacer_13);
 
-        verticalLayout_4 = new QVBoxLayout();
-        verticalLayout_4->setSpacing(4);
-        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
-
-        horizontalLayout_10->addLayout(verticalLayout_4);
-
+        horizontalLayout_10->setStretch(0, 3);
         horizontalLayout_10->setStretch(1, 2);
-        horizontalLayout_10->setStretch(2, 2);
-        horizontalLayout_10->setStretch(3, 1);
-        horizontalLayout_10->setStretch(4, 2);
-        horizontalLayout_10->setStretch(5, 1);
+        horizontalLayout_10->setStretch(2, 1);
+        horizontalLayout_10->setStretch(3, 2);
+        horizontalLayout_10->setStretch(4, 1);
+        horizontalLayout_10->setStretch(5, 2);
         horizontalLayout_10->setStretch(6, 2);
-        horizontalLayout_10->setStretch(7, 2);
-        horizontalLayout_10->setStretch(8, 2);
+        horizontalLayout_10->setStretch(7, 3);
 
         verticalLayout_3->addLayout(horizontalLayout_10);
 
