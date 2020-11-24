@@ -139,6 +139,7 @@ void Game::initNet() {
 
     std::vector<size_t> vSynapse(vNeuron.size() - 1, 1);
     //vSynapse[0] = 10; // Особенность устройства нейросети змейки
+    //vSynapse[0] = 2; // Особенность устройства нейросети змейки
 
     m_pSnake->setNN(vNeuron, vSynapse, m_bNewSynapseWeights);
 }

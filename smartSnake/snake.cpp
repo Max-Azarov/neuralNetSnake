@@ -289,10 +289,12 @@ void Snake::writeData() {
     }
     int xHead = snakeX[0];
     int yHead = snakeY[0];
+    /*
     m_vIn.push_back(m_vField[xHead][yHead - 1]);
     m_vIn.push_back(m_vField[xHead - 1][yHead]);
     m_vIn.push_back(m_vField[xHead][yHead + 1]);
     m_vIn.push_back(m_vField[xHead + 1][yHead]);
+    */
     //int distance = (xHead - fruitX) * (xHead - fruitX) + (yHead - fruitY) * (yHead - fruitY);
     //distance = distance / 10;
     //m_vIn.push_back(distance);
@@ -301,6 +303,11 @@ void Snake::writeData() {
     m_vIn.push_back(yHead);
     m_vIn.push_back(fruitX);
     m_vIn.push_back(fruitY);
+
+    m_vIn.push_back(m_vField[xHead][yHead - 1]);
+    m_vIn.push_back(m_vField[xHead - 1][yHead]);
+    m_vIn.push_back(m_vField[xHead][yHead + 1]);
+    m_vIn.push_back(m_vField[xHead + 1][yHead]);
 }
 
 void Snake::learning() {
@@ -623,7 +630,7 @@ void Snake::badMove() {
         (*it) = -1.0;
     }
     // Убавляем мотивацию идти в выбранное направление
-    //m_vOut[m_netChoiseDirection] = diffMotivation;
+    m_vOut[m_netChoiseDirection] = diffMotivation;
 
 /*
     // "Осуждаем" неправильный выбор (1.0), уменьшаем на 50% остальные
