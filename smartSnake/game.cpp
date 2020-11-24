@@ -97,12 +97,12 @@ void Game::on_btnStart_released() {
 
 void Game::on_leNum1HiddenNN_editingFinished() {
     m_bIsInitNet = false;
-    intValidate(ui->leNum1HiddenNN, "10");
+    intValidate(ui->leNum1HiddenNN, "4");
 }
 
 void Game::on_leNum2HiddenNN_editingFinished() {
     m_bIsInitNet = false;
-    intValidate(ui->leNum2HiddenNN, "10");
+    intValidate(ui->leNum2HiddenNN, "4");
 }
 
 void Game::on_leNumOfHiddenLayersNN_editingFinished() {
@@ -138,7 +138,7 @@ void Game::initNet() {
     vNeuron.push_back( ui->leNumOutputNN->text().toUInt() );
 
     std::vector<size_t> vSynapse(vNeuron.size() - 1, 1);
-    vSynapse[0] = 10; // Особенность устройства нейросети змейки
+    //vSynapse[0] = 10; // Особенность устройства нейросети змейки
 
     m_pSnake->setNN(vNeuron, vSynapse, m_bNewSynapseWeights);
 }
@@ -193,11 +193,11 @@ void Game::setTrainingParameters() {
 
 void Game::slotRunInfo() {
     ui->lblCountOfSets->setText(QString::number(m_pSnake->getNumTrainingSet()));
-    ui->lblCountRun->setText(QString::number(m_pSnake->getNumTrainingSet() / m_pSnake->getNet()->getCountOfOutputs()));
+    //ui->lblCountRun->setText(QString::number(m_pSnake->getNumTrainingSet() / m_pSnake->getNet()->getCountOfOutputs()));
     ui->lblCountOfSteps->setText(QString::number(m_pSnake->getStepCount()));
     ui->lblAverageCountOfSets->setText(QString::number(m_pSnake->getAverage(), 'f', 2));
-    ui->lblErrorRun->setText(ui->leAcceptError->text());
-    ui->lblCountOfEatenFruits->setText(QString::number(m_pSnake->getSnakeLength() - 3));
+    //ui->lblErrorRun->setText(ui->leAcceptError->text());
+    ui->lblCountOfEatenFruits->setText(QString::number(m_pSnake->getNumFruitEaten()));
     slotStatusInfo("moving");
 }
 

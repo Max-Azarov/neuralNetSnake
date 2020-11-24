@@ -77,8 +77,6 @@ public:
     QLabel *lblAverageCountOfSets;
     QHBoxLayout *horizontalLayout_10;
     QVBoxLayout *verticalLayout_2;
-    QLabel *lblCountRunTitle;
-    QLabel *lblCountRun;
     QSpacerItem *horizontalSpacer_9;
     QLabel *lblCountOfErrorHigherTitle;
     QSpacerItem *horizontalSpacer_2;
@@ -88,8 +86,6 @@ public:
     QLabel *lblErrorTitle;
     QSpacerItem *horizontalSpacer_13;
     QVBoxLayout *verticalLayout_4;
-    QLabel *lblErrorRunTitle;
-    QLabel *lblErrorRun;
     QHBoxLayout *horizontalLayout_8;
     QSpacerItem *horizontalSpacer_5;
     QCheckBox *cbFreedom;
@@ -516,18 +512,6 @@ public:
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(4);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        lblCountRunTitle = new QLabel(centralwidget);
-        lblCountRunTitle->setObjectName(QString::fromUtf8("lblCountRunTitle"));
-        lblCountRunTitle->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_2->addWidget(lblCountRunTitle);
-
-        lblCountRun = new QLabel(centralwidget);
-        lblCountRun->setObjectName(QString::fromUtf8("lblCountRun"));
-        lblCountRun->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_2->addWidget(lblCountRun);
-
 
         horizontalLayout_10->addLayout(verticalLayout_2);
 
@@ -580,18 +564,6 @@ public:
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setSpacing(4);
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
-        lblErrorRunTitle = new QLabel(centralwidget);
-        lblErrorRunTitle->setObjectName(QString::fromUtf8("lblErrorRunTitle"));
-        lblErrorRunTitle->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_4->addWidget(lblErrorRunTitle);
-
-        lblErrorRun = new QLabel(centralwidget);
-        lblErrorRun->setObjectName(QString::fromUtf8("lblErrorRun"));
-        lblErrorRun->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_4->addWidget(lblErrorRun);
-
 
         horizontalLayout_10->addLayout(verticalLayout_4);
 
@@ -683,8 +655,7 @@ public:
         QWidget::setTabOrder(leA, leE);
         QWidget::setTabOrder(leE, cbNewTrainingData);
         QWidget::setTabOrder(cbNewTrainingData, leAcceptError);
-        QWidget::setTabOrder(leAcceptError, leNumInputNN);
-        QWidget::setTabOrder(leNumInputNN, leNumOutputNN);
+        QWidget::setTabOrder(leAcceptError, leNumOutputNN);
 
         menubar->addAction(menu->menuAction());
         menu->addAction(action);
@@ -706,7 +677,7 @@ public:
 #if QT_CONFIG(tooltip)
         leNumInputNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of inputs neural net (equal to the number of cells on the screen)", nullptr));
 #endif // QT_CONFIG(tooltip)
-        leNumInputNN->setText(QCoreApplication::translate("MainWindow", "100", nullptr));
+        leNumInputNN->setText(QCoreApplication::translate("MainWindow", "8", nullptr));
 #if QT_CONFIG(tooltip)
         leNum1HiddenNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of neurons in the first hidden layer", nullptr));
 #endif // QT_CONFIG(tooltip)
@@ -787,7 +758,7 @@ public:
 #endif // QT_CONFIG(tooltip)
         lblCountOfStepsTitle->setText(QCoreApplication::translate("MainWindow", "\320\232\320\276\320\273\320\270\321\207\320\265\321\201\321\202\320\262\320\276\n"
 "\321\210\320\260\320\263\320\276\320\262\n"
-"\320\262 \320\277\320\276\321\201\320\273\320\265\320\264\320\275\320\265\320\274\n"
+"\320\262 \321\202\320\265\320\272\321\203\321\211\320\265\320\274\n"
 "\320\267\320\260\320\277\321\203\321\201\320\272\320\265", nullptr));
 #if QT_CONFIG(tooltip)
         lblCountOfSteps->setToolTip(QCoreApplication::translate("MainWindow", "Number of steps completed by snakes in the current run", nullptr));
@@ -799,7 +770,7 @@ public:
         lblCountOfEatenFruitsTitle->setText(QCoreApplication::translate("MainWindow", "\320\232\320\276\320\273\320\270\321\207\320\265\321\201\321\202\320\262\320\276\n"
 "\321\201\321\212\320\265\320\264\320\265\320\275\320\275\321\213\321\205\n"
 "\321\204\321\200\321\203\320\272\321\202\320\276\320\262\n"
-"\320\262 \320\277\320\276\321\201\320\273\320\265\320\264\320\275\320\265\320\274\n"
+"\320\262 \321\202\320\265\320\272\321\203\321\211\320\265\320\274\n"
 "\320\267\320\260\320\277\321\203\321\201\320\272\320\265", nullptr));
 #if QT_CONFIG(tooltip)
         lblCountOfEatenFruits->setToolTip(QCoreApplication::translate("MainWindow", "The number of fruits eaten in the current run", nullptr));
@@ -811,16 +782,11 @@ public:
         lblAverageCountOfSetsTitle->setText(QCoreApplication::translate("MainWindow", "\320\241\321\200\320\265\320\264\320\275\320\265\320\265\n"
 "\320\272\320\276\320\273\320\270\321\207\320\265\321\201\321\202\320\262\320\276\n"
 "\321\210\320\260\320\263\320\276\320\262 \320\277\320\276\321\201\320\273\320\265\n"
-"\320\277\321\200\320\276\320\261\321\203\320\266\320\264\320\265\320\275\320\270\321\217", nullptr));
+"\321\201\321\202\320\260\321\200\321\202\320\260", nullptr));
 #if QT_CONFIG(tooltip)
         lblAverageCountOfSets->setToolTip(QCoreApplication::translate("MainWindow", "The average number of steps of the snake, starting with waking up", nullptr));
 #endif // QT_CONFIG(tooltip)
         lblAverageCountOfSets->setText(QString());
-        lblCountRunTitle->setText(QCoreApplication::translate("MainWindow", "\320\235\320\265\320\276\320\261\321\205\320\276\320\264\320\270\320\274\320\276\320\265\n"
-"\320\272\320\276\320\273\320\270\321\207\320\265\321\201\321\202\320\262\320\276\n"
-"\321\201\320\273\321\203\321\207\320\260\320\265\320\262, \321\207\321\202\320\276\320\261\321\213\n"
-"\320\277\321\200\320\276\321\201\320\275\321\203\321\202\321\214\321\201\321\217", nullptr));
-        lblCountRun->setText(QString());
 #if QT_CONFIG(tooltip)
         lblCountOfErrorHigherTitle->setToolTip(QCoreApplication::translate("MainWindow", "Count of runs contained in the training set", nullptr));
 #endif // QT_CONFIG(tooltip)
@@ -839,11 +805,6 @@ public:
 "\320\276\321\210\320\270\320\261\320\272\320\270\n"
 "\320\267\320\260 \321\202\320\265\320\272\321\203\321\211\321\203\321\216\n"
 "\321\215\320\277\320\276\321\205\321\203", nullptr));
-        lblErrorRunTitle->setText(QCoreApplication::translate("MainWindow", "\320\235\320\265\320\276\320\261\321\205\320\276\320\264\320\270\320\274\320\276\320\265\n"
-"\320\267\320\275\320\260\321\207\320\265\320\275\320\270\320\265\n"
-"\320\276\321\210\320\270\320\261\320\272\320\270, \321\207\321\202\320\276\320\261\321\213\n"
-"\320\277\321\200\320\276\321\201\320\275\321\203\321\202\321\214\321\201\321\217", nullptr));
-        lblErrorRun->setText(QString());
         cbFreedom->setText(QCoreApplication::translate("MainWindow", "\320\222\321\213\320\277\321\203\321\201\321\202\320\270\321\202\321\214 \320\267\320\274\320\265\320\271\320\272\321\203 \320\277\320\276\320\263\321\203\320\273\321\217\321\202\321\214", nullptr));
         btnStart->setText(QCoreApplication::translate("MainWindow", "\320\241\321\202\320\260\321\200\321\202", nullptr));
         lblStatus->setText(QString());

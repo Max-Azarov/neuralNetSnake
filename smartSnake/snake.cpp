@@ -69,12 +69,14 @@ void Snake::stop() {
     pTimer->stop();
     m_bStop = true;
     averageNumberOfSteps(true);
+    emit signalRunInfo();
 }
 
 void Snake::start(bool freedom) {
     setDelay(m_delay);
     m_bStop = false;
     m_freedom = freedom;
+    emit signalRunInfo();
     slotLoop();
 }
 
@@ -84,8 +86,8 @@ void Snake::slotLoop() {
         m_bMutex = true;
         movement(); // Передвижение с проверкой будующего столкновения
         isTheFruitEaten(); // съела фрукт
-        //isSnakeLooped(); // Зациклилась
-        //isHopelessSituation(); // Попала в ловушку
+        isSnakeLooped(); // Зациклилась
+        isHopelessSituation(); // Попала в ловушку
         effects();
         if (!m_freedom) learning(); // учится
         processingSnakeEvents();
@@ -98,6 +100,7 @@ void Snake::initGame() {
     //m_firstMove = true;
     m_stepCount = 0;
     m_stepFromEating = 0;
+    m_numFruitEaten = 0;
     m_isTheFruitEaten = false;
     m_collision = false;
     m_loopMotion = false;
@@ -107,6 +110,7 @@ void Snake::initGame() {
 
     initiallyPositionSnake();
     locateFruit();
+
 }
 
 void Snake::locateFruit() {
@@ -180,10 +184,11 @@ void Snake::movement() {
     if (m_direction == DOWN) snakeY[0]++;
     if (m_direction == LEFT) snakeX[0]--;
     if (m_direction == RIGHT) snakeX[0]++;
-
+/*
     if (m_stepFromEating > NUM_CELLS) {
         restart();
     }
+*/
 }
 
 void Snake::paintEvent(QPaintEvent *e) {
@@ -246,6 +251,7 @@ bool Snake::isTheFruitEaten() {
         locateFruit();
         m_isTheFruitEaten = true;
         m_stepFromEating = 0;
+        m_numFruitEaten++;
         return true;
     }
     m_isTheFruitEaten = false;
@@ -279,9 +285,23 @@ void Snake::writeData() {
                     }
                 }
             }
-            m_vIn.push_back(m_vField[x][y]);
+            //m_vIn.push_back(m_vField[x][y]);
         }
     }
+    int xHead = snakeX[0];
+    int yHead = snakeY[0];
+    m_vIn.push_back(m_vField[xHead][yHead - 1]);
+    m_vIn.push_back(m_vField[xHead - 1][yHead]);
+    m_vIn.push_back(m_vField[xHead][yHead + 1]);
+    m_vIn.push_back(m_vField[xHead + 1][yHead]);
+    //int distance = (xHead - fruitX) * (xHead - fruitX) + (yHead - fruitY) * (yHead - fruitY);
+    //distance = distance / 10;
+    //m_vIn.push_back(distance);
+    //m_vIn.push_back(yHead - fruitY);
+    m_vIn.push_back(xHead);
+    m_vIn.push_back(yHead);
+    m_vIn.push_back(fruitX);
+    m_vIn.push_back(fruitY);
 }
 
 void Snake::learning() {
@@ -291,23 +311,21 @@ void Snake::learning() {
         ||  m_isHopelessSituation
         )
     {
-
+        emit signalRunInfo();
         if (m_collision || m_isHopelessSituation) {
-            //slotGrayBackground100msec();
             badMove();
         }
 
         if (m_loopMotion) {
-            //slotGrayBackground100msec();
         }
 
         if (m_isTheFruitEaten) {
             goodMove();
         }
         // Записываем строчки в обучающую выборку
-        //if ( m_stepCount < m_average ) {
-        addDataToTrainingSet();
-        //}
+        if ( !m_loopMotion ) {
+            addDataToTrainingSet();
+        }
 
         snakeTraining();
     }
@@ -481,6 +499,7 @@ void Snake::snakeTraining() {
             m_infoSumError = sumError;
             m_infoCount = count;
             emit signalErrorInfo();
+
             loopExit++;
         }
         while (loopExit < 1);
@@ -517,12 +536,15 @@ bool Snake::isHopelessSituation() {
 
 bool Snake::isSnakeLooped() {
     size_t itemp = static_cast<size_t>(m_numberOfCellsPerSide-2); // 2 - толщина стенок
-    if (m_stepCount > (itemp * itemp)) {
+    m_loopCount++;
+    if (m_loopCount > (itemp * itemp)) {
         // Змейка зациклилась
         m_loopMotion = true;
+        m_loopCount = 0;
         return true;
     }
     m_loopMotion = false;
+    if (m_isTheFruitEaten) m_loopCount = 0;
     return false;
 }
 
@@ -531,6 +553,7 @@ void Snake::restart() {
     killTimer(timerId);
     initGame();
     update();
+    emit signalRunInfo();
 }
 
 void Snake::goodMove() {
@@ -704,10 +727,10 @@ void Snake::readDataToTrainingSet() {
     // >> "input.txt" считываем данные в вектор
     int intemp;
     while(getline(file, tempString)) {
-        m_vInTrainingSet.push_back(std::vector<TYPE_CELL>());
+        m_vInTrainingSet.push_back(std::vector<int>());
         ss << tempString;
         while (ss >> intemp) {
-            m_vInTrainingSet[count].push_back(static_cast<TYPE_CELL>(intemp));
+            m_vInTrainingSet[count].push_back(/*static_cast<TYPE_CELL>*/(intemp));
         }
         ss.clear(); // очищаем флаги потока
         tempString.clear();
@@ -788,7 +811,7 @@ void Snake::averageNumberOfSteps(bool restart) {
 //qDebug() << m_vInTrainingSet.size() << ">>>" << m_stepCount
 //                << "<<<\taverage:" << m_average
 //                << "<<<";
-    emit signalRunInfo();
+    //emit signalRunInfo();
     // << Считаем среднее количество шагов
 }
 
@@ -809,12 +832,12 @@ void Snake::createFile(const std::string & fileName, bool clearFile) {
 void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse, bool newSynapseWeights) {
     if (neuroNet) delete neuroNet;
     neuroNet = new Net(vNeuron, vSynapse, newSynapseWeights);
-/*
+
     // Первому из скрытых слоев присваиваем тип активации RELU
     for ( auto it = std::begin(neuroNet->getNeuron()[1]); it != std::end(neuroNet->getNeuron()[1]); ++it) {
         (*it)->setTypeActivation(RELU);
     }
-*/
+
 /*
     // Второму из скрытых слоев присваиваем тип активации RELU
     for ( auto it = std::begin(neuroNet->getNeuron()[2]); it != std::end(neuroNet->getNeuron()[2]); ++it) {
@@ -854,13 +877,13 @@ void Snake::slotGrayBackground100msec() {
 
 void Snake::processingSnakeEvents() {
     // После столкновения или безвыходной ситуации начинаем заново
-    if (m_collision || m_isHopelessSituation) {
+    if (m_collision || m_isHopelessSituation || m_loopMotion) {
         restart();
     }
 }
 
 void Snake::effects() {
-    if (m_collision || m_isHopelessSituation || m_loopMotion) {
+    if (m_collision || m_isHopelessSituation) {
         slotGrayBackground100msec();
     }
 }

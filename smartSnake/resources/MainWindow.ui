@@ -147,7 +147,7 @@
           <string>Count of inputs neural net (equal to the number of cells on the screen)</string>
          </property>
          <property name="text">
-          <string>100</string>
+          <string>8</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -784,13 +784,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>30</width>
+             <width>40</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>30</width>
+             <width>40</width>
              <height>250</height>
             </size>
            </property>
@@ -926,7 +926,7 @@
             <property name="text">
              <string>Количество
 шагов
-в последнем
+в текущем
 запуске</string>
             </property>
             <property name="alignment">
@@ -984,7 +984,7 @@
              <string>Количество
 съеденных
 фруктов
-в последнем
+в текущем
 запуске</string>
             </property>
             <property name="alignment">
@@ -1042,7 +1042,7 @@
              <string>Среднее
 количество
 шагов после
-пробуждения</string>
+старта</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -1081,34 +1081,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,2,2,1,2,1,2,2,2,0">
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QLabel" name="lblCountRunTitle">
-          <property name="text">
-           <string>Необходимое
-количество
-случаев, чтобы
-проснуться</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="lblCountRun">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
+     <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="3,2,1,2,1,2,2,3">
       <item>
        <spacer name="horizontalSpacer_9">
         <property name="orientation">
@@ -1250,33 +1223,6 @@
          </size>
         </property>
        </spacer>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item>
-         <widget class="QLabel" name="lblErrorRunTitle">
-          <property name="text">
-           <string>Необходимое
-значение
-ошибки, чтобы
-проснуться</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="lblErrorRun">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </item>
      </layout>
     </item>
@@ -1447,7 +1393,6 @@
   <tabstop>leE</tabstop>
   <tabstop>cbNewTrainingData</tabstop>
   <tabstop>leAcceptError</tabstop>
-  <tabstop>leNumInputNN</tabstop>
   <tabstop>leNumOutputNN</tabstop>
  </tabstops>
  <resources/>

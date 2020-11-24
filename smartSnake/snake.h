@@ -30,6 +30,8 @@ private:
     int m_snakeLength;
     int timerId;
     size_t m_stepFromEating;
+    size_t m_loopCount;
+    size_t m_numFruitEaten;
 
     std::vector<std::vector<TYPE_CELL>> m_vField; // В векторе содержатся типы клеток поля в координатах х, у
 
@@ -47,12 +49,12 @@ private:
     DIRECTION m_netChoiseDirection;
     std::vector<DIRECTION> m_vDirection;
     // Вектора, содержащие текущие значения входов и выходов нейросети
-    std::vector<TYPE_CELL> m_vIn;
+    std::vector<int> m_vIn;
     std::vector<double> m_vOut;
     //std::vector<double> m_vOutMotivation;
     //std::vector<double> m_vOutFear;
     // Вектора, содержащие обучающие выборки
-    std::vector<std::vector<TYPE_CELL>> m_vInTrainingSet;
+    std::vector<std::vector<int>> m_vInTrainingSet;
     std::vector<std::vector<double>> m_vOutTrainingSet;
     //std::vector<bool> m_vAcceptError;
     // Названия файлов, содержащие обучающие выборки
@@ -122,6 +124,7 @@ public:
     double getSummError() const { return m_infoSumError; }
     size_t getInfoCount() const { return m_infoCount; }
     size_t getSnakeLength() const { return m_snakeLength; }
+    size_t getNumFruitEaten() const {return m_numFruitEaten; }
 
 protected:
     void paintEvent(QPaintEvent *);

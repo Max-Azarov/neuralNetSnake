@@ -17,7 +17,7 @@ public:
     Training(Net*);
 
     double getError() const { return m_error; }
-    void forwardPass(const std::vector<TYPE_CELL> & in);
+    void forwardPass(const std::vector<int> & in);
     double calculateError(const std::vector<double> & idealOut);
     void backprop(const std::vector<double> & idealOut);
     void saveWeightOfSynapses();
