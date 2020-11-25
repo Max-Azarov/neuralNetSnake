@@ -526,7 +526,6 @@ bool Snake::isHopelessSituation() {
     // >>  змейка попала в безвыходную ситуацию
     for (size_t x = 0; x < m_vField.size(); ++x) {
         for (size_t y = 0; y < m_vField[x].size(); ++y) {
-            //m_vField[x][y] = TYPE_CELL::EMPTY;
             if ( m_vField[x][y] == TYPE_CELL::HEAD ) {
                 if (    (m_vField[x + 1][y] == WALL || m_vField[x + 1][y] == BODY) &&
                         (m_vField[x - 1][y] == WALL || m_vField[x - 1][y] == BODY) &&
@@ -534,30 +533,12 @@ bool Snake::isHopelessSituation() {
                         (m_vField[x][y - 1] == WALL || m_vField[x][y - 1] == BODY)    )
                 {
                     m_isHopelessSituation = true;
-                    qDebug() << "11111111111111111111111111111111111111111111";
                     return true;
                 }
             }
         }
     }
-/*
-    for (size_t i = 0; i < m_vIn.size(); ++i) {
-        if (m_vIn[i] == HEAD) {
-            // Если вокруг головы только стены или тело
-            size_t num = static_cast<size_t>(m_numberOfCellsPerSide);
-            if (    (m_vIn[i + 1] == WALL || m_vIn[i + 1] == BODY) &&
-                    (m_vIn[i - 1] == WALL || m_vIn[i - 1] == BODY) &&
-                    (m_vIn[i - num] == WALL || m_vIn[i - num] == BODY) &&
-                    (m_vIn[i + num] == WALL || m_vIn[i + num] == BODY)    )
-            {
-                m_isHopelessSituation = true;
-                qDebug() << "11111111111111111111111111111111111111111111";
-                return true;
-            }
-            break;
-        }
-    }
-*/
+
     //m_isHopelessSituation = false;
     return false;
 }
