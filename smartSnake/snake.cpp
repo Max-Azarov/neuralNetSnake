@@ -260,6 +260,7 @@ bool Snake::isTheFruitEaten() {
 void Snake::writeData() {
     m_vIn.clear();
     // Заполняем входной вектор для подачи в нейросеть
+    // Пустое поле и стены
     for (size_t x = 0; x < m_vField.size(); ++x) {
         for (size_t y = 0; y < m_vField[x].size(); ++y) {
             m_vField[x][y] = TYPE_CELL::EMPTY;
@@ -268,6 +269,7 @@ void Snake::writeData() {
             }
         }
     }
+    //
     for (size_t x = 0; x < m_vField.size(); ++x) {
         for (size_t y = 0; y < m_vField[x].size(); ++y) {
             if ( x == (size_t)fruitX && y == (size_t)fruitY ) {
@@ -329,7 +331,7 @@ void Snake::learning() {
             goodMove();
         }
         // Записываем строчки в обучающую выборку
-        if ( !m_loopMotion ) {
+        if ( !(m_loopMotion || m_isHopelessSituation) ) {
             addDataToTrainingSet();
         }
 
@@ -522,6 +524,23 @@ void Snake::snakeTraining() {
 
 bool Snake::isHopelessSituation() {
     // >>  змейка попала в безвыходную ситуацию
+    for (size_t x = 0; x < m_vField.size(); ++x) {
+        for (size_t y = 0; y < m_vField[x].size(); ++y) {
+            //m_vField[x][y] = TYPE_CELL::EMPTY;
+            if ( m_vField[x][y] == TYPE_CELL::HEAD ) {
+                if (    (m_vField[x + 1][y] == WALL || m_vField[x + 1][y] == BODY) &&
+                        (m_vField[x - 1][y] == WALL || m_vField[x - 1][y] == BODY) &&
+                        (m_vField[x][y + 1] == WALL || m_vField[x][y + 1] == BODY) &&
+                        (m_vField[x][y - 1] == WALL || m_vField[x][y - 1] == BODY)    )
+                {
+                    m_isHopelessSituation = true;
+                    qDebug() << "11111111111111111111111111111111111111111111";
+                    return true;
+                }
+            }
+        }
+    }
+/*
     for (size_t i = 0; i < m_vIn.size(); ++i) {
         if (m_vIn[i] == HEAD) {
             // Если вокруг головы только стены или тело
@@ -532,12 +551,14 @@ bool Snake::isHopelessSituation() {
                     (m_vIn[i + num] == WALL || m_vIn[i + num] == BODY)    )
             {
                 m_isHopelessSituation = true;
+                qDebug() << "11111111111111111111111111111111111111111111";
                 return true;
             }
             break;
         }
     }
-    m_isHopelessSituation = false;
+*/
+    //m_isHopelessSituation = false;
     return false;
 }
 

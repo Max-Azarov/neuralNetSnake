@@ -49,7 +49,7 @@ void Game::on_cbSnakeSpeed_stateChanged(int state) {
         // Qt::PartiallyChecked or Qt::Checked
         ui->sldSnakeSpeed->setEnabled(false);
         ui->leSnakeSpeed->setEnabled(false);
-        setSnakeSpeed(100);
+        setSnakeSpeed(1000);
     }
     else {
         // Qt::unchecked
