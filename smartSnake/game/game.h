@@ -4,7 +4,7 @@
 #include <QtWidgets>
 #include <QSettings>
 #include <QValidator>
-#include "snake.h"
+#include "snake/snake.h"
 #include "ui_mainWindow.h"
 
 class Game : public QMainWindow

@@ -1,4 +1,4 @@
-#include "snake.h"
+#include "snake/snake.h"
 #include <QTimer>
 #include <QtCore>
 #include <QKeyEvent>
@@ -110,7 +110,6 @@ void Snake::initGame() {
 
     initiallyPositionSnake();
     locateFruit();
-
 }
 
 void Snake::locateFruit() {
@@ -559,7 +558,6 @@ bool Snake::isSnakeLooped() {
 
 void Snake::restart() {
     //slotGrayBackground100msec();
-    killTimer(timerId);
     initGame();
     update();
     emit signalRunInfo();
@@ -631,7 +629,7 @@ void Snake::badMove() {
     for ( auto it = std::begin(m_vOut); it != itMedian; ++it) {
         (*it) = -1.0;
     }
-    // Убавляем мотивацию идти в выбранное направление
+    // Снижаем на 50% мотивацию идти в выбранное направление
     m_vOut[m_netChoiseDirection] = diffMotivation;
 
 /*

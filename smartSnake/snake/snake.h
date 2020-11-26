@@ -5,7 +5,7 @@
 #include <QImage>
 #include <QTimer>
 
-#include "enums.h"
+#include "snake/enums.h"
 #include "neuroNet/net.h"
 
 class Snake : public QWidget {

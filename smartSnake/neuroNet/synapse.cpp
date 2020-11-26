@@ -7,7 +7,7 @@ Synapse::Synapse()
     m_status = ON;
 }
 
-int Synapse::incId(bool reset) {
+size_t Synapse::incId(bool reset) {
     static size_t id = 0;
     if (!reset) {
         ++id;

@@ -26,7 +26,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include <snake.h>
+#include <snake/snake.h>
 
 QT_BEGIN_NAMESPACE
 

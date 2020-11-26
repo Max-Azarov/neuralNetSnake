@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "enums.h"
+#include "snake/enums.h"
 
 class Net;
 

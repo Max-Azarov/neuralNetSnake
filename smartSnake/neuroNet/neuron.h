@@ -45,7 +45,7 @@ public:
         //std::cout << "Delete Neuron " << m_id << std::endl;
     }
 
-    static int incId(bool reset = false);
+    static size_t incId(bool reset = false);
 
     void setIn(double in) { m_in = in; }
     double getIn() const { return m_in; }

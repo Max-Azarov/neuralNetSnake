@@ -1,7 +1,7 @@
 #include <list>
 #include <QPushButton>
 
-#include "game.h"
+#include "game/game.h"
 
 Game::Game(QWidget *parent) : QMainWindow{parent}
   , ui{ new Ui::MainWindow }

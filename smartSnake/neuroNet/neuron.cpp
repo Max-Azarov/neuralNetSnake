@@ -13,7 +13,7 @@ Neuron::Neuron() {
     m_typeActivation = SIGMOID;
 }
 
-int Neuron::incId(bool reset) {
+size_t Neuron::incId(bool reset) {
     static size_t id = 0;
     if (!reset) {
         ++id;

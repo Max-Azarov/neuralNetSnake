@@ -18,7 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #TEMPLATE = app
 
 SOURCES += \
-    game.cpp \
+    game/game.cpp \
     main.cpp \
     neuroNet/biasNeuron.cpp \
     neuroNet/hiddenNeuron.cpp \
@@ -29,11 +29,10 @@ SOURCES += \
     neuroNet/parameters.cpp \
     neuroNet/synapse.cpp \
     neuroNet/training.cpp \
-    snake.cpp
+    snake/snake.cpp
 
 HEADERS += \
-    enums.h \
-    game.h \
+    game/game.h \
     neuroNet/_neuronet.h \
     neuroNet/biasNeuron.h \
     neuroNet/factory.h \
@@ -45,7 +44,8 @@ HEADERS += \
     neuroNet/parameters.h \
     neuroNet/synapse.h \
     neuroNet/training.h \
-    snake.h \
+    snake/enums.h \
+    snake/snake.h
 
 FORMS += resources/mainWindow.ui
 
@@ -53,3 +53,9 @@ FORMS += resources/mainWindow.ui
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    snake/source/body.png \
+    snake/source/fruit.png \
+    snake/source/head.png \
+    snake/source/wall.png

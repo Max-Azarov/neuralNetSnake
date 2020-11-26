@@ -33,7 +33,7 @@ public:
 
     size_t getID() const { return m_id; }
 
-    static int incId(bool reset = false);
+    static size_t incId(bool reset = false);
 
     virtual void info() { std::cout << "Synapse "
                             << "\tweight=" << m_weight

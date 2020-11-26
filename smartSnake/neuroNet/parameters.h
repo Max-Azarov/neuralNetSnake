@@ -1,7 +1,7 @@
 #ifndef PARAMETERS_H
 #define PARAMETERS_H
 
-#include <ctime>
+#include <time.h>
 #include <cstdlib>
 #include <iostream>
 
@@ -31,7 +31,7 @@ public:
     double getRandom(T firstBoundaryValue, T secondBoundaryValue) {
         static bool bsrand = false;
         if( !bsrand ) {
-            srand(time(NULL));
+            srand((unsigned int)time(NULL));
             bsrand = true;
         }
         double result = firstBoundaryValue > secondBoundaryValue ?
