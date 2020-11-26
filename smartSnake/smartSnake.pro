@@ -29,7 +29,8 @@ SOURCES += \
     neuroNet/parameters.cpp \
     neuroNet/synapse.cpp \
     neuroNet/training.cpp \
-    snake/snake.cpp
+    snake/snake.cpp \
+    snake/writeField.cpp
 
 HEADERS += \
     game/game.h \
@@ -45,7 +46,8 @@ HEADERS += \
     neuroNet/synapse.h \
     neuroNet/training.h \
     snake/enums.h \
-    snake/snake.h
+    snake/snake.h \
+    snake/writeField.h
 
 FORMS += resources/mainWindow.ui
 

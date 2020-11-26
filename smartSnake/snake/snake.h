@@ -7,6 +7,7 @@
 
 #include "snake/enums.h"
 #include "neuroNet/net.h"
+#include "writeField.h"
 
 class Snake : public QWidget {
     Q_OBJECT
@@ -142,6 +143,9 @@ signals:
     void signalRunInfo();
     void signalErrorInfo();
     void signalStatusInfo(const QString&);
+
+private:
+    WriteField m_clWriteField;
 
 };
 

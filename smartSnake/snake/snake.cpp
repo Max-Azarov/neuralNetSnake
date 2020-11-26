@@ -18,6 +18,7 @@ Snake::~Snake() {
 
 Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_delay { 100 }
+  , m_average { 0.0 }
     , m_loopMotion { false }
     , m_acceptError { 0.1 }
     , m_countOfStepsToNextTest { 1000 }
@@ -25,6 +26,7 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_bMutex { false }
   , m_bStop { true }
   , neuroNet { nullptr }
+  , m_clWriteField { this }
 {
     static bool startRandom = false;
     if (!startRandom) {
@@ -221,9 +223,11 @@ void Snake::drawing() {
 }
 
 void Snake::keyPressEvent(QKeyEvent *e) {
+    /*
     if (e->key() == Qt::Key_Insert) {
         qApp->quit();
     }
+    */
     QWidget::keyPressEvent(e);
 }
 
@@ -304,11 +308,18 @@ void Snake::writeData() {
     m_vIn.push_back(yHead);
     m_vIn.push_back(fruitX);
     m_vIn.push_back(fruitY);
-
+// Клетки вогруг головы
     m_vIn.push_back(m_vField[xHead][yHead - 1]);
     m_vIn.push_back(m_vField[xHead - 1][yHead]);
     m_vIn.push_back(m_vField[xHead][yHead + 1]);
     m_vIn.push_back(m_vField[xHead + 1][yHead]);
+// Клетки по диагонали от головы
+    m_vIn.push_back(m_vField[xHead - 1][yHead - 1]);
+    m_vIn.push_back(m_vField[xHead - 1][yHead + 1]);
+    m_vIn.push_back(m_vField[xHead + 1][yHead + 1]);
+    m_vIn.push_back(m_vField[xHead + 1][yHead - 1]);
+// Клетки по 2му ряду от головы
+
 }
 
 void Snake::learning() {

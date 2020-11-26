@@ -1,0 +1,7 @@
+#include "snake/writeData.h"
+
+WriteData::WriteData(std::vector<int>& inData) : 
+    m_vRefInData { inData }
+{
+    
+}

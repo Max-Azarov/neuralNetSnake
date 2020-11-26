@@ -147,7 +147,7 @@
           <string>Count of inputs neural net (equal to the number of cells on the screen)</string>
          </property>
          <property name="text">
-          <string>8</string>
+          <string>12</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -1376,7 +1376,7 @@
   <customwidget>
    <class>Snake</class>
    <extends>QWidget</extends>
-   <header location="global">snake.h</header>
+   <header location="global">snake/snake.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
