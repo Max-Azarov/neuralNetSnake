@@ -29,11 +29,11 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_setCount { 0 }
     , m_bMutex { false }
   , m_bStop { true }
-  , neuroNet { nullptr }
   , m_LogOut { new LogOut() }
   , m_pWriteField { new WriteField(this) }
   , m_pChoiseDirection { new ChoiseDirection(this) }
   , m_pLearning { new Learning(this) }
+  , neuroNet { nullptr }
 {
     static bool startRandom = false;
     if (!startRandom) {
@@ -57,15 +57,17 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     m_inputData = "input.txt";
     m_outputDataIdeal = "outputIdeal.txt";
 
-    m_vInTrainingSet.clear();
-    m_vOutTrainingSet.clear();
-    readDataToTrainingSet();
-
     averageNumberOfSteps(true);
+
+    m_pLearning->readDataToTrainingSet();
 
     initGame();
     pTimer = new QTimer(this);
     connect(pTimer, SIGNAL(timeout()), SLOT(slotLoop()));
+}
+
+size_t Snake::getNumTrainingSet()  const {
+    return m_pLearning->getNumTrainingSet();
 }
 
 void Snake::setDelay(size_t delay) {
@@ -307,64 +309,6 @@ void Snake::restart() {
     emit signalRunInfo();
 }
 
-void Snake::readDataToTrainingSet() {
-
-    std::ifstream file; // файловый поток
-    std::string fileName;
-    std::string tempString;
-    std::stringstream ss; // строковый поток для преобразования входных данных из строки
-    size_t count = 0;
-
-// >> Считываем из файла входы и выходы
-    fileName = m_inputData;
-    file.open(fileName);
-    if (!file) {
-        std::cerr << "\"" << fileName << "\" could not be opened!" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-
-    // >> "input.txt" считываем данные в вектор
-    int intemp;
-    while(getline(file, tempString)) {
-        m_vInTrainingSet.push_back(std::vector<int>());
-        ss << tempString;
-        while (ss >> intemp) {
-            m_vInTrainingSet[count].push_back(/*static_cast<TYPE_CELL>*/(intemp));
-        }
-        ss.clear(); // очищаем флаги потока
-        tempString.clear();
-        count++;
-    }
-    file.close();
-    count = 0;
-    // << "input.txt" считываем данные в вектор
-
-    fileName = m_outputDataIdeal;
-    file.open(fileName);
-    if (!file) {
-        std::cerr << "\"" << fileName << "\" could not be opened!" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-
-    // >> "outputIdeal.txt" считываем данные в вектор
-    double dTemp;
-    while(getline(file, tempString)) {
-        m_vOutTrainingSet.push_back(std::vector<double>());
-        //m_vAcceptError.push_back(false);
-        ss << tempString;
-        while (ss >> dTemp) {
-            m_vOutTrainingSet[count].push_back(dTemp);
-        }
-        ss.clear(); // очищаем флаги потока
-        tempString.clear();
-        count++;
-    }
-    file.close();
-    // << "output.txt" считываем данные в вектор
-
-// << Считываем из файла входы и выходы
-}
-
 void Snake::initiallyPositionSnake() {
     m_firstDirection = static_cast<DIRECTION>(rand() % 4);
     if (m_firstDirection == UP) {
@@ -451,11 +395,7 @@ void Snake::clearFiles(bool clear) {
     m_clearFiles = clear;
     createFile(m_inputData, clear);
     createFile(m_outputDataIdeal, clear);
-    if (clear) {
-        m_vInTrainingSet.clear();
-        m_vOutTrainingSet.clear();
-        readDataToTrainingSet();
-    }
+    if (clear) m_pLearning->clearData();
 }
 
 void Snake::slotBlackBackground() {

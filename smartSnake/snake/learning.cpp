@@ -2,10 +2,10 @@
 
 #include <QApplication>
 #include <fstream>
+#include <sstream>
 
 Learning::Learning(Snake* pSnake) : m_pSnake { pSnake }
 {
-
 }
 
 void Learning::learning() {
@@ -50,10 +50,10 @@ void Learning::training() {
             countOfSet = 0;
             sumError = 0;
 
-            auto itOut = std::end(m_pSnake->m_vOutTrainingSet);
-            auto itIn = std::end(m_pSnake->m_vInTrainingSet);
+            auto itOut = std::end(m_vOutTrainingSet);
+            auto itIn = std::end(m_vInTrainingSet);
             for ( ;
-                    itIn != std::begin(m_pSnake->m_vInTrainingSet);
+                    itIn != std::begin(m_vInTrainingSet);
                     --itIn, --itOut, ++countOfSet )
 
             /*
@@ -180,9 +180,72 @@ void Learning::addDataToTrainingSet() {
     // << Добавляем данные в вектора обучающих выборок
 */
     // >> Добавляем данные в вектора обучающих выборок
-    m_pSnake->m_vInTrainingSet.push_back(m_pSnake->m_vIn);
-    m_pSnake->m_vOutTrainingSet.push_back(m_pSnake->m_vOut);
+    m_vInTrainingSet.push_back(m_pSnake->m_vIn);
+    m_vOutTrainingSet.push_back(m_pSnake->m_vOut);
     //m_vAcceptError.push_back(false);
     // << Добавляем данные в вектора обучающих выборок
 
+}
+
+void Learning::readDataToTrainingSet() {
+
+    std::ifstream file; // файловый поток
+    std::string fileName;
+    std::string tempString;
+    std::stringstream ss; // строковый поток для преобразования входных данных из строки
+    size_t count = 0;
+
+// >> Считываем из файла входы и выходы
+    fileName = m_pSnake->m_inputData;
+    file.open(fileName);
+    if (!file) {
+        std::cerr << "\"" << fileName << "\" could not be opened! (input)" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    // >> "input.txt" считываем данные в вектор
+    int intemp;
+    while(getline(file, tempString)) {
+        m_vInTrainingSet.push_back(std::vector<int>());
+        ss << tempString;
+        while (ss >> intemp) {
+            m_vInTrainingSet[count].push_back(intemp);
+        }
+        ss.clear(); // очищаем флаги потока
+        tempString.clear();
+        count++;
+    }
+    file.close();
+    count = 0;
+    // << "input.txt" считываем данные в вектор
+
+    fileName = m_pSnake->m_outputDataIdeal;
+    file.open(fileName);
+    if (!file) {
+        std::cerr << "\"" << fileName << "\" could not be opened! (output)" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    // >> "outputIdeal.txt" считываем данные в вектор
+    double dTemp;
+    while(getline(file, tempString)) {
+        m_vOutTrainingSet.push_back(std::vector<double>());
+        //m_vAcceptError.push_back(false);
+        ss << tempString;
+        while (ss >> dTemp) {
+            m_vOutTrainingSet[count].push_back(dTemp);
+        }
+        ss.clear(); // очищаем флаги потока
+        tempString.clear();
+        count++;
+    }
+    file.close();
+    // << "output.txt" считываем данные в вектор
+
+// << Считываем из файла входы и выходы
+}
+
+void Learning::clearData() {
+    m_vInTrainingSet.clear();
+    m_vOutTrainingSet.clear();
 }

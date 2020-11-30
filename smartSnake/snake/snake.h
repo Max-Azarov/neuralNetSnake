@@ -58,12 +58,7 @@ private:
     // Вектора, содержащие текущие значения входов и выходов нейросети
     std::vector<int> m_vIn;
     std::vector<double> m_vOut;
-    //std::vector<double> m_vOutMotivation;
-    //std::vector<double> m_vOutFear;
-    // Вектора, содержащие обучающие выборки
-    std::vector<std::vector<int>> m_vInTrainingSet;
-    std::vector<std::vector<double>> m_vOutTrainingSet;
-    //std::vector<bool> m_vAcceptError;
+
     // Названия файлов, содержащие обучающие выборки
     std::string m_inputData;
     std::string m_outputDataIdeal;
@@ -83,6 +78,17 @@ private:
     bool m_freedom;
 
 private:
+    LogOut* m_LogOut;
+
+    friend class WriteField;
+    WriteField* m_pWriteField;
+
+    ChoiseDirection* m_pChoiseDirection;
+
+    friend class Learning;
+    Learning* m_pLearning;
+
+private:
     void loadTextures();
     bool collision(const int* const snakeX, const int* const snakeY);
     bool checkTheFruitEaten();
@@ -94,7 +100,6 @@ private:
     void movement();
     std::vector<double> readDataToDouble(std::string fileName);
     std::vector<int> readDataToInt(std::string fileName);
-    void readDataToTrainingSet();
 
     void restart();
     void initiallyPositionSnake();
@@ -115,7 +120,7 @@ public:
     void setAcceptError(double acceptError) { m_acceptError = acceptError; }
     void clearFiles(bool clear = true);
     double getAverage() const { return m_average; }
-    size_t getNumTrainingSet() const { return m_vInTrainingSet.size(); }
+    size_t getNumTrainingSet() const; // { return m_pLearning->getNumTrainingSet(); }
     size_t getStepCount() const { return m_stepCount; }
     double getSummError() const { return m_infoSumError; }
     size_t getInfoCount() const { return m_infoCount; }
@@ -143,16 +148,7 @@ signals:
     void signalErrorInfo();
     void signalStatusInfo(const QString&);
 
-private:
-    LogOut* m_LogOut;
 
-    friend class WriteField;
-    WriteField* m_pWriteField;
-
-    ChoiseDirection* m_pChoiseDirection;
-
-    friend class Learning;
-    Learning* m_pLearning;
 };
 
 #endif // SNAKE_H
