@@ -1,0 +1,21 @@
+#ifndef SNAKETRAINING_H
+#define SNAKETRAINING_H
+
+class Snake;
+
+class SnakeTraining {
+private:
+    Snake* m_pSnake;
+    
+private:
+    
+    void goodMove();
+    void badMove();
+    
+public:
+    SnakeTraining(Snake* pSnake);
+    
+    void training();
+};
+
+#endif // SNAKETRAINING_H

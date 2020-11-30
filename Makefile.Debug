@@ -48,6 +48,7 @@ OBJECTS_DIR   = debug
 ####### Files
 
 SOURCES       = smartSnake\game\game.cpp \
+		smartSnake\logOut.cpp \
 		smartSnake\main.cpp \
 		smartSnake\neuroNet\biasNeuron.cpp \
 		smartSnake\neuroNet\hiddenNeuron.cpp \
@@ -58,10 +59,13 @@ SOURCES       = smartSnake\game\game.cpp \
 		smartSnake\neuroNet\parameters.cpp \
 		smartSnake\neuroNet\synapse.cpp \
 		smartSnake\neuroNet\training.cpp \
+		smartSnake\snake\choiseDirection.cpp \
+		smartSnake\snake\learning.cpp \
 		smartSnake\snake\snake.cpp \
 		smartSnake\snake\writeField.cpp debug\moc_game.cpp \
 		debug\moc_snake.cpp
 OBJECTS       = debug\game.obj \
+		debug\logOut.obj \
 		debug\main.obj \
 		debug\biasNeuron.obj \
 		debug\hiddenNeuron.obj \
@@ -72,6 +76,8 @@ OBJECTS       = debug\game.obj \
 		debug\parameters.obj \
 		debug\synapse.obj \
 		debug\training.obj \
+		debug\choiseDirection.obj \
+		debug\learning.obj \
 		debug\snake.obj \
 		debug\writeField.obj \
 		debug\moc_game.obj \
@@ -81,6 +87,7 @@ DIST          = snake/source/body.png \
 		snake/source/fruit.png \
 		snake/source/head.png \
 		snake/source/wall.png smartSnake\game\game.h \
+		smartSnake\logOut.h \
 		smartSnake\neuroNet\_neuronet.h \
 		smartSnake\neuroNet\biasNeuron.h \
 		smartSnake\neuroNet\factory.h \
@@ -92,9 +99,12 @@ DIST          = snake/source/body.png \
 		smartSnake\neuroNet\parameters.h \
 		smartSnake\neuroNet\synapse.h \
 		smartSnake\neuroNet\training.h \
+		smartSnake\snake\choiseDirection.h \
 		smartSnake\snake\enums.h \
+		smartSnake\snake\learning.h \
 		smartSnake\snake\snake.h \
 		smartSnake\snake\writeField.h smartSnake\game\game.cpp \
+		smartSnake\logOut.cpp \
 		smartSnake\main.cpp \
 		smartSnake\neuroNet\biasNeuron.cpp \
 		smartSnake\neuroNet\hiddenNeuron.cpp \
@@ -105,6 +115,8 @@ DIST          = snake/source/body.png \
 		smartSnake\neuroNet\parameters.cpp \
 		smartSnake\neuroNet\synapse.cpp \
 		smartSnake\neuroNet\training.cpp \
+		smartSnake\snake\choiseDirection.cpp \
+		smartSnake\snake\learning.cpp \
 		smartSnake\snake\snake.cpp \
 		smartSnake\snake\writeField.cpp
 QMAKE_TARGET  = smartSnake
@@ -243,7 +255,7 @@ all: Makefile.Debug  debug\smartSnake.exe
 
 debug\smartSnake.exe: D:\Qt\5.13.2\msvc2017_64\lib\Qt5Widgetsd.lib D:\Qt\5.13.2\msvc2017_64\lib\Qt5Guid.lib D:\Qt\5.13.2\msvc2017_64\lib\Qt5Cored.lib D:\Qt\5.13.2\msvc2017_64\lib\qtmaind.lib ui_mainWindow.h $(OBJECTS) 
 	$(LINKER) $(LFLAGS) /MANIFEST:embed /OUT:$(DESTDIR_TARGET) @<<
-debug\game.obj debug\main.obj debug\biasNeuron.obj debug\hiddenNeuron.obj debug\inputNeuron.obj debug\net.obj debug\neuron.obj debug\outputNeuron.obj debug\parameters.obj debug\synapse.obj debug\training.obj debug\snake.obj debug\writeField.obj debug\moc_game.obj debug\moc_snake.obj
+debug\game.obj debug\logOut.obj debug\main.obj debug\biasNeuron.obj debug\hiddenNeuron.obj debug\inputNeuron.obj debug\net.obj debug\neuron.obj debug\outputNeuron.obj debug\parameters.obj debug\synapse.obj debug\training.obj debug\choiseDirection.obj debug\learning.obj debug\snake.obj debug\writeField.obj debug\moc_game.obj debug\moc_snake.obj
 $(LIBS)
 <<
 
@@ -253,10 +265,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) smartSnake.zip $(SOURCES) $(DIST) smartSnake\smartSnake.pro D:\Qt\5.13.2\msvc2017_64\mkspecs\features\spec_pre.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\common\angle.conf D:\Qt\5.13.2\msvc2017_64\mkspecs\common\windows-desktop.conf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\win32\windows_vulkan_sdk.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\common\windows-vulkan.conf D:\Qt\5.13.2\msvc2017_64\mkspecs\common\msvc-desktop.conf D:\Qt\5.13.2\msvc2017_64\mkspecs\qconfig.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3danimation.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3danimation_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dcore.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dcore_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dextras.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dextras_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dinput.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dinput_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dlogic.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dlogic_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquick.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquick_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickanimation.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickextras.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickextras_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickinput.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickinput_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickrender.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickrender_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickscene2d.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3drender.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3drender_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_accessibility_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_axbase.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_axbase_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_axcontainer.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_axcontainer_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_axserver.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_axserver_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_bluetooth.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_bluetooth_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_bootstrap_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_concurrent.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_concurrent_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_core.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_core_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_dbus.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_dbus_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_designer.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_designer_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_designercomponents_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_edid_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_egl_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_fb_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_gamepad.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_gamepad_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_gui.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_gui_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_help.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_help_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_location.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_location_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_multimedia.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_multimedia_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_multimediawidgets.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_network.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_network_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_nfc.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_nfc_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_opengl.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_opengl_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_openglextensions.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_openglextensions_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_packetprotocol_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_positioning.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_positioning_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_positioningquick.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_positioningquick_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_printsupport.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_printsupport_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qml.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qml_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qmldebug_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qmldevtools_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qmltest.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qmltest_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quick.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quick_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quickcontrols2.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quickparticles_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quickshapes_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quicktemplates2.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quickwidgets.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quickwidgets_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_remoteobjects.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_remoteobjects_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_repparser.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_repparser_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_scxml.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_scxml_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_sensors.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_sensors_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_serialbus.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_serialbus_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_serialport.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_serialport_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_sql.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_sql_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_svg.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_svg_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_testlib.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_testlib_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_texttospeech.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_texttospeech_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_theme_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_uiplugin.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_uitools.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_uitools_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_vulkan_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_webchannel.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_webchannel_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_websockets.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_websockets_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_webview.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_webview_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_widgets.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_widgets_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_windowsuiautomation_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_winextras.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_winextras_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_xml.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_xml_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_xmlpatterns.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_zlib_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\features\qt_functions.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\qt_config.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\win32-msvc\qmake.conf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\spec_post.prf .qmake.stash D:\Qt\5.13.2\msvc2017_64\mkspecs\features\exclusive_builds.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\common\msvc-version.conf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\toolchain.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\default_pre.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\win32\default_pre.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\resolve_config.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\exclusive_builds_post.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\default_post.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\build_pass.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\qml_debug.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\precompile_header.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\warn_on.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\qt.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\resources.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\moc.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\win32\opengl.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\uic.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\qmake_use.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\file_copies.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\win32\windows.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\testcase_targets.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\exceptions.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\yacc.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\lex.prf smartSnake\smartSnake.pro D:\Qt\5.13.2\msvc2017_64\lib\Qt5Widgetsd.prl D:\Qt\5.13.2\msvc2017_64\lib\Qt5Guid.prl D:\Qt\5.13.2\msvc2017_64\lib\Qt5Cored.prl D:\Qt\5.13.2\msvc2017_64\lib\qtmaind.prl    D:\Qt\5.13.2\msvc2017_64\mkspecs\features\data\dummy.cpp smartSnake\game\game.h smartSnake\neuroNet\_neuronet.h smartSnake\neuroNet\biasNeuron.h smartSnake\neuroNet\factory.h smartSnake\neuroNet\hiddenNeuron.h smartSnake\neuroNet\inputNeuron.h smartSnake\neuroNet\net.h smartSnake\neuroNet\neuron.h smartSnake\neuroNet\outputNeuron.h smartSnake\neuroNet\parameters.h smartSnake\neuroNet\synapse.h smartSnake\neuroNet\training.h smartSnake\snake\enums.h smartSnake\snake\snake.h smartSnake\snake\writeField.h  smartSnake\game\game.cpp smartSnake\main.cpp smartSnake\neuroNet\biasNeuron.cpp smartSnake\neuroNet\hiddenNeuron.cpp smartSnake\neuroNet\inputNeuron.cpp smartSnake\neuroNet\net.cpp smartSnake\neuroNet\neuron.cpp smartSnake\neuroNet\outputNeuron.cpp smartSnake\neuroNet\parameters.cpp smartSnake\neuroNet\synapse.cpp smartSnake\neuroNet\training.cpp smartSnake\snake\snake.cpp smartSnake\snake\writeField.cpp smartSnake\resources\mainWindow.ui    
+	$(ZIP) smartSnake.zip $(SOURCES) $(DIST) smartSnake\smartSnake.pro D:\Qt\5.13.2\msvc2017_64\mkspecs\features\spec_pre.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\common\angle.conf D:\Qt\5.13.2\msvc2017_64\mkspecs\common\windows-desktop.conf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\win32\windows_vulkan_sdk.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\common\windows-vulkan.conf D:\Qt\5.13.2\msvc2017_64\mkspecs\common\msvc-desktop.conf D:\Qt\5.13.2\msvc2017_64\mkspecs\qconfig.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3danimation.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3danimation_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dcore.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dcore_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dextras.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dextras_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dinput.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dinput_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dlogic.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dlogic_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquick.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquick_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickanimation.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickextras.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickextras_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickinput.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickinput_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickrender.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickrender_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickscene2d.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3drender.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_3drender_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_accessibility_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_axbase.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_axbase_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_axcontainer.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_axcontainer_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_axserver.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_axserver_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_bluetooth.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_bluetooth_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_bootstrap_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_concurrent.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_concurrent_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_core.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_core_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_dbus.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_dbus_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_designer.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_designer_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_designercomponents_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_edid_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_egl_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_fb_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_gamepad.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_gamepad_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_gui.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_gui_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_help.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_help_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_location.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_location_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_multimedia.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_multimedia_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_multimediawidgets.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_network.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_network_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_nfc.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_nfc_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_opengl.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_opengl_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_openglextensions.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_openglextensions_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_packetprotocol_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_positioning.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_positioning_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_positioningquick.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_positioningquick_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_printsupport.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_printsupport_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qml.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qml_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qmldebug_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qmldevtools_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qmltest.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qmltest_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quick.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quick_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quickcontrols2.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quickparticles_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quickshapes_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quicktemplates2.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quickwidgets.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_quickwidgets_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_remoteobjects.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_remoteobjects_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_repparser.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_repparser_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_scxml.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_scxml_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_sensors.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_sensors_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_serialbus.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_serialbus_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_serialport.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_serialport_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_sql.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_sql_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_svg.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_svg_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_testlib.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_testlib_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_texttospeech.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_texttospeech_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_theme_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_uiplugin.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_uitools.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_uitools_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_vulkan_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_webchannel.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_webchannel_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_websockets.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_websockets_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_webview.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_webview_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_widgets.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_widgets_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_windowsuiautomation_support_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_winextras.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_winextras_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_xml.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_xml_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_xmlpatterns.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\modules\qt_lib_zlib_private.pri D:\Qt\5.13.2\msvc2017_64\mkspecs\features\qt_functions.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\qt_config.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\win32-msvc\qmake.conf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\spec_post.prf .qmake.stash D:\Qt\5.13.2\msvc2017_64\mkspecs\features\exclusive_builds.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\common\msvc-version.conf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\toolchain.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\default_pre.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\win32\default_pre.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\resolve_config.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\exclusive_builds_post.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\default_post.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\build_pass.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\qml_debug.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\precompile_header.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\warn_on.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\qt.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\resources.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\moc.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\win32\opengl.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\uic.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\qmake_use.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\file_copies.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\win32\windows.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\testcase_targets.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\exceptions.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\yacc.prf D:\Qt\5.13.2\msvc2017_64\mkspecs\features\lex.prf smartSnake\smartSnake.pro D:\Qt\5.13.2\msvc2017_64\lib\Qt5Widgetsd.prl D:\Qt\5.13.2\msvc2017_64\lib\Qt5Guid.prl D:\Qt\5.13.2\msvc2017_64\lib\Qt5Cored.prl D:\Qt\5.13.2\msvc2017_64\lib\qtmaind.prl    D:\Qt\5.13.2\msvc2017_64\mkspecs\features\data\dummy.cpp smartSnake\game\game.h smartSnake\logOut.h smartSnake\neuroNet\_neuronet.h smartSnake\neuroNet\biasNeuron.h smartSnake\neuroNet\factory.h smartSnake\neuroNet\hiddenNeuron.h smartSnake\neuroNet\inputNeuron.h smartSnake\neuroNet\net.h smartSnake\neuroNet\neuron.h smartSnake\neuroNet\outputNeuron.h smartSnake\neuroNet\parameters.h smartSnake\neuroNet\synapse.h smartSnake\neuroNet\training.h smartSnake\snake\choiseDirection.h smartSnake\snake\enums.h smartSnake\snake\learning.h smartSnake\snake\snake.h smartSnake\snake\writeField.h  smartSnake\game\game.cpp smartSnake\logOut.cpp smartSnake\main.cpp smartSnake\neuroNet\biasNeuron.cpp smartSnake\neuroNet\hiddenNeuron.cpp smartSnake\neuroNet\inputNeuron.cpp smartSnake\neuroNet\net.cpp smartSnake\neuroNet\neuron.cpp smartSnake\neuroNet\outputNeuron.cpp smartSnake\neuroNet\parameters.cpp smartSnake\neuroNet\synapse.cpp smartSnake\neuroNet\training.cpp smartSnake\snake\choiseDirection.cpp smartSnake\snake\learning.cpp smartSnake\snake\snake.cpp smartSnake\snake\writeField.cpp smartSnake\resources\mainWindow.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\game.obj debug\main.obj debug\biasNeuron.obj debug\hiddenNeuron.obj debug\inputNeuron.obj debug\net.obj debug\neuron.obj debug\outputNeuron.obj debug\parameters.obj debug\synapse.obj debug\training.obj debug\snake.obj debug\writeField.obj debug\moc_game.obj debug\moc_snake.obj
+	-$(DEL_FILE) debug\game.obj debug\logOut.obj debug\main.obj debug\biasNeuron.obj debug\hiddenNeuron.obj debug\inputNeuron.obj debug\net.obj debug\neuron.obj debug\outputNeuron.obj debug\parameters.obj debug\synapse.obj debug\training.obj debug\choiseDirection.obj debug\learning.obj debug\snake.obj debug\writeField.obj debug\moc_game.obj debug\moc_snake.obj
 	-$(DEL_FILE) debug\smartSnake.vc.pdb debug\smartSnake.ilk debug\smartSnake.idb
 
 distclean: clean 
@@ -768,6 +780,11 @@ debug\moc_game.cpp: smartSnake\game\game.h \
 		smartSnake\neuroNet\outputNeuron.h \
 		smartSnake\neuroNet\training.h \
 		smartSnake\snake\writeField.h \
+		smartSnake\snake\choiseDirection.h \
+		smartSnake\snake\learning.h \
+		smartSnake\logOut.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QString \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug \
 		ui_mainWindow.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QAction \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QApplication \
@@ -908,6 +925,13 @@ debug\moc_snake.cpp: smartSnake\snake\snake.h \
 		smartSnake\neuroNet\outputNeuron.h \
 		smartSnake\neuroNet\training.h \
 		smartSnake\snake\writeField.h \
+		smartSnake\snake\snake.h \
+		smartSnake\snake\choiseDirection.h \
+		smartSnake\snake\learning.h \
+		smartSnake\logOut.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QString \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QStringList \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug \
 		debug\moc_predefs.h \
 		D:\Qt\5.13.2\msvc2017_64\bin\moc.exe
 	D:\Qt\5.13.2\msvc2017_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Users/monstr/Desktop/smartSnakePro/debug/moc_predefs.h -ID:/Qt/5.13.2/msvc2017_64/mkspecs/win32-msvc -IC:/Users/monstr/Desktop/smartSnakePro/smartSnake -ID:/Qt/5.13.2/msvc2017_64/include -ID:/Qt/5.13.2/msvc2017_64/include/QtWidgets -ID:/Qt/5.13.2/msvc2017_64/include/QtGui -ID:/Qt/5.13.2/msvc2017_64/include/QtANGLE -ID:/Qt/5.13.2/msvc2017_64/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\cppwinrt" smartSnake\snake\snake.h -o debug\moc_snake.cpp
@@ -1040,7 +1064,14 @@ ui_mainWindow.h: smartSnake\resources\mainWindow.ui \
 		smartSnake\neuroNet\inputNeuron.h \
 		smartSnake\neuroNet\outputNeuron.h \
 		smartSnake\neuroNet\training.h \
-		smartSnake\snake\writeField.h
+		smartSnake\snake\writeField.h \
+		smartSnake\snake\snake.h \
+		smartSnake\snake\choiseDirection.h \
+		smartSnake\snake\learning.h \
+		smartSnake\logOut.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QString \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QStringList \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug
 	D:\Qt\5.13.2\msvc2017_64\bin\uic.exe smartSnake\resources\mainWindow.ui -o ui_mainWindow.h
 
 compiler_yacc_decl_make_all:
@@ -1539,6 +1570,11 @@ debug\game.obj: smartSnake\game\game.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidg
 		smartSnake\neuroNet\outputNeuron.h \
 		smartSnake\neuroNet\training.h \
 		smartSnake\snake\writeField.h \
+		smartSnake\snake\choiseDirection.h \
+		smartSnake\snake\learning.h \
+		smartSnake\logOut.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QString \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug \
 		ui_mainWindow.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QAction \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QApplication \
@@ -1554,6 +1590,74 @@ debug\game.obj: smartSnake\game\game.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidg
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSpacerItem \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QToolBar \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QVBoxLayout
+
+debug\logOut.obj: smartSnake\logOut.cpp smartSnake\logOut.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QString \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstring.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qchar.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qglobal.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qconfig-bootstrapped.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qconfig.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtcore-config.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsystemdetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qprocessordetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcompilerdetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtypeinfo.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsysinfo.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlogging.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qflags.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasicatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_bootstrap.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qgenericatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_cxx11.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_msvc.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qglobalstatic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmutex.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qnumeric.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qversiontagging.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbytearray.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qrefcount.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qnamespace.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qarraydata.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringliteral.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringalgorithms.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringview.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringbuilder.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QStringList \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringlist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qalgorithms.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qiterator.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qhashfunctions.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qpair.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvector.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qpoint.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbytearraylist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qregexp.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringmatcher.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qdebug.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qhash.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmap.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtextstream.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qiodevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobject.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobjectdefs.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobjectdefs_impl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcoreevent.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qscopedpointer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmetatype.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvarlengtharray.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcontainerfwd.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobject_impl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlocale.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvariant.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qshareddata.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qset.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcontiguouscache.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsharedpointer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsharedpointer_impl.h
 
 debug\main.obj: smartSnake\main.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QApplication \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qapplication.h \
@@ -2039,6 +2143,11 @@ debug\main.obj: smartSnake\main.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\Q
 		smartSnake\neuroNet\outputNeuron.h \
 		smartSnake\neuroNet\training.h \
 		smartSnake\snake\writeField.h \
+		smartSnake\snake\choiseDirection.h \
+		smartSnake\snake\learning.h \
+		smartSnake\logOut.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QString \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug \
 		ui_mainWindow.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QAction \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QCheckBox \
@@ -2053,8 +2162,7 @@ debug\main.obj: smartSnake\main.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\Q
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSlider \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QSpacerItem \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QToolBar \
-		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QVBoxLayout \
-		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QVBoxLayout
 
 debug\biasNeuron.obj: smartSnake\neuroNet\biasNeuron.cpp smartSnake\neuroNet\biasNeuron.h \
 		smartSnake\neuroNet\neuron.h \
@@ -2098,7 +2206,71 @@ debug\parameters.obj: smartSnake\neuroNet\parameters.cpp smartSnake\neuroNet\par
 debug\synapse.obj: smartSnake\neuroNet\synapse.cpp smartSnake\neuroNet\synapse.h \
 		smartSnake\neuroNet\parameters.h
 
-debug\training.obj: smartSnake\neuroNet\training.cpp smartSnake\neuroNet\training.h \
+debug\training.obj: smartSnake\neuroNet\training.cpp D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qdebug.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qalgorithms.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qglobal.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qconfig-bootstrapped.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qconfig.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtcore-config.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsystemdetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qprocessordetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcompilerdetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtypeinfo.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsysinfo.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlogging.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qflags.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasicatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_bootstrap.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qgenericatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_cxx11.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_msvc.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qglobalstatic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmutex.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qnumeric.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qversiontagging.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qhash.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qchar.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qiterator.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qrefcount.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qarraydata.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qhashfunctions.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstring.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbytearray.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qnamespace.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringliteral.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringalgorithms.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringview.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringbuilder.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qpair.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvector.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qpoint.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbytearraylist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringlist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qregexp.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringmatcher.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmap.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtextstream.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qiodevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobject.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobjectdefs.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobjectdefs_impl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcoreevent.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qscopedpointer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmetatype.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvarlengtharray.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcontainerfwd.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobject_impl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlocale.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvariant.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qshareddata.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qset.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcontiguouscache.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsharedpointer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsharedpointer_impl.h \
+		smartSnake\neuroNet\training.h \
 		smartSnake\snake\enums.h \
 		smartSnake\neuroNet\net.h \
 		smartSnake\neuroNet\_neuronet.h \
@@ -2109,6 +2281,267 @@ debug\training.obj: smartSnake\neuroNet\training.cpp smartSnake\neuroNet\trainin
 		smartSnake\neuroNet\hiddenNeuron.h \
 		smartSnake\neuroNet\inputNeuron.h \
 		smartSnake\neuroNet\outputNeuron.h
+
+debug\choiseDirection.obj: smartSnake\snake\choiseDirection.cpp smartSnake\snake\choiseDirection.h \
+		smartSnake\snake\snake.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QWidget \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qwidget.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qtwidgetsglobal.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qtguiglobal.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qglobal.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qconfig-bootstrapped.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qconfig.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtcore-config.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsystemdetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qprocessordetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcompilerdetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtypeinfo.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsysinfo.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlogging.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qflags.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasicatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_bootstrap.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qgenericatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_cxx11.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_msvc.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qglobalstatic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmutex.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qnumeric.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qversiontagging.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qtgui-config.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qtwidgets-config.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qwindowdefs.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobjectdefs.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qnamespace.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobjectdefs_impl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qwindowdefs_win.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobject.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstring.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qchar.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbytearray.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qrefcount.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qarraydata.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringliteral.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringalgorithms.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringview.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringbuilder.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qalgorithms.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qiterator.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qhashfunctions.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qpair.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvector.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qpoint.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbytearraylist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringlist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qregexp.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringmatcher.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcoreevent.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qscopedpointer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmetatype.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvarlengtharray.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcontainerfwd.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobject_impl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmargins.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpaintdevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qrect.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsize.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpalette.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qcolor.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qrgb.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qrgba64.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qbrush.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qmatrix.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpolygon.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qregion.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qdatastream.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qiodevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qline.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qtransform.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpainterpath.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qimage.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpixelformat.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpixmap.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsharedpointer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qshareddata.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qhash.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsharedpointer_impl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qfont.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qfontmetrics.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qfontinfo.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qsizepolicy.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qcursor.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qkeysequence.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qevent.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvariant.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmap.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qdebug.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtextstream.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlocale.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qset.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcontiguouscache.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qurl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qurlquery.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qfile.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qfiledevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qvector2d.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qtouchdevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QImage \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtimer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasictimer.h \
+		smartSnake\snake\enums.h \
+		smartSnake\neuroNet\net.h \
+		smartSnake\neuroNet\_neuronet.h \
+		smartSnake\neuroNet\biasNeuron.h \
+		smartSnake\neuroNet\neuron.h \
+		smartSnake\neuroNet\parameters.h \
+		smartSnake\neuroNet\synapse.h \
+		smartSnake\neuroNet\hiddenNeuron.h \
+		smartSnake\neuroNet\inputNeuron.h \
+		smartSnake\neuroNet\outputNeuron.h \
+		smartSnake\neuroNet\training.h \
+		smartSnake\snake\writeField.h \
+		smartSnake\snake\learning.h \
+		smartSnake\logOut.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QString \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QStringList \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug
+
+debug\learning.obj: smartSnake\snake\learning.cpp smartSnake\snake\learning.h \
+		smartSnake\snake\snake.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QWidget \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qwidget.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qtwidgetsglobal.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qtguiglobal.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qglobal.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qconfig-bootstrapped.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qconfig.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtcore-config.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsystemdetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qprocessordetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcompilerdetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtypeinfo.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsysinfo.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlogging.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qflags.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasicatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_bootstrap.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qgenericatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_cxx11.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_msvc.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qglobalstatic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmutex.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qnumeric.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qversiontagging.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qtgui-config.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qtwidgets-config.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qwindowdefs.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobjectdefs.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qnamespace.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobjectdefs_impl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qwindowdefs_win.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobject.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstring.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qchar.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbytearray.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qrefcount.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qarraydata.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringliteral.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringalgorithms.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringview.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringbuilder.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qalgorithms.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qiterator.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qhashfunctions.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qpair.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvector.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qpoint.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbytearraylist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringlist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qregexp.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringmatcher.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcoreevent.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qscopedpointer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmetatype.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvarlengtharray.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcontainerfwd.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobject_impl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmargins.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpaintdevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qrect.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsize.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpalette.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qcolor.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qrgb.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qrgba64.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qbrush.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qmatrix.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpolygon.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qregion.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qdatastream.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qiodevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qline.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qtransform.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpainterpath.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qimage.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpixelformat.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpixmap.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsharedpointer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qshareddata.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qhash.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsharedpointer_impl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qfont.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qfontmetrics.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qfontinfo.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qsizepolicy.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qcursor.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qkeysequence.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qevent.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvariant.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmap.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qdebug.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtextstream.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlocale.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qset.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcontiguouscache.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qurl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qurlquery.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qfile.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qfiledevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qvector2d.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qtouchdevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QImage \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtimer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasictimer.h \
+		smartSnake\snake\enums.h \
+		smartSnake\neuroNet\net.h \
+		smartSnake\neuroNet\_neuronet.h \
+		smartSnake\neuroNet\biasNeuron.h \
+		smartSnake\neuroNet\neuron.h \
+		smartSnake\neuroNet\parameters.h \
+		smartSnake\neuroNet\synapse.h \
+		smartSnake\neuroNet\hiddenNeuron.h \
+		smartSnake\neuroNet\inputNeuron.h \
+		smartSnake\neuroNet\outputNeuron.h \
+		smartSnake\neuroNet\training.h \
+		smartSnake\snake\writeField.h \
+		smartSnake\snake\choiseDirection.h \
+		smartSnake\logOut.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QString \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QStringList \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QApplication \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qapplication.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcoreapplication.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qeventloop.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qdesktopwidget.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qguiapplication.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qinputmethod.h
 
 debug\snake.obj: smartSnake\snake\snake.cpp smartSnake\snake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QWidget \
@@ -2230,6 +2663,12 @@ debug\snake.obj: smartSnake\snake\snake.cpp smartSnake\snake\snake.h \
 		smartSnake\neuroNet\outputNeuron.h \
 		smartSnake\neuroNet\training.h \
 		smartSnake\snake\writeField.h \
+		smartSnake\snake\choiseDirection.h \
+		smartSnake\snake\learning.h \
+		smartSnake\logOut.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QString \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QStringList \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QtCore \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QtCoreDepends \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qabstractanimation.h \
@@ -2274,7 +2713,6 @@ debug\snake.obj: smartSnake\snake\snake.cpp smartSnake\snake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qfactoryinterface.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qfileselector.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QObject \
-		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QStringList \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qfilesystemwatcher.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qfinalstate.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qfuture.h \
@@ -2362,7 +2800,132 @@ debug\snake.obj: smartSnake\snake\snake.cpp smartSnake\snake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qguiapplication.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qinputmethod.h
 
-debug\writeField.obj: smartSnake\snake\writeField.cpp smartSnake\snake\writeField.h
+debug\writeField.obj: smartSnake\snake\writeField.cpp smartSnake\snake\writeField.h \
+		smartSnake\snake\snake.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QWidget \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qwidget.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qtwidgetsglobal.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qtguiglobal.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qglobal.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qconfig-bootstrapped.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qconfig.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtcore-config.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsystemdetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qprocessordetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcompilerdetection.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtypeinfo.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsysinfo.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlogging.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qflags.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasicatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_bootstrap.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qgenericatomic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_cxx11.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qatomic_msvc.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qglobalstatic.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmutex.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qnumeric.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qversiontagging.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qtgui-config.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qtwidgets-config.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qwindowdefs.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobjectdefs.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qnamespace.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobjectdefs_impl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qwindowdefs_win.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobject.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstring.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qchar.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbytearray.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qrefcount.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qarraydata.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringliteral.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringalgorithms.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringview.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringbuilder.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qalgorithms.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qiterator.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qhashfunctions.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qpair.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvector.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qpoint.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbytearraylist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringlist.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qregexp.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qstringmatcher.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcoreevent.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qscopedpointer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmetatype.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvarlengtharray.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcontainerfwd.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qobject_impl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmargins.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpaintdevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qrect.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsize.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpalette.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qcolor.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qrgb.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qrgba64.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qbrush.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qmatrix.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpolygon.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qregion.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qdatastream.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qiodevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qline.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qtransform.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpainterpath.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qimage.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpixelformat.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qpixmap.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsharedpointer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qshareddata.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qhash.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qsharedpointer_impl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qfont.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qfontmetrics.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qfontinfo.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\qsizepolicy.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qcursor.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qkeysequence.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qevent.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qvariant.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qmap.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qdebug.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtextstream.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qlocale.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qset.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qcontiguouscache.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qurl.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qurlquery.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qfile.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qfiledevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qvector2d.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\qtouchdevice.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QImage \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtimer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasictimer.h \
+		smartSnake\snake\enums.h \
+		smartSnake\neuroNet\net.h \
+		smartSnake\neuroNet\_neuronet.h \
+		smartSnake\neuroNet\biasNeuron.h \
+		smartSnake\neuroNet\neuron.h \
+		smartSnake\neuroNet\parameters.h \
+		smartSnake\neuroNet\synapse.h \
+		smartSnake\neuroNet\hiddenNeuron.h \
+		smartSnake\neuroNet\inputNeuron.h \
+		smartSnake\neuroNet\outputNeuron.h \
+		smartSnake\neuroNet\training.h \
+		smartSnake\snake\choiseDirection.h \
+		smartSnake\snake\learning.h \
+		smartSnake\logOut.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QString \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QStringList \
+		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QDebug
 
 debug\moc_game.obj: debug\moc_game.cpp 
 

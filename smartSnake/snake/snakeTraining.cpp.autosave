@@ -1,0 +1,99 @@
+#include "snake/snakeTraining.h"
+
+SnakeTraining::SnakeTraining(Snake* pSnake) : m_pSnake { pSnake } 
+{
+    
+}
+
+void SnakeTraining::training() {
+    // >> Обучаем
+    if ( !m_bStop) {
+    //if ( m_setCount > 10 && m_setCount > m_average * m_average && !m_bStop) {
+        emit signalStatusInfo("learning");
+        double sumError;
+        double error;
+        size_t countOfSet;
+        size_t count;
+        size_t loopExit = 0;
+        do {
+            count = 0;
+            error = 0;
+            countOfSet = 0;
+            sumError = 0;
+
+            auto itOut = std::end(m_vOutTrainingSet);
+            auto itIn = std::end(m_vInTrainingSet);
+            for ( ;
+                    itIn != std::begin(m_vInTrainingSet);
+                    --itIn, --itOut, ++countOfSet )
+
+            /*
+            auto itOut = std::begin(m_vOutTrainingSet);
+            auto itIn = std::begin(m_vInTrainingSet);
+            for (  ;
+                    itIn != std::end(m_vInTrainingSet);
+                    ++itIn, ++itOut, ++countOfSet )
+            */
+            {
+                qApp->processEvents();
+                //neuroNet->training().forwardPass(*std::prev(itIn), true); // with dropout
+                neuroNet->training().forwardPass(*std::prev(itIn)); // without dropout
+                error = neuroNet->training().calculateError(*std::prev(itOut));
+                neuroNet->training().backprop(*std::prev(itOut));
+                sumError += error;
+                if ( error > m_acceptError ) {
+                    count++;
+                }
+//                if (m_bStop) break;
+                //if (countOfSet > 2000) break;
+            }
+//            if (m_bStop) break;
+            sumError = sumError / countOfSet; // vSize;
+            //qDebug() << count << "=== Total error:" << sumError << "===";
+            m_infoSumError = sumError;
+            m_infoCount = count;
+            emit signalErrorInfo();
+
+            loopExit++;
+        }
+        while (loopExit < 1);
+//        while ( count > 2 * (double)countOfSet/neuroNet->getCountOfOutputs()
+//                || sumError  > m_acceptError);
+        // << Обучаем
+        emit signalStatusInfo("moving");
+        neuroNet->training().saveWeightOfSynapses();
+        //averageNumberOfSteps(false);
+        m_setCount = 0;
+    }
+}
+
+void SnakeTraining::goodMove() {
+
+    // Добавляем мотивацию в выбранное направление, остальную уменьшаем на 50%
+    auto itMedian = std::begin(m_vOut) + m_vOut.size() / 2;
+    for ( auto it = std::begin(m_vOut); it != itMedian; ++it) {
+        (*it) = 0.5 * (*it);
+    }
+    m_vOut[m_direction] = 1.0;
+    // Страх не учим
+    for ( auto it = itMedian; it != std::end(m_vOut); ++it) {
+        (*it) = -1.0;
+    }
+}
+
+void SnakeTraining::badMove() {
+    // Добавляем страх неправильному выбор (1.0), уменьшаем на 50% остальной страх
+    auto itMedian = std::begin(m_vOut) + m_vOut.size() / 2;
+    for ( auto it = itMedian; it != std::end(m_vOut); ++it) {
+        (*it) = 0.5 * (*it);
+    }
+    m_vOut[m_direction + m_vOut.size() / 2] = 1.0;
+
+    // Мотивацию не обучаем (-1.0), кроме выбранного направления
+    double diffMotivation = 0.5 * m_vOut[m_direction];
+    for ( auto it = std::begin(m_vOut); it != itMedian; ++it) {
+        (*it) = -1.0;
+    }
+    // Снижаем на 50% мотивацию идти в выбранное направление
+    m_vOut[m_direction] = diffMotivation;
+}

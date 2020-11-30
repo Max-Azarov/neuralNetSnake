@@ -7,7 +7,14 @@
 
 #include "snake/enums.h"
 #include "neuroNet/net.h"
-#include "writeField.h"
+#include "snake/writeField.h"
+#include "snake/choiseDirection.h"
+#include "snake/learning.h"
+#include "logOut.h"
+
+class WriteField;
+class ChoiseDirection;
+class Learning;
 
 class Snake : public QWidget {
     Q_OBJECT
@@ -47,7 +54,6 @@ private:
     std::pair<size_t, size_t> m_averageNumberOfSteps;
     double m_average;
     bool m_loopMotion;
-    DIRECTION m_netChoiseDirection;
     std::vector<DIRECTION> m_vDirection;
     // Вектора, содержащие текущие значения входов и выходов нейросети
     std::vector<int> m_vIn;
@@ -79,31 +85,20 @@ private:
 private:
     void loadTextures();
     bool collision(const int* const snakeX, const int* const snakeY);
-    bool isTheFruitEaten();
-    bool isHopelessSituation();
-    bool isSnakeLooped();
+    bool checkTheFruitEaten();
+    bool checkHopelessSituation();
+    bool checkSnakeLooped();
     void drawing();
     void initGame();
     void locateFruit();
     void movement();
-    void writeData();
     std::vector<double> readDataToDouble(std::string fileName);
     std::vector<int> readDataToInt(std::string fileName);
-    void learning();
-    DIRECTION choiceDirectionCheckingCollision();
-    //void synapsesConvalution();
     void readDataToTrainingSet();
 
-    void snakeTraining();
-    //void saveWeightOfSynapses();
     void restart();
-    void goodMove();
-    void badMove();
-    void addDataToTrainingSet();
-    size_t indexMaxElement();
     void initiallyPositionSnake();
     void averageNumberOfSteps(bool restart = false);
-    //void disableUselessSynapses();
     void createFile(const std::string & fileName, bool clearFile);
     void processingSnakeEvents();
     void effects();
@@ -126,6 +121,10 @@ public:
     size_t getInfoCount() const { return m_infoCount; }
     size_t getSnakeLength() const { return m_snakeLength; }
     size_t getNumFruitEaten() const {return m_numFruitEaten; }
+    std::vector<int>* getVIn() { return &m_vIn; }
+    std::vector<double>* getVOut() { return &m_vOut; }
+    LogOut* getLogOut() const { return m_LogOut; }
+    DIRECTION getDirection() const { return m_direction; }
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -145,8 +144,15 @@ signals:
     void signalStatusInfo(const QString&);
 
 private:
-    WriteField m_clWriteField;
+    LogOut* m_LogOut;
 
+    friend class WriteField;
+    WriteField* m_pWriteField;
+
+    ChoiseDirection* m_pChoiseDirection;
+
+    friend class Learning;
+    Learning* m_pLearning;
 };
 
 #endif // SNAKE_H

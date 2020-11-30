@@ -663,7 +663,7 @@ public:
 #if QT_CONFIG(tooltip)
         leNumInputNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of inputs neural net (equal to the number of cells on the screen)", nullptr));
 #endif // QT_CONFIG(tooltip)
-        leNumInputNN->setText(QCoreApplication::translate("MainWindow", "12", nullptr));
+        leNumInputNN->setText(QCoreApplication::translate("MainWindow", "29", nullptr));
 #if QT_CONFIG(tooltip)
         leNum1HiddenNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of neurons in the first hidden layer", nullptr));
 #endif // QT_CONFIG(tooltip)

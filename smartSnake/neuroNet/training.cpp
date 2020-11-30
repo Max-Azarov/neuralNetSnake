@@ -1,7 +1,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-//#include <QDebug>
+#include <QDebug>
 
 #include "training.h"
 #include "net.h"
@@ -13,7 +13,8 @@ Training::Training(Net* net)
 {
 }
 
-void Training::forwardPass(const std::vector<int> & in ) {
+void Training::forwardPass(const std::vector<int> & in, bool dropout ) {
+    m_dropout = false;
     if ( p_Net->getCountOfInputs() != in.size() ) {
         std::cerr << "The number of inputs in the training set does not match!" << std::endl;
         exit(EXIT_FAILURE);
@@ -26,6 +27,19 @@ void Training::forwardPass(const std::vector<int> & in ) {
     {
         (*itIn)->setIn(static_cast<double>(in[count]));
         ++count;
+    }
+
+    // DropOut
+    if (dropout) {
+        m_dropout = true;
+        auto itLayer = std::begin(p_Net->getNeuron());
+        itLayer++;
+        // цикл от 2го слоя до предпоследнего. Отключаем нейроны с определенной вероятностью rand() % 4
+        for (; itLayer != std::prev(std::end(p_Net->getNeuron())); ++itLayer) {
+            for (auto itNeuron = std::begin(*itLayer); itNeuron != std::end(*itLayer); ++itNeuron) {
+                (*itNeuron)->setStatus((STATUS)(rand() % 4));
+            }
+        }
     }
 
     // Прямой проход по сети
@@ -71,7 +85,7 @@ void Training::backprop(const std::vector<double> & idealOut) {
     auto itIdealOut = std::begin(idealOut);
     auto itOut = std::begin(p_Net->getOutputNeurons());
     double ideal;
-    for (   /**/ ;
+    for (   ;
             itOut != std::end(p_Net->getOutputNeurons());
             ++itOut, ++itIdealOut )
     {
@@ -82,8 +96,21 @@ void Training::backprop(const std::vector<double> & idealOut) {
     // Распространяем ошибку в обратном направлении
     for (auto itLayer = std::end(p_Net->getNeuron()); itLayer != std::begin(p_Net->getNeuron()); --itLayer) {
         for (auto itNeuron = std::begin(*std::prev(itLayer)); itNeuron != std::end(*std::prev(itLayer)); ++itNeuron) {
-            (*itNeuron)->calculateDelta(/*p_Net->parameters()*/);
+            (*itNeuron)->calculateDelta();
         }
+    }
+    if (m_dropout) {
+        auto itLayer = std::begin(p_Net->getNeuron());
+        itLayer++;
+        // цикл от 2го слоя до предпоследнего. Включаем отключенные нейроны
+        for (; itLayer != std::prev(std::end(p_Net->getNeuron())); ++itLayer) {
+            for (auto itNeuron = std::begin(*itLayer); itNeuron != std::end(*itLayer); ++itNeuron) {
+                if ( !(*itNeuron)->getStatus() ) {
+                    (*itNeuron)->setStatus(STATUS::ON);
+                }
+            }
+        }
+        m_dropout = false;
     }
 }
 

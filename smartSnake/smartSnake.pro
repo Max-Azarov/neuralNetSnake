@@ -19,6 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     game/game.cpp \
+    logOut.cpp \
     main.cpp \
     neuroNet/biasNeuron.cpp \
     neuroNet/hiddenNeuron.cpp \
@@ -29,11 +30,14 @@ SOURCES += \
     neuroNet/parameters.cpp \
     neuroNet/synapse.cpp \
     neuroNet/training.cpp \
+    snake/choiseDirection.cpp \
+    snake/learning.cpp \
     snake/snake.cpp \
     snake/writeField.cpp
 
 HEADERS += \
     game/game.h \
+    logOut.h \
     neuroNet/_neuronet.h \
     neuroNet/biasNeuron.h \
     neuroNet/factory.h \
@@ -45,7 +49,9 @@ HEADERS += \
     neuroNet/parameters.h \
     neuroNet/synapse.h \
     neuroNet/training.h \
+    snake/choiseDirection.h \
     snake/enums.h \
+    snake/learning.h \
     snake/snake.h \
     snake/writeField.h
 

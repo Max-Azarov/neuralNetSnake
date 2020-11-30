@@ -27,44 +27,52 @@ size_t Neuron::incId(bool reset) {
 void Neuron::activationFunction()
 {
     double out = 0.0;
-    switch (m_typeActivation) {
-    case(SIGMOID) :
-        // sigmoid
-        out = 1.0 / (1.0 + exp(-m_in));
-        break;
-    case(RELU) :
-        // ReLu
-        if (m_in > 0) out = m_in;
-        else out = 0.1 * m_in;
-        break;
-    default:;
+    if (m_status) {
+        switch (m_typeActivation) {
+        case(SIGMOID) :
+            // sigmoid
+            out = 1.0 / (1.0 + exp(-m_in));
+            break;
+        case(RELU) :
+            // ReLu
+            if (m_in > 0) out = m_in;
+            else out = 0.1 * m_in;
+            break;
+        default:;
+        }
+        setOut(out);
+        return;
     }
     setOut(out);
 }
 
 double Neuron::getDerivative()
 {
-    switch (m_typeActivation) {
-    case(SIGMOID) :
-        // derived from a sigmoid
-        return (1.0 - m_out) * m_out;
-    case(RELU) :
-        // ReLu
-        if (m_in > 0) return 1.0;
-        else return 0.1;
-    default:;
+    if (m_status) {
+        switch (m_typeActivation) {
+        case(SIGMOID) :
+            // derived from a sigmoid
+            return (1.0 - m_out) * m_out;
+        case(RELU) :
+            // ReLu
+            if (m_in > 0) return 1.0;
+            else return 0.1;
+        default:;
+        }
     }
-    return 0;
+    return 0.0;
 }
 
 void Neuron::calculateInCalculateOut() {
-    double sum = 0;
-    for (auto it = std::begin(v_synapseIn); it != std::end(v_synapseIn); ++it) {
-        sum += (*it)->getOut();
+    if (m_status) {
+        double sum = 0;
+        for (auto it = std::begin(v_synapseIn); it != std::end(v_synapseIn); ++it) {
+            sum += (*it)->getOut();
+        }
+        m_in = sum;
+        activationFunction();
+        passToSynapse();
     }
-    m_in = sum;
-    activationFunction();
-    passToSynapse();
 }
 
 void Neuron::passToSynapse() {
@@ -74,7 +82,12 @@ void Neuron::passToSynapse() {
 }
 
 void Neuron::setOut(double out) {
-    m_out = out;
+    if (m_status) {
+        m_out = out;
+    }
+    else {
+        m_out = 0.0;
+    }
     passToSynapse();
 }
 

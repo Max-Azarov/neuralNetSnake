@@ -147,7 +147,7 @@
           <string>Count of inputs neural net (equal to the number of cells on the screen)</string>
          </property>
          <property name="text">
-          <string>12</string>
+          <string>29</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>

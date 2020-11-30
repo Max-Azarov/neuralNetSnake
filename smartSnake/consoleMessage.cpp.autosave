@@ -1,0 +1,5 @@
+#include "consoleMessage.h"
+
+void ConsoleMessage::debug(const QStringList& message) {
+    
+}

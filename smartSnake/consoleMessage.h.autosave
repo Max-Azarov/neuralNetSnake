@@ -1,0 +1,12 @@
+#ifndef CONSOLEMESSAGE_H
+#define CONSOLEMESSAGE_H
+
+#include <QStringList>
+#include <QDebug>
+
+class ConsoleMessage {
+public:
+    void debug(const QStringList&);
+};
+
+#endif // CONSOLEMESSAGE_H

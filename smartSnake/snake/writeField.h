@@ -2,6 +2,7 @@
 #define WRITEDATA_H
 
 #include <vector>
+#include "snake/snake.h"
 
 class Snake;
 
@@ -9,10 +10,14 @@ class WriteField
 {
 private:
     Snake* m_pSnake;
-    //std::vector<int>& m_vRefInData;
+
+private:
+    void checkBound(int* value, int bound);
 
 public:
     WriteField(Snake* snake);
+    void writeInputData();
+
 };
 
 #endif // WRITEDATA_H
