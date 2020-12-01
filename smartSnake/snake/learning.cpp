@@ -11,6 +11,13 @@ Learning::Learning(Snake* pSnake) : m_pSnake { pSnake }
     initFiles();
 }
 
+LearningType_1::LearningType_1(Snake* pSnake) : Learning(pSnake)
+{
+
+}
+
+
+
 void Learning::learning() {
     if (    m_pSnake->m_loopMotion
         ||  m_pSnake->m_collision
@@ -202,7 +209,7 @@ void Learning::readDataToTrainingSet() {
     fileName = m_fInputData;
     file.open(fileName.toStdString());
     if (!file) {
-        QString message = "\"" + fileName + "\" could not be opened!";
+        QString message = fileName + " could not be opened!";
         exitApp(message);
     }
 
@@ -225,7 +232,7 @@ void Learning::readDataToTrainingSet() {
     fileName = m_fOutputDataIdeal;
     file.open(fileName.toStdString());
     if (!file) {
-        QString message = "\"" + fileName + "\" could not be opened!";
+        QString message = fileName + " could not be opened!";
         exitApp(message);
     }
 
@@ -283,10 +290,11 @@ void Learning::createFile(const QString& fileName, bool clearFile) {
         }
         file.close();
     }
-
 }
 
 void Learning::exitApp(const QString& message) {
     LogOut::messageOut(message, LogOut::LOGFILE);
     exit(EXIT_FAILURE);
 }
+
+void LearningType_1::learning() {}

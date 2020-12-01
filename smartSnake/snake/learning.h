@@ -8,7 +8,7 @@
 class Snake;
 
 class Learning {
-private:
+protected:
     Snake* m_pSnake;
 
     // Вектора, содержащие обучающие выборки
@@ -19,7 +19,7 @@ private:
     QString m_fInputData;
     QString m_fOutputDataIdeal;
 
-private:
+protected:
     void goodMove();
     void badMove();
     void training();
@@ -30,11 +30,20 @@ private:
 
 public:
     Learning(Snake* pSnake);
+    virtual ~Learning() {}
 
-    void learning();
+    virtual void learning();
     void readDataToTrainingSet();
     void clearData();
     size_t getNumTrainingSet() const { return m_vInTrainingSet.size(); }
+
+};
+
+class LearningType_1 : public Learning {
+public:
+    LearningType_1(Snake* pSnake);
+
+    void learning();
 
 };
 

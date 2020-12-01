@@ -96,7 +96,7 @@ void Snake::slotLoop() {
         checkSnakeLooped(); // Зациклилась ли
         //checkHopelessSituation(); // Попала ли в ловушку
         effects();
-        if (!m_freedom) m_pLearning->learning(); // учится
+        if (!m_freedom) learning(*m_pLearning); // учится
         processingSnakeEvents();
         m_bMutex = false;
     }
@@ -146,6 +146,7 @@ void Snake::locateFruit() {
                     //fruitX = -1;
                     //fruitY = -1;
                     //==================
+
                     return;
                 }
                 ++count;
@@ -256,6 +257,7 @@ bool Snake::checkTheFruitEaten() {
         m_isTheFruitEaten = true;
         m_stepFromEating = 0;
         m_numFruitEaten++;
+        update();
         return true;
     }
     m_isTheFruitEaten = false;
@@ -284,14 +286,16 @@ bool Snake::checkHopelessSituation() {
 }
 
 bool Snake::checkSnakeLooped() {
-    size_t itemp = static_cast<size_t>(m_numberOfCellsPerSide-2); // 2 - толщина стенок
+    //size_t itemp = static_cast<size_t>(m_numberOfCellsPerSide-2); // 2 - толщина стенок
     m_loopCount++;
-    if (m_loopCount > (itemp * itemp)) {
+    /*
+    if (m_loopCount > ((size_t)m_numberOfCellsPerSide * m_numberOfCellsPerSide)) {
         // Змейка зациклилась
         m_loopMotion = true;
         m_loopCount = 0;
         return true;
     }
+    */
     m_loopMotion = false;
     if (m_isTheFruitEaten) m_loopCount = 0;
     return false;
@@ -407,4 +411,8 @@ void Snake::effects() {
     if (m_collision || m_isHopelessSituation) {
         slotGrayBackground100msec();
     }
+}
+
+void Snake::learning(Learning& concreteLearning) {
+    concreteLearning.learning();
 }

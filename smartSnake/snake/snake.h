@@ -103,6 +103,7 @@ private:
     void createFile(const std::string & fileName, bool clearFile);
     void processingSnakeEvents();
     void effects();
+    void learning(Learning&);
 
 public:
     Snake(QWidget *parent = nullptr);

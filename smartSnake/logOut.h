@@ -1,5 +1,5 @@
-#ifndef CONSOLEMESSAGE_H
-#define CONSOLEMESSAGE_H
+#ifndef LOGOUT_H
+#define LOGOUT_H
 
 #include <QString>
 #include <QStringList>
@@ -28,4 +28,4 @@ public:
     static void messageOut(const QString& message, LogOut::TARGET target);
 };
 
-#endif // CONSOLEMESSAGE_H
+#endif // LOGOUT_H

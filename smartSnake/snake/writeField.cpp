@@ -61,6 +61,7 @@ void WriteField::writeInputData() {
             m_pSnake->m_vIn.push_back(m_pSnake->m_vField[xG][yG]);
         }
     }
+    m_pSnake->m_vIn.push_back((int)m_pSnake->m_loopCount); // голод
 }
 
 void WriteField::checkBound(int* value, int bound) {
