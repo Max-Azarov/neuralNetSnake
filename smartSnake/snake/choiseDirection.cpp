@@ -48,7 +48,7 @@ DIRECTION ChoiseDirection::choise() {
         debug << QString::number(*it, 'f', 3);
     }
 
-    LogOut::messageOut(debug.join(' '));
+    LogOut::messageOut(debug.join("  "));
 
     return direction;
 }

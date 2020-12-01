@@ -119,6 +119,15 @@ void Training::saveWeightOfSynapses() {
     std::string fileName {"weights.bin"};
     std::fstream weightsf; // файловый поток
 
+    // Проверка на наличие файла
+    weightsf.open(fileName, std::ios::in); // Проверяем, есть ли такой файл
+    if (!weightsf) {
+        weightsf.close();
+        std::cerr << "\"" << fileName << "\" could not be opened! Create a new "<< fileName << std::endl;
+        weightsf.open(fileName, std::ios::out); // Если не открылся, создаем новый файл
+    }
+    weightsf.close();
+
     weightsf.open(fileName, std::ios::out | std::ios::trunc | std::ios::binary);
     if (!weightsf)
     {
@@ -135,5 +144,4 @@ void Training::saveWeightOfSynapses() {
         }
     }
     weightsf.close();
-    //qDebug() << "11111";
 }

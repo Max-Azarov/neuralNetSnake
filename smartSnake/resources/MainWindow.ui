@@ -282,6 +282,9 @@
          <property name="text">
           <string>Сбросить параметры нейросети</string>
          </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item alignment="Qt::AlignRight">
@@ -552,6 +555,9 @@
          </property>
          <property name="text">
           <string>Новая обучающая выборка</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -1382,18 +1388,20 @@
  </customwidgets>
  <tabstops>
   <tabstop>btnStart</tabstop>
-  <tabstop>leSnakeSpeed</tabstop>
-  <tabstop>sldSnakeSpeed</tabstop>
+  <tabstop>cbFreedom</tabstop>
   <tabstop>cbSnakeSpeed</tabstop>
+  <tabstop>sldSnakeSpeed</tabstop>
+  <tabstop>leSnakeSpeed</tabstop>
+  <tabstop>leNumOutputNN</tabstop>
   <tabstop>leNum1HiddenNN</tabstop>
   <tabstop>leNum2HiddenNN</tabstop>
-  <tabstop>cbNewWeights</tabstop>
   <tabstop>leNumOfHiddenLayersNN</tabstop>
+  <tabstop>cbNewTrainingData</tabstop>
   <tabstop>leA</tabstop>
   <tabstop>leE</tabstop>
-  <tabstop>cbNewTrainingData</tabstop>
   <tabstop>leAcceptError</tabstop>
-  <tabstop>leNumOutputNN</tabstop>
+  <tabstop>cbNewWeights</tabstop>
+  <tabstop>leNumInputNN</tabstop>
  </tabstops>
  <resources/>
  <connections/>

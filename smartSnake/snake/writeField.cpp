@@ -46,6 +46,7 @@ void WriteField::writeInputData() {
     m_pSnake->m_vIn.push_back(m_pSnake->fruitX);
     m_pSnake->m_vIn.push_back(m_pSnake->fruitY);
 
+    m_pSnake->m_vIn.push_back((int)m_pSnake->m_loopCount); // голод
 
     // Подаем на следующие входы область вокруг головы
     int sizeSquare = 5; // Размер области зрения змейки 5х5
@@ -61,7 +62,7 @@ void WriteField::writeInputData() {
             m_pSnake->m_vIn.push_back(m_pSnake->m_vField[xG][yG]);
         }
     }
-    m_pSnake->m_vIn.push_back((int)m_pSnake->m_loopCount); // голод
+
 }
 
 void WriteField::checkBound(int* value, int bound) {

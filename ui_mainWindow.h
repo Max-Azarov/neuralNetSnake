@@ -199,6 +199,7 @@ public:
         cbNewWeights->setObjectName(QString::fromUtf8("cbNewWeights"));
         cbNewWeights->setMinimumSize(QSize(0, 15));
         cbNewWeights->setMaximumSize(QSize(16666, 15));
+        cbNewWeights->setChecked(true);
 
         horizontalLayout_3->addWidget(cbNewWeights);
 
@@ -291,6 +292,7 @@ public:
         cbNewTrainingData->setObjectName(QString::fromUtf8("cbNewTrainingData"));
         cbNewTrainingData->setMinimumSize(QSize(0, 15));
         cbNewTrainingData->setMaximumSize(QSize(16666, 15));
+        cbNewTrainingData->setChecked(true);
 
         horizontalLayout_5->addWidget(cbNewTrainingData);
 
@@ -630,18 +632,20 @@ public:
         toolBar->setObjectName(QString::fromUtf8("toolBar"));
         toolBar->setEnabled(false);
         MainWindow->addToolBar(Qt::TopToolBarArea, toolBar);
-        QWidget::setTabOrder(btnStart, leSnakeSpeed);
-        QWidget::setTabOrder(leSnakeSpeed, sldSnakeSpeed);
-        QWidget::setTabOrder(sldSnakeSpeed, cbSnakeSpeed);
-        QWidget::setTabOrder(cbSnakeSpeed, leNum1HiddenNN);
+        QWidget::setTabOrder(btnStart, cbFreedom);
+        QWidget::setTabOrder(cbFreedom, cbSnakeSpeed);
+        QWidget::setTabOrder(cbSnakeSpeed, sldSnakeSpeed);
+        QWidget::setTabOrder(sldSnakeSpeed, leSnakeSpeed);
+        QWidget::setTabOrder(leSnakeSpeed, leNumOutputNN);
+        QWidget::setTabOrder(leNumOutputNN, leNum1HiddenNN);
         QWidget::setTabOrder(leNum1HiddenNN, leNum2HiddenNN);
-        QWidget::setTabOrder(leNum2HiddenNN, cbNewWeights);
-        QWidget::setTabOrder(cbNewWeights, leNumOfHiddenLayersNN);
-        QWidget::setTabOrder(leNumOfHiddenLayersNN, leA);
+        QWidget::setTabOrder(leNum2HiddenNN, leNumOfHiddenLayersNN);
+        QWidget::setTabOrder(leNumOfHiddenLayersNN, cbNewTrainingData);
+        QWidget::setTabOrder(cbNewTrainingData, leA);
         QWidget::setTabOrder(leA, leE);
-        QWidget::setTabOrder(leE, cbNewTrainingData);
-        QWidget::setTabOrder(cbNewTrainingData, leAcceptError);
-        QWidget::setTabOrder(leAcceptError, leNumOutputNN);
+        QWidget::setTabOrder(leE, leAcceptError);
+        QWidget::setTabOrder(leAcceptError, cbNewWeights);
+        QWidget::setTabOrder(cbNewWeights, leNumInputNN);
 
         menubar->addAction(menu->menuAction());
         menu->addAction(action);
