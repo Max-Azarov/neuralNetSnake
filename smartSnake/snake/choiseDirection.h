@@ -12,7 +12,6 @@ class Snake;
 class ChoiseDirection {
 private:
     Snake* m_pSnake;
-    LogOut* m_LogOut;
 
 private:
     bool checkCollision();

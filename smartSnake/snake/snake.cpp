@@ -16,7 +16,6 @@ Snake::~Snake() {
     if (neuroNet)           delete neuroNet;
     if (m_pWriteField)      delete m_pWriteField;
     if (m_pChoiseDirection) delete m_pChoiseDirection;
-    if (m_LogOut)           delete m_LogOut;
     if (m_pLearning)        delete m_pLearning;
 }
 
@@ -29,7 +28,6 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_setCount { 0 }
     , m_bMutex { false }
   , m_bStop { true }
-  , m_LogOut { new LogOut() }
   , m_pWriteField { new WriteField(this) }
   , m_pChoiseDirection { new ChoiseDirection(this) }
   , m_pLearning { new Learning(this) }
@@ -53,9 +51,6 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     for (unsigned int i = 0; i < m_vField.size(); ++i) {
         m_vField[i].resize(static_cast<unsigned int>(m_numberOfCellsPerSide));
     }
-
-    m_inputData = "input.txt";
-    m_outputDataIdeal = "outputIdeal.txt";
 
     averageNumberOfSteps(true);
 
@@ -358,19 +353,7 @@ void Snake::averageNumberOfSteps(bool restart) {
     // << Считаем среднее количество шагов
 }
 
-void Snake::createFile(const std::string & fileName, bool clearFile) {
-    std::fstream file; // файловый поток
-    std::ios_base::openmode mode {std::ios::in};
-    if (clearFile) mode = std::ios::out | std::ios::trunc;
 
-    file.open(fileName, mode);
-    if (!file) {
-        std::cerr << "\"" << fileName << "\" could not be opened!" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    file.close();
-
-}
 
 void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse, bool newSynapseWeights) {
     if (neuroNet) delete neuroNet;
@@ -393,8 +376,8 @@ void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t>
 
 void Snake::clearFiles(bool clear) {
     m_clearFiles = clear;
-    createFile(m_inputData, clear);
-    createFile(m_outputDataIdeal, clear);
+    //createFile(m_inputData, clear);
+    //createFile(m_outputDataIdeal, clear);
     if (clear) m_pLearning->clearData();
 }
 

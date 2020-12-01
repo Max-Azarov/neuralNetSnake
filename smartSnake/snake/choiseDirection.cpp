@@ -5,7 +5,6 @@
 
 ChoiseDirection::ChoiseDirection(Snake* pSnake) :
     m_pSnake { pSnake }
-  , m_LogOut { pSnake->getLogOut() }
 {
 }
 
@@ -48,7 +47,8 @@ DIRECTION ChoiseDirection::choise() {
     for (auto it = std::begin(*m_pSnake->getVOut()); it != std::end(*m_pSnake->getVOut()); ++it) {
         debug << QString::number(*it, 'f', 3);
     }
-    m_LogOut->messageOut(this, debug);
+
+    LogOut::messageOut(debug.join(' '));
 
     return direction;
 }

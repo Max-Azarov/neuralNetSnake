@@ -59,9 +59,7 @@ private:
     std::vector<int> m_vIn;
     std::vector<double> m_vOut;
 
-    // Названия файлов, содержащие обучающие выборки
-    std::string m_inputData;
-    std::string m_outputDataIdeal;
+
     bool m_clearFiles;
     //bool m_firstMove;
     DIRECTION m_firstDirection;
@@ -78,8 +76,6 @@ private:
     bool m_freedom;
 
 private:
-    LogOut* m_LogOut;
-
     friend class WriteField;
     WriteField* m_pWriteField;
 
@@ -128,7 +124,6 @@ public:
     size_t getNumFruitEaten() const {return m_numFruitEaten; }
     std::vector<int>* getVIn() { return &m_vIn; }
     std::vector<double>* getVOut() { return &m_vOut; }
-    LogOut* getLogOut() const { return m_LogOut; }
     DIRECTION getDirection() const { return m_direction; }
 
 protected:
