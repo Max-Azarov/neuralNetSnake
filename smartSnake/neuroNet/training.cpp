@@ -134,6 +134,7 @@ void Training::saveWeightOfSynapses() {
         std::cerr << "\"" << fileName << "\" could not be opened!" << std::endl;
         exit(EXIT_FAILURE);
     }
+
     for (size_t i = 0; i < p_Net->getNeuron().size(); ++i) {
         for (size_t j = 0; j < p_Net->getNeuron()[i].size(); ++j) {
             for ( auto  it =    std::begin(p_Net->getNeuron()[i][j]->getOutputSynapse());

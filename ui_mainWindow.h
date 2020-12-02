@@ -199,7 +199,7 @@ public:
         cbNewWeights->setObjectName(QString::fromUtf8("cbNewWeights"));
         cbNewWeights->setMinimumSize(QSize(0, 15));
         cbNewWeights->setMaximumSize(QSize(16666, 15));
-        cbNewWeights->setChecked(true);
+        cbNewWeights->setChecked(false);
 
         horizontalLayout_3->addWidget(cbNewWeights);
 
@@ -292,7 +292,7 @@ public:
         cbNewTrainingData->setObjectName(QString::fromUtf8("cbNewTrainingData"));
         cbNewTrainingData->setMinimumSize(QSize(0, 15));
         cbNewTrainingData->setMaximumSize(QSize(16666, 15));
-        cbNewTrainingData->setChecked(true);
+        cbNewTrainingData->setChecked(false);
 
         horizontalLayout_5->addWidget(cbNewTrainingData);
 

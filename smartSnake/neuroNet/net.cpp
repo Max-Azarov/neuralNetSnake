@@ -216,15 +216,24 @@ std::vector<double>& Net::getOut(std::vector<double>& out) const {
 
 void Net::createFile(const std::string & fileName, bool clearFile) {
     std::fstream file; // файловый поток
-    std::ios_base::openmode mode {std::ios::in};
-    if (clearFile) mode = std::ios::out | std::ios::trunc | std::ios::binary;
 
-    file.open(fileName, mode);
+    // Проверка на наличие файла
+    file.open(fileName, std::ios::in); // Проверяем, есть ли такой файл
     if (!file) {
-        std::cerr << "\"" << fileName << "\" could not be opened!" << std::endl;
-        exit(EXIT_FAILURE);
+        file.close();
+        std::cerr << "\"" << fileName << "\" could not be opened! Create a new "<< fileName << std::endl;
+        file.open(fileName, std::ios::out); // Если не открылся, создаем новый файл
     }
     file.close();
+
+    if (clearFile) {
+        file.open(fileName, std::ios::out | std::ios::trunc | std::ios::binary); // очищаем файл
+        if (!file) {
+            std::cerr << "\"" << fileName << "\" could not be opened!" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        file.close();
+    }
 }
 
 
