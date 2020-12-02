@@ -74,6 +74,7 @@ private:
     double m_infoSumError;
     size_t m_infoCount;
     bool m_freedom;
+    bool m_bManualFruit;
 
 private:
     friend class WriteField;
@@ -126,6 +127,7 @@ public:
     std::vector<int>* getVIn() { return &m_vIn; }
     std::vector<double>* getVOut() { return &m_vOut; }
     DIRECTION getDirection() const { return m_direction; }
+    void setManualFruit(bool manualFruit) { m_bManualFruit = manualFruit; }
 
 protected:
     void paintEvent(QPaintEvent *);

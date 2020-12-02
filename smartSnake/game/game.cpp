@@ -126,6 +126,10 @@ void Game::on_cbNewWeights_stateChanged(int state) {
     }
 }
 
+void Game::on_cbManualFruit_stateChanged(int state) {
+    m_pSnake->setManualFruit((bool)state);
+}
+
 void Game::initNet() {
     std::vector<size_t> vNeuron;
     vNeuron.push_back(ui->leNumInputNN->text().toUInt());

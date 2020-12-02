@@ -28,6 +28,7 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_setCount { 0 }
     , m_bMutex { false }
   , m_bStop { true }
+  , m_bManualFruit { false }
   , m_pWriteField { new WriteField(this) }
   , m_pChoiseDirection { new ChoiseDirection(this) }
   , m_pLearning { new Learning(this) }
@@ -287,7 +288,7 @@ bool Snake::checkHopelessSituation() {
 
 bool Snake::checkSnakeLooped() {
     //size_t itemp = static_cast<size_t>(m_numberOfCellsPerSide-2); // 2 - толщина стенок
-    m_loopCount++;
+    if (!m_bManualFruit) m_loopCount++;
     /*
     if (m_loopCount > ((size_t)m_numberOfCellsPerSide * m_numberOfCellsPerSide)) {
         // Змейка зациклилась
@@ -296,8 +297,8 @@ bool Snake::checkSnakeLooped() {
         return true;
     }
     */
-    m_loopMotion = false;
-    if (m_isTheFruitEaten) m_loopCount = 0;
+    //m_loopMotion = false;
+    if (m_isTheFruitEaten || m_bManualFruit) m_loopCount = 0;
     return false;
 }
 

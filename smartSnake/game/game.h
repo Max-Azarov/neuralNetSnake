@@ -38,6 +38,7 @@ private slots:
     void on_leNum2HiddenNN_editingFinished();
     void on_leNumOfHiddenLayersNN_editingFinished();
     void on_cbNewWeights_stateChanged(int state);
+    void on_cbManualFruit_stateChanged(int state);
     void slotRunInfo();
     void slotErrorInfo();
     void slotStatusInfo(const QString&);
