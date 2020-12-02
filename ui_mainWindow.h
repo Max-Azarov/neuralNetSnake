@@ -671,11 +671,11 @@ public:
 #if QT_CONFIG(tooltip)
         leNum1HiddenNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of neurons in the first hidden layer", nullptr));
 #endif // QT_CONFIG(tooltip)
-        leNum1HiddenNN->setText(QCoreApplication::translate("MainWindow", "100", nullptr));
+        leNum1HiddenNN->setText(QCoreApplication::translate("MainWindow", "32", nullptr));
 #if QT_CONFIG(tooltip)
         leNum2HiddenNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of neurons in the second hidden layer", nullptr));
 #endif // QT_CONFIG(tooltip)
-        leNum2HiddenNN->setText(QCoreApplication::translate("MainWindow", "200", nullptr));
+        leNum2HiddenNN->setText(QCoreApplication::translate("MainWindow", "34", nullptr));
 #if QT_CONFIG(tooltip)
         leNumOutputNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of outputs neural net (equal to the number of possible directions: right, left, up, down)", nullptr));
 #endif // QT_CONFIG(tooltip)

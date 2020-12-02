@@ -185,7 +185,7 @@
           <string>Count of neurons in the first hidden layer</string>
          </property>
          <property name="text">
-          <string>100</string>
+          <string>32</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -220,7 +220,7 @@
           <string>Count of neurons in the second hidden layer</string>
          </property>
          <property name="text">
-          <string>200</string>
+          <string>34</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>

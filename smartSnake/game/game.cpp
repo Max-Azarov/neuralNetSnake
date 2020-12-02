@@ -170,7 +170,6 @@ void Game::readSettings(){
     ui->leA->setText(m_settings.value("/leA", "0.1").toString());
     ui->leE->setText(m_settings.value("/leE", "0.05").toString());
     ui->leAcceptError->setText(m_settings.value("/leAcceptError", "0.02").toString());
-    //ui->cbNewWeights->setCheckState(m_settings.value("/cbNewWeights", "0").toString()));
     m_settings.endGroup();
 }
 
@@ -182,7 +181,6 @@ void Game::writeSettings() {
     m_settings.setValue("/leA", ui->leA->text());
     m_settings.setValue("/leE", ui->leE->text());
     m_settings.setValue("/leAcceptError", ui->leAcceptError->text());
-    m_settings.setValue("/cbNewWeights", ui->cbNewWeights->checkState());
     m_settings.endGroup();
     if (m_pSnake->getNet()) m_pSnake->getNet()->training().saveWeightOfSynapses();
 }
