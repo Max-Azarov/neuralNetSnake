@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QImage>
 #include <QTimer>
+#include <QMouseEvent>
 
 #include "snake/enums.h"
 #include "neuroNet/net.h"
@@ -74,7 +75,6 @@ private:
     double m_infoSumError;
     size_t m_infoCount;
     bool m_freedom;
-    bool m_bManualFruit;
 
 private:
     friend class WriteField;
@@ -93,7 +93,7 @@ private:
     bool checkSnakeLooped();
     void drawing();
     void initGame();
-    void locateFruit();
+
     void movement();
     std::vector<double> readDataToDouble(std::string fileName);
     std::vector<int> readDataToInt(std::string fileName);
@@ -105,6 +105,8 @@ private:
     void processingSnakeEvents();
     void effects();
     void learning(Learning&);
+    void manualFruitLocate(int x, int y);
+    void checkBound(int* value, int bound1, int bound2);
 
 public:
     Snake(QWidget *parent = nullptr);
@@ -127,11 +129,12 @@ public:
     std::vector<int>* getVIn() { return &m_vIn; }
     std::vector<double>* getVOut() { return &m_vOut; }
     DIRECTION getDirection() const { return m_direction; }
-    void setManualFruit(bool manualFruit) { m_bManualFruit = manualFruit; }
+    void locateFruit();
 
 protected:
-    void paintEvent(QPaintEvent *);
-    void keyPressEvent(QKeyEvent *);
+    void paintEvent(QPaintEvent*);
+    void keyPressEvent(QKeyEvent*);
+    void mousePressEvent(QMouseEvent*);
 
 private:
     Net* neuroNet;

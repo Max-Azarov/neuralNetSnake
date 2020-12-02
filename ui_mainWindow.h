@@ -90,8 +90,6 @@ public:
     QSpacerItem *horizontalSpacer_4;
     QPushButton *btnStart;
     QSpacerItem *horizontalSpacer_7;
-    QCheckBox *cbManualFruit;
-    QSpacerItem *horizontalSpacer_3;
     QHBoxLayout *horizontalLayout_9;
     QSpacerItem *horizontalSpacer_6;
     QLabel *lblStatus;
@@ -600,20 +598,10 @@ public:
 
         horizontalLayout_8->addItem(horizontalSpacer_7);
 
-        cbManualFruit = new QCheckBox(centralwidget);
-        cbManualFruit->setObjectName(QString::fromUtf8("cbManualFruit"));
-
-        horizontalLayout_8->addWidget(cbManualFruit);
-
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_8->addItem(horizontalSpacer_3);
-
         horizontalLayout_8->setStretch(1, 1);
         horizontalLayout_8->setStretch(2, 1);
         horizontalLayout_8->setStretch(3, 1);
-        horizontalLayout_8->setStretch(4, 1);
-        horizontalLayout_8->setStretch(5, 1);
+        horizontalLayout_8->setStretch(4, 3);
 
         verticalLayout_3->addLayout(horizontalLayout_8);
 
@@ -809,7 +797,6 @@ public:
 "\321\215\320\277\320\276\321\205\321\203", nullptr));
         cbFreedom->setText(QCoreApplication::translate("MainWindow", "\320\222\321\213\320\277\321\203\321\201\321\202\320\270\321\202\321\214 \320\267\320\274\320\265\320\271\320\272\321\203 \320\277\320\276\320\263\321\203\320\273\321\217\321\202\321\214", nullptr));
         btnStart->setText(QCoreApplication::translate("MainWindow", "\320\241\321\202\320\260\321\200\321\202", nullptr));
-        cbManualFruit->setText(QCoreApplication::translate("MainWindow", "\320\240\321\203\321\207\320\275\320\260\321\217 \321\200\320\260\321\201\321\201\321\202\320\260\320\275\320\276\320\262\320\272\320\260 \321\204\321\200\321\203\320\272\321\202\320\260", nullptr));
         lblStatus->setText(QString());
         menu->setTitle(QCoreApplication::translate("MainWindow", "\320\230\320\275\321\204\320\276", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));

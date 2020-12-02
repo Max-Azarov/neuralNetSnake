@@ -772,6 +772,7 @@ release\moc_game.cpp: smartSnake\game\game.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QValidator \
 		smartSnake\snake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QMouseEvent \
 		smartSnake\snake\enums.h \
 		smartSnake\neuroNet\net.h \
 		smartSnake\neuroNet\_neuronet.h \
@@ -917,6 +918,7 @@ release\moc_snake.cpp: smartSnake\snake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtimer.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasictimer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QMouseEvent \
 		smartSnake\snake\enums.h \
 		smartSnake\neuroNet\net.h \
 		smartSnake\neuroNet\_neuronet.h \
@@ -1057,6 +1059,7 @@ ui_mainWindow.h: smartSnake\resources\mainWindow.ui \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtimer.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasictimer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QMouseEvent \
 		smartSnake\snake\enums.h \
 		smartSnake\neuroNet\net.h \
 		smartSnake\neuroNet\_neuronet.h \
@@ -1562,6 +1565,7 @@ release\game.obj: smartSnake\game\game.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWi
 		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QValidator \
 		smartSnake\snake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QMouseEvent \
 		smartSnake\snake\enums.h \
 		smartSnake\neuroNet\net.h \
 		smartSnake\neuroNet\_neuronet.h \
@@ -2135,6 +2139,7 @@ release\main.obj: smartSnake\main.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets
 		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QValidator \
 		smartSnake\snake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QMouseEvent \
 		smartSnake\snake\enums.h \
 		smartSnake\neuroNet\net.h \
 		smartSnake\neuroNet\_neuronet.h \
@@ -2395,6 +2400,7 @@ release\choiseDirection.obj: smartSnake\snake\choiseDirection.cpp smartSnake\sna
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtimer.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasictimer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QMouseEvent \
 		smartSnake\snake\enums.h \
 		smartSnake\neuroNet\net.h \
 		smartSnake\neuroNet\_neuronet.h \
@@ -2522,6 +2528,7 @@ release\learning.obj: smartSnake\snake\learning.cpp smartSnake\snake\learning.h 
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtimer.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasictimer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QMouseEvent \
 		smartSnake\snake\enums.h \
 		smartSnake\neuroNet\net.h \
 		smartSnake\neuroNet\_neuronet.h \
@@ -2655,6 +2662,7 @@ release\snake.obj: smartSnake\snake\snake.cpp smartSnake\snake\snake.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtimer.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasictimer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QMouseEvent \
 		smartSnake\snake\enums.h \
 		smartSnake\neuroNet\net.h \
 		smartSnake\neuroNet\_neuronet.h \
@@ -2913,6 +2921,7 @@ release\writeField.obj: smartSnake\snake\writeField.cpp smartSnake\snake\writeFi
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\QTimer \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qtimer.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtCore\qbasictimer.h \
+		D:\Qt\5.13.2\msvc2017_64\include\QtGui\QMouseEvent \
 		smartSnake\snake\enums.h \
 		smartSnake\neuroNet\net.h \
 		smartSnake\neuroNet\_neuronet.h \

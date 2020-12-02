@@ -28,7 +28,6 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_setCount { 0 }
     , m_bMutex { false }
   , m_bStop { true }
-  , m_bManualFruit { false }
   , m_pWriteField { new WriteField(this) }
   , m_pChoiseDirection { new ChoiseDirection(this) }
   , m_pLearning { new Learning(this) }
@@ -143,11 +142,6 @@ void Snake::locateFruit() {
                 if (count == random) {
                     fruitX = x;
                     fruitY = y;
-                    //================== Принудительная установка фрукта
-                    //fruitX = -1;
-                    //fruitY = -1;
-                    //==================
-
                     return;
                 }
                 ++count;
@@ -155,7 +149,6 @@ void Snake::locateFruit() {
             emptyCell = true;
         }
     }
-    return;
 }
 
 void Snake::loadTextures() {
@@ -288,7 +281,7 @@ bool Snake::checkHopelessSituation() {
 
 bool Snake::checkSnakeLooped() {
     //size_t itemp = static_cast<size_t>(m_numberOfCellsPerSide-2); // 2 - толщина стенок
-    if (!m_bManualFruit) m_loopCount++;
+    m_loopCount++;
     /*
     if (m_loopCount > ((size_t)m_numberOfCellsPerSide * m_numberOfCellsPerSide)) {
         // Змейка зациклилась
@@ -298,7 +291,7 @@ bool Snake::checkSnakeLooped() {
     }
     */
     //m_loopMotion = false;
-    if (m_isTheFruitEaten || m_bManualFruit) m_loopCount = 0;
+    if (m_isTheFruitEaten) m_loopCount = 0;
     return false;
 }
 
@@ -416,4 +409,21 @@ void Snake::effects() {
 
 void Snake::learning(Learning& concreteLearning) {
     concreteLearning.learning();
+}
+
+void Snake::mousePressEvent(QMouseEvent* e) {
+    manualFruitLocate(e->localPos().x(), e->localPos().y());
+    e->accept();
+}
+
+void Snake::manualFruitLocate(int x, int y) {
+    fruitX = x / m_cellSize;
+    fruitY = y / m_cellSize;
+    checkBound(&fruitX, 1, m_numberOfCellsPerSide - 2); // ширина игрового поля за исключением ширины стенок
+    checkBound(&fruitY, 1, m_numberOfCellsPerSide - 2);
+}
+
+void Snake::checkBound(int* value, int bound1, int bound2) {
+    if (*value < bound1) *value = bound1;
+    if (*value > bound2) *value = bound2;
 }
