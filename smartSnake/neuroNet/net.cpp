@@ -130,14 +130,7 @@ void Net::initNet(const std::vector<size_t> & vNeuron, const std::vector<size_t>
     // Инициализируем дополнительные параметры синапсов
     // Для конвертации из double в string при записи весов в файл и обратно через строковый поток
     std::fstream weightsf; // файловый поток
-    // Проверка на наличие файла весов
-    weightsf.open(m_fileName, std::ios::in); // Проверяем, есть ли такой файл
-    if (!weightsf) {
-        weightsf.close();
-        std::cerr << "\"" << m_fileName << "\" could not be opened! Create a new "<< m_fileName << std::endl;
-        weightsf.open(m_fileName, std::ios::out); // Если не открылся, создаем новый файл
-    }
-    weightsf.close();
+
     //Записываем новые случайные веса синапсов в файл, если это требуется
     if (b_newSynapseWeights) {
         weightsf.open(m_fileName, std::ios::out | std::ios::trunc | std::ios::binary);

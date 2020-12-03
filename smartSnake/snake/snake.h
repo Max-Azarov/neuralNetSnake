@@ -116,7 +116,7 @@ public:
     void stop();
     void start(bool freedom);
     Net* getNet() { return neuroNet; }
-    void setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse, bool newSynapseWeights);
+    void setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse);
     void setAcceptError(double acceptError) { m_acceptError = acceptError; }
     void clearFiles(bool clear = true);
     double getAverage() const { return m_average; }

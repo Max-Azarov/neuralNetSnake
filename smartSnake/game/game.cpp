@@ -138,10 +138,8 @@ void Game::initNet() {
     vNeuron.push_back( ui->leNumOutputNN->text().toUInt() );
 
     std::vector<size_t> vSynapse(vNeuron.size() - 1, 1);
-    //vSynapse[0] = 10; // Особенность устройства нейросети змейки
-    //vSynapse[0] = 2; // Особенность устройства нейросети змейки
 
-    m_pSnake->setNN(vNeuron, vSynapse, m_bNewSynapseWeights);
+    m_pSnake->setNN(vNeuron, vSynapse);
 }
 
 void Game::setSnakeSpeed(int speed) {

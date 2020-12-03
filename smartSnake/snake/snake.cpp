@@ -353,9 +353,9 @@ void Snake::averageNumberOfSteps(bool restart) {
 
 
 
-void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse, bool newSynapseWeights) {
+void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse) {
     if (neuroNet) delete neuroNet;
-    neuroNet = new Net(vNeuron, vSynapse, newSynapseWeights);
+    neuroNet = new Net(vNeuron, vSynapse);
 
     // Начиная с первого скрытого слоя, далее каждому второму из скрытых слоев присваиваем тип активации RELU (кроме нейрона смещения)
     auto itLayer = std::begin(neuroNet->getNeuron());

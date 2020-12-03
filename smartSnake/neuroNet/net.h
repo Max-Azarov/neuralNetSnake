@@ -48,7 +48,7 @@ public:
         bool randomizeE = true, bool m_randomizeA = true
         );
     Net(const std::vector<size_t> & vNeuron,
-        bool newSynapseWeights,
+        bool newSynapseWeights = true,
         double e = 0.1, double a = 0.05
         );
 
