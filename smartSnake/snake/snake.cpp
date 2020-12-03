@@ -28,7 +28,7 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_setCount { 0 }
     , m_bMutex { false }
   , m_bStop { true }
-  , m_pWriteField { new WriteField(this) }
+  , m_pWriteField { new WriteFieldType_1(this) }
   , m_pChoiseDirection { new ChoiseDirectionType_1(this) }
   , m_pLearning { new LearningType_2(this) }
   , neuroNet { nullptr }
@@ -55,6 +55,7 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     averageNumberOfSteps(true);
 
     readDataToTrainingSet(*m_pLearning);
+    writeInputData(*m_pWriteField);
 
     initGame();
     pTimer = new QTimer(this);
@@ -90,7 +91,7 @@ void Snake::start(bool freedom) {
 void Snake::slotLoop() {
     if ( !m_bMutex ) {
         m_bMutex = true;
-        m_pWriteField->writeInputData();
+        writeInputData(*m_pWriteField);
         movement();
         checkTheFruitEaten(); // съела ли фрукт
         effects();
@@ -167,6 +168,16 @@ void Snake::movement() {
     if (m_directionSelectedByNeuroNet) {
         choiseDirection(*m_pChoiseDirection);
     }
+    QStringList debug;
+    debug << QString::number(this->getStepCount()) <<
+                (m_direction == UP ? "UP   " :
+                m_direction == DOWN ? "DOWN " :
+                m_direction == LEFT ? "LEFT " : "RIGHT");
+
+    for (auto it = std::begin(*this->getVOut()); it != std::end(*this->getVOut()); ++it) {
+        debug << QString::number(*it, 'f', 3);
+    }
+    LogOut::messageOut(debug.join("  "));
     // << Выбор направления нейросетью
 
     for (int i = m_snakeLength - 1; i > 0; --i) {
@@ -410,6 +421,27 @@ void Snake::choiseDirection(ChoiseDirection& concreteChoise) {
     m_direction = concreteChoise.choise();
 }
 
+void Snake::writeInputData(WriteField& concreteWriteField) {
+    writeField();
+    concreteWriteField.writeInputData();
+}
+
+size_t Snake::getNumOfInputsNN(WriteField& concreteWriteField) {
+    return concreteWriteField.getNumInputData();
+}
+
+size_t Snake::getNumOfOutputsNN(ChoiseDirection& concreteChoiseDirection) {
+    return concreteChoiseDirection.getNumOfOutputs();
+}
+
+size_t Snake::getNumOfInputsNN() {
+    return getNumOfInputsNN(*m_pWriteField);
+}
+
+size_t Snake::getNumOfOutputsNN() {
+    return getNumOfOutputsNN(*m_pChoiseDirection);
+}
+
 void Snake::mousePressEvent(QMouseEvent* e) {
     manualFruitLocate(e->localPos().x(), e->localPos().y());
     e->accept();
@@ -425,4 +457,39 @@ void Snake::manualFruitLocate(int x, int y) {
 void Snake::checkBound(int* value, int bound1, int bound2) {
     if (*value < bound1) *value = bound1;
     if (*value > bound2) *value = bound2;
+}
+
+void Snake::writeField() {
+    this->getVIn()->clear();
+    // Заполняем входной вектор для подачи в нейросеть. Не использованы private поля, т.к. метод перекочевал из стороннего класса
+    // Пустое поле и стены
+    std::vector<std::vector<TYPE_CELL>>& vField = *this->getVField(); // Матрица поля игры
+
+    for (size_t x = 0; x < vField.size(); ++x) {
+        for (size_t y = 0; y < vField[x].size(); ++y) {
+            vField[x][y] = TYPE_CELL::EMPTY;
+            if (x == 0 || y == 0 || x == ((size_t)this->getNumberOfCellsPerSide() - 1) || y == ((size_t)this->getNumberOfCellsPerSide() - 1)) {
+                vField[x][y] = TYPE_CELL::WALL;
+            }
+        }
+    }
+    //
+    for (size_t x = 0; x < vField.size(); ++x) {
+        for (size_t y = 0; y < vField[x].size(); ++y) {
+            if ( x == (size_t)this->getFruitX() && y == (size_t)this->getFruitY() ) {
+                vField[x][y] = TYPE_CELL::FRUIT;
+            }
+            else if ( x == (size_t)this->getSnakeX()[0] && y == (size_t)this->getSnakeY()[0]) {
+                vField[x][y] = TYPE_CELL::HEAD;
+            }
+            else {
+                for (int i = 1; i < (int)this->getSnakeLength(); ++i) {
+                    if (x == (size_t)this->getSnakeX()[i] && y == (size_t)this->getSnakeY()[i]) {
+                        vField[x][y] = TYPE_CELL::BODY;
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }

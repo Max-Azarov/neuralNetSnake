@@ -40,6 +40,7 @@ public:
 };
 
 class LearningType_1 : public Learning {
+    // Вся тренировочная Выборка прогоняется один раз, начиная с последнего опыта к первому
 public:
     LearningType_1(Snake* pSnake);
 
@@ -47,6 +48,7 @@ public:
 };
 
 class LearningType_2 : public Learning {
+    // Вся тренировочная Выборка прогоняется один раз, начиная с первого опыта к последнему
 public:
     LearningType_2(Snake* pSnake);
 

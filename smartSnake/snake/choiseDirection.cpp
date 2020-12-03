@@ -3,12 +3,21 @@
 #include <QDebug>
 #include <QStringList>
 
-ChoiseDirection::ChoiseDirection(Snake* pSnake) :
+ChoiseDirection::ChoiseDirection(Snake* pSnake, size_t numOfOutputs) :
     m_pSnake { pSnake }
+  , m_numOfOutputs { numOfOutputs }
 {
 }
 
 
+//  ChoiseDirectionType_1 ========================================================================
+// Ищем максимальную мотивацию и, если она больше своего страха, идем в эту сторону.
+// В противном случае, ищем следующую по значению мотивацию и сравниваем со страхом.
+// Если все мотивации меньше своих страхов, идем туда, где меньше всего страх
+// используется 8 выходов НС
+ChoiseDirectionType_1::ChoiseDirectionType_1(Snake* pSnake) : ChoiseDirection(pSnake, 8)
+{
+}
 
 DIRECTION ChoiseDirectionType_1::choise() {
     // Подаем данные в нейросеть, ответ записываем в вектор
@@ -40,23 +49,5 @@ DIRECTION ChoiseDirectionType_1::choise() {
         }
     }
 
-    QStringList debug;
-    debug << QString::number(m_pSnake->getStepCount()) <<
-                (direction == UP ? "UP   " :
-                direction == DOWN ? "DOWN " :
-                direction == LEFT ? "LEFT " : "RIGHT");
-
-    for (auto it = std::begin(*m_pSnake->getVOut()); it != std::end(*m_pSnake->getVOut()); ++it) {
-        debug << QString::number(*it, 'f', 3);
-    }
-
-    LogOut::messageOut(debug.join("  "));
-
     return direction;
-}
-
-
-ChoiseDirectionType_1::ChoiseDirectionType_1(Snake* pSnake) : ChoiseDirection(pSnake)
-{
-
 }

@@ -667,7 +667,7 @@ public:
 #if QT_CONFIG(tooltip)
         leNumInputNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of inputs neural net", nullptr));
 #endif // QT_CONFIG(tooltip)
-        leNumInputNN->setText(QCoreApplication::translate("MainWindow", "30", nullptr));
+        leNumInputNN->setText(QString());
 #if QT_CONFIG(tooltip)
         leNum1HiddenNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of neurons in the first hidden layer", nullptr));
 #endif // QT_CONFIG(tooltip)
@@ -679,7 +679,7 @@ public:
 #if QT_CONFIG(tooltip)
         leNumOutputNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of outputs neural net", nullptr));
 #endif // QT_CONFIG(tooltip)
-        leNumOutputNN->setText(QCoreApplication::translate("MainWindow", "8", nullptr));
+        leNumOutputNN->setText(QString());
 #if QT_CONFIG(tooltip)
         cbNewWeights->setToolTip(QCoreApplication::translate("MainWindow", "Do need to assign new random weights to synapses", nullptr));
 #endif // QT_CONFIG(tooltip)

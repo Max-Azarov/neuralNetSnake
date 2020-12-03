@@ -103,8 +103,12 @@ private:
     size_t getNumTrainingSet(Learning&);
     void clearData(Learning&);
     void choiseDirection(ChoiseDirection&);
+    void writeInputData(WriteField&);
+    size_t getNumOfInputsNN(WriteField&);
+    size_t getNumOfOutputsNN(ChoiseDirection&);
     void manualFruitLocate(int x, int y);
     void checkBound(int* value, int bound1, int bound2);
+    void writeField(); // Заполняем вектор поля
 
 public:
     Snake(QWidget *parent = nullptr);
@@ -144,6 +148,8 @@ public:
     const int* getSnakeX() const { return snakeX; }
     const int* getSnakeY() const { return snakeY; }
     size_t getStepFromEating() const { return m_stepFromEating; }
+    size_t getNumOfInputsNN();
+    size_t getNumOfOutputsNN();
 
 protected:
     void paintEvent(QPaintEvent*);
