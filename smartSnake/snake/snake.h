@@ -39,7 +39,6 @@ private:
     int m_snakeLength;
     int timerId;
     size_t m_stepFromEating;
-    size_t m_loopCount;
     size_t m_numFruitEaten;
 
     std::vector<std::vector<TYPE_CELL>> m_vField; // В векторе содержатся типы клеток поля в координатах х, у
@@ -77,9 +76,7 @@ private:
     bool m_freedom;
 
 private:
-    friend class WriteField;
     WriteField* m_pWriteField;
-
     ChoiseDirection* m_pChoiseDirection;
     Learning* m_pLearning;
 
@@ -88,7 +85,6 @@ private:
     bool collision(const int* const snakeX, const int* const snakeY);
     bool checkTheFruitEaten();
     bool checkHopelessSituation();
-    bool checkSnakeLooped();
     void drawing();
     void initGame();
 
@@ -141,6 +137,13 @@ public:
     void incSetCount() { m_setCount++; }
     bool getStatusCollision() const { return m_collision; }
     bool getStatusFruitEaten() const { return m_isTheFruitEaten; }
+    std::vector<std::vector<TYPE_CELL>>* getVField() { return &m_vField; }
+    int getNumberOfCellsPerSide() const { return m_numberOfCellsPerSide; }
+    int getFruitX() const { return fruitX; }
+    int getFruitY() const { return fruitY; }
+    const int* getSnakeX() const { return snakeX; }
+    const int* getSnakeY() const { return snakeY; }
+    size_t getStepFromEating() const { return m_stepFromEating; }
 
 protected:
     void paintEvent(QPaintEvent*);

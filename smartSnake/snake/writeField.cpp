@@ -6,47 +6,48 @@ WriteField::WriteField(Snake* snake) :
 }
 
 void WriteField::writeInputData() {
-    m_pSnake->m_vIn.clear();
+    m_pSnake->getVIn()->clear();
     // Заполняем входной вектор для подачи в нейросеть
     // Пустое поле и стены
-    for (size_t x = 0; x < m_pSnake->m_vField.size(); ++x) {
-        for (size_t y = 0; y < m_pSnake->m_vField[x].size(); ++y) {
-            m_pSnake->m_vField[x][y] = TYPE_CELL::EMPTY;
-            if (x == 0 || y == 0 || x == ((size_t)m_pSnake->m_numberOfCellsPerSide - 1) || y == ((size_t)m_pSnake->m_numberOfCellsPerSide - 1)) {
-                m_pSnake->m_vField[x][y] = TYPE_CELL::WALL;
+    std::vector<std::vector<TYPE_CELL>>& vField = *m_pSnake->getVField(); // Матрица поля игры
+
+    for (size_t x = 0; x < vField.size(); ++x) {
+        for (size_t y = 0; y < vField[x].size(); ++y) {
+            vField[x][y] = TYPE_CELL::EMPTY;
+            if (x == 0 || y == 0 || x == ((size_t)m_pSnake->getNumberOfCellsPerSide() - 1) || y == ((size_t)m_pSnake->getNumberOfCellsPerSide() - 1)) {
+                vField[x][y] = TYPE_CELL::WALL;
             }
         }
     }
     //
-    for (size_t x = 0; x < m_pSnake->m_vField.size(); ++x) {
-        for (size_t y = 0; y < m_pSnake->m_vField[x].size(); ++y) {
-            if ( x == (size_t)m_pSnake->fruitX && y == (size_t)m_pSnake->fruitY ) {
-                m_pSnake->m_vField[x][y] = TYPE_CELL::FRUIT;
+    for (size_t x = 0; x < vField.size(); ++x) {
+        for (size_t y = 0; y < vField[x].size(); ++y) {
+            if ( x == (size_t)m_pSnake->getFruitX() && y == (size_t)m_pSnake->getFruitY() ) {
+                vField[x][y] = TYPE_CELL::FRUIT;
             }
-            else if ( x == (size_t)m_pSnake->snakeX[0] && y == (size_t)m_pSnake->snakeY[0]) {
-                m_pSnake->m_vField[x][y] = TYPE_CELL::HEAD;
+            else if ( x == (size_t)m_pSnake->getSnakeX()[0] && y == (size_t)m_pSnake->getSnakeY()[0]) {
+                vField[x][y] = TYPE_CELL::HEAD;
             }
             else {
-                for (int i = 1; i < m_pSnake->m_snakeLength; ++i) {
-                    if (x == (size_t)m_pSnake->snakeX[i] && y == (size_t)m_pSnake->snakeY[i]) {
-                        m_pSnake->m_vField[x][y] = TYPE_CELL::BODY;
+                for (int i = 1; i < (int)m_pSnake->getSnakeLength(); ++i) {
+                    if (x == (size_t)m_pSnake->getSnakeX()[i] && y == (size_t)m_pSnake->getSnakeY()[i]) {
+                        vField[x][y] = TYPE_CELL::BODY;
                         break;
                     }
                 }
             }
-            //m_vIn.push_back(m_vField[x][y]);
         }
     }
 
     // Подаем на входы координаты головы и фрукта
-    int xHead = m_pSnake->snakeX[0];
-    int yHead = m_pSnake->snakeY[0];
-    m_pSnake->m_vIn.push_back(xHead);
-    m_pSnake->m_vIn.push_back(yHead);
-    m_pSnake->m_vIn.push_back(m_pSnake->fruitX);
-    m_pSnake->m_vIn.push_back(m_pSnake->fruitY);
+    int xHead = m_pSnake->getSnakeX()[0];
+    int yHead = m_pSnake->getSnakeY()[0];
+    m_pSnake->getVIn()->push_back(xHead);
+    m_pSnake->getVIn()->push_back(yHead);
+    m_pSnake->getVIn()->push_back(m_pSnake->getFruitX());
+    m_pSnake->getVIn()->push_back(m_pSnake->getFruitY());
 
-    m_pSnake->m_vIn.push_back((int)m_pSnake->m_loopCount); // голод
+    m_pSnake->getVIn()->push_back((int)m_pSnake->getStepFromEating()); // голод
 
     // Подаем на следующие входы область вокруг головы
     int sizeSquare = 5; // Размер области зрения змейки 5х5
@@ -56,10 +57,10 @@ void WriteField::writeInputData() {
     for (int x = 0; x < sizeSquare; ++x) {
         for (int y = 0; y < sizeSquare; ++y) {
             xG = xHead + correction + x;
-            checkBound(&xG, (int)m_pSnake->m_vField.size()-1); // Если вышли за границу, присваиваем значение границы
+            checkBound(&xG, (int)vField.size()-1); // Если вышли за границу, присваиваем значение границы
             yG = yHead + correction + y;
-            checkBound(&yG, (int)m_pSnake->m_vField[xG].size()-1); // Если вышли за границу, присваиваем значение границы
-            m_pSnake->m_vIn.push_back(m_pSnake->m_vField[xG][yG]);
+            checkBound(&yG, (int)vField[xG].size()-1); // Если вышли за границу, присваиваем значение границы
+            m_pSnake->getVIn()->push_back(vField[xG][yG]);
         }
     }
 

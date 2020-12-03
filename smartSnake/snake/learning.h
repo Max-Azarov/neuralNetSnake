@@ -32,7 +32,7 @@ public:
     Learning(Snake* pSnake);
     virtual ~Learning() {}
 
-    virtual void learning() = 0;
+    void learning();
     void readDataToTrainingSet();
     void clearData();
     size_t getNumTrainingSet() const { return m_vInTrainingSet.size(); }
@@ -44,8 +44,13 @@ public:
     LearningType_1(Snake* pSnake);
 
     void training() override;
-    void learning() override;
+};
 
+class LearningType_2 : public Learning {
+public:
+    LearningType_2(Snake* pSnake);
+
+    void training() override;
 };
 
 #endif // SNAKETRAINING_H

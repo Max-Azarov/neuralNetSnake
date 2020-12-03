@@ -30,7 +30,7 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
   , m_bStop { true }
   , m_pWriteField { new WriteField(this) }
   , m_pChoiseDirection { new ChoiseDirectionType_1(this) }
-  , m_pLearning { new LearningType_1(this) }
+  , m_pLearning { new LearningType_2(this) }
   , neuroNet { nullptr }
 {
     static bool startRandom = false;
@@ -93,8 +93,6 @@ void Snake::slotLoop() {
         m_pWriteField->writeInputData();
         movement();
         checkTheFruitEaten(); // съела ли фрукт
-        checkSnakeLooped(); // Зациклилась ли
-        //checkHopelessSituation(); // Попала ли в ловушку
         effects();
         if (!m_freedom) learning(*m_pLearning); // учится
         processingSnakeEvents();
@@ -112,7 +110,6 @@ void Snake::initGame() {
     m_collision = false;
     m_loopMotion = false;
     m_isHopelessSituation = false;
-    m_loopCount = 0;
 
     m_snakeLength = 3;
 
@@ -279,22 +276,6 @@ bool Snake::checkHopelessSituation() {
     return false;
 }
 
-bool Snake::checkSnakeLooped() {
-    //size_t itemp = static_cast<size_t>(m_numberOfCellsPerSide-2); // 2 - толщина стенок
-    m_loopCount++;
-    /*
-    if (m_loopCount > ((size_t)m_numberOfCellsPerSide * m_numberOfCellsPerSide)) {
-        // Змейка зациклилась
-        m_loopMotion = true;
-        m_loopCount = 0;
-        return true;
-    }
-    */
-    //m_loopMotion = false;
-    if (m_isTheFruitEaten) m_loopCount = 0;
-    return false;
-}
-
 void Snake::restart() {
     //slotGrayBackground100msec();
     initGame();
@@ -378,8 +359,6 @@ void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t>
 
 void Snake::clearFiles(bool clear) {
     m_clearFiles = clear;
-    //createFile(m_inputData, clear);
-    //createFile(m_outputDataIdeal, clear);
     if (clear) clearData(*m_pLearning);
 }
 
