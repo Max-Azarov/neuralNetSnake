@@ -8,7 +8,9 @@ ChoiseDirection::ChoiseDirection(Snake* pSnake) :
 {
 }
 
-DIRECTION ChoiseDirection::choise() {
+
+
+DIRECTION ChoiseDirectionType_1::choise() {
     // Подаем данные в нейросеть, ответ записываем в вектор
     m_pSnake->getNet()->training().forwardPass(*m_pSnake->getVIn());
     m_pSnake->getNet()->getOut(*m_pSnake->getVOut());
@@ -51,4 +53,10 @@ DIRECTION ChoiseDirection::choise() {
     LogOut::messageOut(debug.join("  "));
 
     return direction;
+}
+
+
+ChoiseDirectionType_1::ChoiseDirectionType_1(Snake* pSnake) : ChoiseDirection(pSnake)
+{
+
 }

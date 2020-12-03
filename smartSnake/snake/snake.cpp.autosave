@@ -378,8 +378,6 @@ void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t>
 
 void Snake::clearFiles(bool clear) {
     m_clearFiles = clear;
-    //createFile(m_inputData, clear);
-    //createFile(m_outputDataIdeal, clear);
     if (clear) clearData(*m_pLearning);
 }
 

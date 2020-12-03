@@ -10,17 +10,19 @@ class LogOut;
 class Snake;
 
 class ChoiseDirection {
-private:
+protected:
     Snake* m_pSnake;
 
-private:
+protected:
     bool checkCollision();
 
 public:
     ChoiseDirection(Snake* pSnake);
+    virtual ~ChoiseDirection() {}
 
-    virtual DIRECTION choise();
+    virtual DIRECTION choise() = 0;
 };
+
 
 class ChoiseDirectionType_1 : public ChoiseDirection {
 public:

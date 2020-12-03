@@ -81,7 +81,6 @@ private:
     WriteField* m_pWriteField;
 
     ChoiseDirection* m_pChoiseDirection;
-
     Learning* m_pLearning;
 
 private:
@@ -107,6 +106,7 @@ private:
     void readDataToTrainingSet(Learning&);
     size_t getNumTrainingSet(Learning&);
     void clearData(Learning&);
+    void choiseDirection(ChoiseDirection&);
     void manualFruitLocate(int x, int y);
     void checkBound(int* value, int bound1, int bound2);
 
