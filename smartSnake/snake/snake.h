@@ -82,7 +82,6 @@ private:
 
     ChoiseDirection* m_pChoiseDirection;
 
-    friend class Learning;
     Learning* m_pLearning;
 
 private:
@@ -138,6 +137,8 @@ public:
     void locateFruit();
     bool getStopStatus() const { return m_bStop; }
     void setSetCount(size_t setCount) { m_setCount = setCount; }
+    size_t getSetCount() const { return m_setCount; }
+    void incSetCount() { m_setCount++; }
     bool getStatusCollision() const { return m_collision; }
     bool getStatusFruitEaten() const { return m_isTheFruitEaten; }
 

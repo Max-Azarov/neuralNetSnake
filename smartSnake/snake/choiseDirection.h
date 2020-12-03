@@ -19,7 +19,14 @@ private:
 public:
     ChoiseDirection(Snake* pSnake);
 
-    DIRECTION choise();
+    virtual DIRECTION choise();
+};
+
+class ChoiseDirectionType_1 : public ChoiseDirection {
+public:
+    ChoiseDirectionType_1(Snake* pSnake);
+
+    DIRECTION choise() override;
 };
 
 #endif // CHOISEDIRECTION_H

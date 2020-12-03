@@ -357,7 +357,7 @@ void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t>
     if (neuroNet) delete neuroNet;
     neuroNet = new Net(vNeuron, vSynapse, newSynapseWeights);
 
-    // Начиная с первого скрытого слоя, далее каждому второму из скрытых слоев присваиваем тип активации RELU (кроме нейрона смещения)
+    // Начиная с первого скрытого слоя, далее нейронам каждого второго из скрытых слоев присваиваем тип активации RELU (кроме нейрона смещения)
     auto itLayer = std::begin(neuroNet->getNeuron());
     auto endIt = std::end(neuroNet->getNeuron());
     auto prevEndIt = std::prev(std::end(neuroNet->getNeuron()));

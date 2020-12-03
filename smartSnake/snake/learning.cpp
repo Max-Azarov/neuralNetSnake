@@ -42,7 +42,6 @@ void LearningType_1::learning() {
 void LearningType_1::training() {
     // >> Обучаем
     if ( !m_pSnake->getStopStatus() ) {
-    //if ( m_setCount > 10 && m_setCount > m_average * m_average && !m_bStop) {
         emit m_pSnake->signalStatusInfo("learning");
         double sumError;
         double error;
@@ -78,12 +77,8 @@ void LearningType_1::training() {
                 if ( error > m_pSnake->getAcceptError() ) {
                     count++;
                 }
-//                if (m_bStop) break;
-                //if (countOfSet > 2000) break;
             }
-//            if (m_bStop) break;
             sumError = sumError / countOfSet; // vSize;
-            //qDebug() << count << "=== Total error:" << sumError << "===";
             m_pSnake->setSummError(sumError);
             m_pSnake->setInfoCount(count);
             emit m_pSnake->signalErrorInfo();
@@ -91,12 +86,10 @@ void LearningType_1::training() {
             loopExit++;
         }
         while (loopExit < 1);
-//        while ( count > 2 * (double)countOfSet/neuroNet->getCountOfOutputs()
-//                || sumError  > m_acceptError);
+
         // << Обучаем
         emit m_pSnake->signalStatusInfo("moving");
         m_pSnake->getNet()->training().saveWeightOfSynapses();
-        //averageNumberOfSteps(false);
         m_pSnake->setSetCount(0);
     }
 }
@@ -133,7 +126,7 @@ void Learning::badMove() {
 }
 
 void Learning::addDataToTrainingSet() {
-    m_pSnake->m_setCount++;
+    m_pSnake->incSetCount();
     // >> Добавляем данные в файлы обучающих выборок
     std::ofstream file; // файловый поток
 
@@ -145,8 +138,8 @@ void Learning::addDataToTrainingSet() {
         exitApp(message);
     }
     // Записываем данные
-    for (size_t i = 0; i < m_pSnake->m_vIn.size(); ++i) {
-        file << m_pSnake->m_vIn[i] << " ";
+    for (auto it = std::begin(*m_pSnake->getVIn()); it != std::end(*m_pSnake->getVIn()); ++it) {
+        file << *it << " ";
     }
     file << "\n";
     file.close();
@@ -158,36 +151,17 @@ void Learning::addDataToTrainingSet() {
         QString message = "\"" + fileName + "\" could not be opened!";
         exitApp(message);
     }
-/*
     // Записываем данные
-    for (size_t i = 0; i < m_vOutMotivation.size(); ++i) {
-        file << m_vOutMotivation[i] << " ";
-    }
-    for (size_t i = 0; i < m_vOutFear.size(); ++i) {
-        file << m_vOutFear[i] << " ";
-    }
-    file << "\n";
-*/
-    // Записываем данные
-    for (size_t i = 0; i < m_pSnake->m_vOut.size(); ++i) {
-        file << m_pSnake->m_vOut[i] << " ";
+    for (auto it = std::begin(*m_pSnake->getVOut()); it != std::end(*m_pSnake->getVOut()); ++it) {
+        file << *it << " ";
     }
     file << "\n";
     file.close();
     // << Добавляем данные в файлы обучающих выборок
-/*
+
     // >> Добавляем данные в вектора обучающих выборок
-    m_vInTrainingSet.push_back(m_vIn);
-    std::vector<double> tempArr{ m_vOutMotivation };
-    tempArr.insert(std::end(tempArr), std::begin(m_vOutFear), std::end(m_vOutFear));
-    m_vOutTrainingSet.push_back(tempArr);
-    //m_vAcceptError.push_back(false);
-    // << Добавляем данные в вектора обучающих выборок
-*/
-    // >> Добавляем данные в вектора обучающих выборок
-    m_vInTrainingSet.push_back(m_pSnake->m_vIn);
-    m_vOutTrainingSet.push_back(m_pSnake->m_vOut);
-    //m_vAcceptError.push_back(false);
+    m_vInTrainingSet.push_back(*m_pSnake->getVIn());
+    m_vOutTrainingSet.push_back(*m_pSnake->getVOut());
     // << Добавляем данные в вектора обучающих выборок
 
 }
