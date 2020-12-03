@@ -18,35 +18,30 @@ LearningType_1::LearningType_1(Snake* pSnake) : Learning(pSnake)
 
 
 
-void Learning::learning() {
-    if (    m_pSnake->m_loopMotion
-        ||  m_pSnake->m_collision
-        ||  m_pSnake->m_isTheFruitEaten
-        ||  m_pSnake->m_isHopelessSituation
+void LearningType_1::learning() {
+    if (
+        m_pSnake->getStatusCollision()
+        ||  m_pSnake->getStatusFruitEaten()
         )
     {
         emit m_pSnake->signalRunInfo();
-        if (m_pSnake->m_collision || m_pSnake->m_isHopelessSituation) {
+        if (m_pSnake->getStatusCollision()) {
             badMove();
         }
 
-        if (m_pSnake->m_loopMotion) {
-        }
-
-        if (m_pSnake->m_isTheFruitEaten) {
+        if (m_pSnake->getStatusFruitEaten()) {
             goodMove();
         }
         // Записываем строчки в обучающую выборку
-        if ( !(m_pSnake->m_loopMotion || m_pSnake->m_isHopelessSituation) ) {
-            addDataToTrainingSet();
-        }
+        addDataToTrainingSet();
+        // Тренируем
         training();
     }
 }
 
-void Learning::training() {
+void LearningType_1::training() {
     // >> Обучаем
-    if ( !m_pSnake->m_bStop) {
+    if ( !m_pSnake->getStopStatus() ) {
     //if ( m_setCount > 10 && m_setCount > m_average * m_average && !m_bStop) {
         emit m_pSnake->signalStatusInfo("learning");
         double sumError;
@@ -76,11 +71,11 @@ void Learning::training() {
             {
                 qApp->processEvents();
                 //neuroNet->training().forwardPass(*std::prev(itIn), true); // with dropout
-                m_pSnake->neuroNet->training().forwardPass(*std::prev(itIn)); // without dropout
-                error = m_pSnake->neuroNet->training().calculateError(*std::prev(itOut));
-                m_pSnake->neuroNet->training().backprop(*std::prev(itOut));
+                m_pSnake->getNet()->training().forwardPass(*std::prev(itIn)); // without dropout
+                error = m_pSnake->getNet()->training().calculateError(*std::prev(itOut));
+                m_pSnake->getNet()->training().backprop(*std::prev(itOut));
                 sumError += error;
-                if ( error > m_pSnake->m_acceptError ) {
+                if ( error > m_pSnake->getAcceptError() ) {
                     count++;
                 }
 //                if (m_bStop) break;
@@ -89,8 +84,8 @@ void Learning::training() {
 //            if (m_bStop) break;
             sumError = sumError / countOfSet; // vSize;
             //qDebug() << count << "=== Total error:" << sumError << "===";
-            m_pSnake->m_infoSumError = sumError;
-            m_pSnake->m_infoCount = count;
+            m_pSnake->setSummError(sumError);
+            m_pSnake->setInfoCount(count);
             emit m_pSnake->signalErrorInfo();
 
             loopExit++;
@@ -100,9 +95,9 @@ void Learning::training() {
 //                || sumError  > m_acceptError);
         // << Обучаем
         emit m_pSnake->signalStatusInfo("moving");
-        m_pSnake->neuroNet->training().saveWeightOfSynapses();
+        m_pSnake->getNet()->training().saveWeightOfSynapses();
         //averageNumberOfSteps(false);
-        m_pSnake->m_setCount = 0;
+        m_pSnake->setSetCount(0);
     }
 }
 
@@ -296,5 +291,3 @@ void Learning::exitApp(const QString& message) {
     LogOut::messageOut(message, LogOut::LOGFILE);
     exit(EXIT_FAILURE);
 }
-
-void LearningType_1::learning() {}

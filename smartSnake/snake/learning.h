@@ -22,7 +22,7 @@ protected:
 protected:
     void goodMove();
     void badMove();
-    void training();
+    virtual void training() = 0;
     void addDataToTrainingSet();
     void createFile(const QString& fileName, bool clearFile = false);
     void initFiles(bool clearFiles = false);
@@ -32,7 +32,7 @@ public:
     Learning(Snake* pSnake);
     virtual ~Learning() {}
 
-    virtual void learning();
+    virtual void learning() = 0;
     void readDataToTrainingSet();
     void clearData();
     size_t getNumTrainingSet() const { return m_vInTrainingSet.size(); }
@@ -43,7 +43,8 @@ class LearningType_1 : public Learning {
 public:
     LearningType_1(Snake* pSnake);
 
-    void learning();
+    void training() override;
+    void learning() override;
 
 };
 

@@ -144,7 +144,7 @@
           </font>
          </property>
          <property name="toolTip">
-          <string>Count of inputs neural net (equal to the number of cells on the screen)</string>
+          <string>Count of inputs neural net</string>
          </property>
          <property name="text">
           <string>30</string>
@@ -252,7 +252,7 @@
           </font>
          </property>
          <property name="toolTip">
-          <string>Count of outputs neural net (equal to the number of possible directions: right, left, up, down)</string>
+          <string>Count of outputs neural net</string>
          </property>
          <property name="text">
           <string>8</string>

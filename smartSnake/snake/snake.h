@@ -105,6 +105,9 @@ private:
     void processingSnakeEvents();
     void effects();
     void learning(Learning&);
+    void readDataToTrainingSet(Learning&);
+    size_t getNumTrainingSet(Learning&);
+    void clearData(Learning&);
     void manualFruitLocate(int x, int y);
     void checkBound(int* value, int bound1, int bound2);
 
@@ -116,13 +119,16 @@ public:
     void stop();
     void start(bool freedom);
     Net* getNet() { return neuroNet; }
-    void setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse);
+    void setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse, bool newSynapseWeights);
     void setAcceptError(double acceptError) { m_acceptError = acceptError; }
+    double getAcceptError() const { return m_acceptError; }
     void clearFiles(bool clear = true);
     double getAverage() const { return m_average; }
-    size_t getNumTrainingSet() const; // { return m_pLearning->getNumTrainingSet(); }
+    size_t getNumTrainingSet();
     size_t getStepCount() const { return m_stepCount; }
+    void setSummError(double infoSumError) { m_infoSumError = infoSumError; }
     double getSummError() const { return m_infoSumError; }
+    void setInfoCount(size_t infoCount) { m_infoCount = infoCount; }
     size_t getInfoCount() const { return m_infoCount; }
     size_t getSnakeLength() const { return m_snakeLength; }
     size_t getNumFruitEaten() const {return m_numFruitEaten; }
@@ -130,6 +136,10 @@ public:
     std::vector<double>* getVOut() { return &m_vOut; }
     DIRECTION getDirection() const { return m_direction; }
     void locateFruit();
+    bool getStopStatus() const { return m_bStop; }
+    void setSetCount(size_t setCount) { m_setCount = setCount; }
+    bool getStatusCollision() const { return m_collision; }
+    bool getStatusFruitEaten() const { return m_isTheFruitEaten; }
 
 protected:
     void paintEvent(QPaintEvent*);

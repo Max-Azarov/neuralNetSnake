@@ -139,7 +139,7 @@ void Game::initNet() {
 
     std::vector<size_t> vSynapse(vNeuron.size() - 1, 1);
 
-    m_pSnake->setNN(vNeuron, vSynapse);
+    m_pSnake->setNN(vNeuron, vSynapse, m_bNewSynapseWeights);
 }
 
 void Game::setSnakeSpeed(int speed) {

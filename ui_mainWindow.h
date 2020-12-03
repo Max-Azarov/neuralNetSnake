@@ -665,7 +665,7 @@ public:
 #endif // QT_CONFIG(tooltip)
         gBoxNN->setTitle(QCoreApplication::translate("MainWindow", "\320\237\320\260\321\200\320\260\320\274\320\265\321\202\321\200\321\213 \320\275\320\265\320\271\321\200\320\276\321\201\320\265\321\202\320\270", nullptr));
 #if QT_CONFIG(tooltip)
-        leNumInputNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of inputs neural net (equal to the number of cells on the screen)", nullptr));
+        leNumInputNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of inputs neural net", nullptr));
 #endif // QT_CONFIG(tooltip)
         leNumInputNN->setText(QCoreApplication::translate("MainWindow", "30", nullptr));
 #if QT_CONFIG(tooltip)
@@ -677,7 +677,7 @@ public:
 #endif // QT_CONFIG(tooltip)
         leNum2HiddenNN->setText(QCoreApplication::translate("MainWindow", "34", nullptr));
 #if QT_CONFIG(tooltip)
-        leNumOutputNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of outputs neural net (equal to the number of possible directions: right, left, up, down)", nullptr));
+        leNumOutputNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of outputs neural net", nullptr));
 #endif // QT_CONFIG(tooltip)
         leNumOutputNN->setText(QCoreApplication::translate("MainWindow", "8", nullptr));
 #if QT_CONFIG(tooltip)

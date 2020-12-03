@@ -30,7 +30,7 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
   , m_bStop { true }
   , m_pWriteField { new WriteField(this) }
   , m_pChoiseDirection { new ChoiseDirection(this) }
-  , m_pLearning { new Learning(this) }
+  , m_pLearning { new LearningType_1(this) }
   , neuroNet { nullptr }
 {
     static bool startRandom = false;
@@ -54,15 +54,15 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
 
     averageNumberOfSteps(true);
 
-    m_pLearning->readDataToTrainingSet();
+    readDataToTrainingSet(*m_pLearning);
 
     initGame();
     pTimer = new QTimer(this);
     connect(pTimer, SIGNAL(timeout()), SLOT(slotLoop()));
 }
 
-size_t Snake::getNumTrainingSet()  const {
-    return m_pLearning->getNumTrainingSet();
+size_t Snake::getNumTrainingSet() {
+    return getNumTrainingSet(*m_pLearning);
 }
 
 void Snake::setDelay(size_t delay) {
@@ -353,9 +353,9 @@ void Snake::averageNumberOfSteps(bool restart) {
 
 
 
-void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse) {
+void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t> & vSynapse, bool newSynapseWeights) {
     if (neuroNet) delete neuroNet;
-    neuroNet = new Net(vNeuron, vSynapse);
+    neuroNet = new Net(vNeuron, vSynapse, newSynapseWeights);
 
     // Начиная с первого скрытого слоя, далее каждому второму из скрытых слоев присваиваем тип активации RELU (кроме нейрона смещения)
     auto itLayer = std::begin(neuroNet->getNeuron());
@@ -380,7 +380,7 @@ void Snake::clearFiles(bool clear) {
     m_clearFiles = clear;
     //createFile(m_inputData, clear);
     //createFile(m_outputDataIdeal, clear);
-    if (clear) m_pLearning->clearData();
+    if (clear) clearData(*m_pLearning);
 }
 
 void Snake::slotBlackBackground() {
@@ -413,6 +413,18 @@ void Snake::effects() {
 
 void Snake::learning(Learning& concreteLearning) {
     concreteLearning.learning();
+}
+
+void Snake::readDataToTrainingSet(Learning& concreteLearning) {
+    concreteLearning.readDataToTrainingSet();
+}
+
+size_t Snake::getNumTrainingSet(Learning& concreteLearning) {
+    return concreteLearning.getNumTrainingSet();
+}
+
+void Snake::clearData(Learning& concreteLearning) {
+    concreteLearning.clearData();
 }
 
 void Snake::mousePressEvent(QMouseEvent* e) {
