@@ -33,7 +33,7 @@ SOURCES += \
     snake/choiseDirection.cpp \
     snake/learning.cpp \
     snake/snake.cpp \
-    snake/writeField.cpp
+    snake/writeInputData.cpp
 
 HEADERS += \
     game/game.h \
@@ -53,7 +53,7 @@ HEADERS += \
     snake/enums.h \
     snake/learning.h \
     snake/snake.h \
-    snake/writeField.h
+    snake/writeInputData.h
 
 FORMS += resources/mainWindow.ui
 

@@ -66,7 +66,7 @@ public:
     const std::vector<std::unique_ptr<Neuron>> & getInputNeurons() const { return neuron[0]; }
     const std::vector<std::unique_ptr<Neuron>> & getOutputNeurons() const { return neuron[m_numberOfLastLayer]; }
     const std::list<std::unique_ptr<Synapse>> & getSynapses() const { return synapse; }
-    std::vector<double>& getOut(std::vector<double>&) const;
+    void getOut(std::vector<double>&) const;
 
     Parameters& parameters() { return m_parameters; }
     Training& training() { return m_training; }

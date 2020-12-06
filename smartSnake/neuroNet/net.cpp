@@ -191,7 +191,7 @@ void Net::addSynapse(std::unique_ptr<Synapse> pSynapse) {
     synapse.push_back(std::move(pSynapse));
 }
 
-std::vector<double>& Net::getOut(std::vector<double>& out) const {
+void Net::getOut(std::vector<double>& out) const {
     if ( getCountOfOutputs() != out.size() ) {
         std::cerr << "The number of outputs in the training set does not match!" << std::endl;
         exit(EXIT_FAILURE);
@@ -204,7 +204,6 @@ std::vector<double>& Net::getOut(std::vector<double>& out) const {
         (*outIt) = (*it)->getOut();
         ++outIt;
     }
-    return out;
 }
 
 void Net::createFile(const std::string & fileName, bool clearFile) {

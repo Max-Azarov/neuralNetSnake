@@ -39,4 +39,35 @@ public:
     DIRECTION choise() override;
 };
 
+class ChoiseDirectionType_2 : public ChoiseDirection
+{
+    // Применяется для WriteInputDataType_2
+    // Ищем максимальную мотивацию и, если она больше своего страха, идем в эту сторону.
+    // В противном случае, ищем следующую по значению мотивацию и сравниваем со страхом.
+    // Если все мотивации меньше своих страхов, идем туда, где меньше всего страх
+    // Выбор происходит отдельно для каждого из возможных направлений
+    // используется 2 выхода НС
+
+private:
+    // Делим входной вектор на отдельные векторы по четырем сторонам, формируем 4 отдельных вектора для подачи в НС
+    void separateToDirections(std::vector<std::vector<int>>* vDataForDirections);
+
+    // Создает вектора страхов и мотиваций из ответов НС для последующего выбора направления
+    void createOutputVector(std::vector<std::vector<int>>* vDataForDirections,
+                            std::vector<double>* vMotivation,
+                            std::vector<double>* vFear
+                            );
+
+    void pushToOutputVector(
+            std::vector<double>* vMotivation,
+            std::vector<double>* vFear
+            );
+
+
+public:
+    ChoiseDirectionType_2(Snake* pSnake);
+
+    DIRECTION choise() override;
+};
+
 #endif // CHOISEDIRECTION_H

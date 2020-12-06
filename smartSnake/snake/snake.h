@@ -8,12 +8,12 @@
 
 #include "snake/enums.h"
 #include "neuroNet/net.h"
-#include "snake/writeField.h"
+#include "snake/writeInputData.h"
 #include "snake/choiseDirection.h"
 #include "snake/learning.h"
 #include "logOut.h"
 
-class WriteField;
+class WriteInputData;
 class ChoiseDirection;
 class Learning;
 
@@ -76,7 +76,7 @@ private:
     bool m_freedom;
 
 private:
-    WriteField* m_pWriteField;
+    WriteInputData* m_pWriteField;
     ChoiseDirection* m_pChoiseDirection;
     Learning* m_pLearning;
 
@@ -103,8 +103,8 @@ private:
     size_t getNumTrainingSet(Learning&);
     void clearData(Learning&);
     void choiseDirection(ChoiseDirection&);
-    void writeInputData(WriteField&);
-    size_t getNumOfInputsNN(WriteField&);
+    void writeInputData(WriteInputData&);
+    size_t getNumOfInputsNN(WriteInputData&);
     size_t getNumOfOutputsNN(ChoiseDirection&);
     void manualFruitLocate(int x, int y);
     void checkBound(int* value, int bound1, int bound2);
@@ -141,6 +141,7 @@ public:
     void incSetCount() { m_setCount++; }
     bool getStatusCollision() const { return m_collision; }
     bool getStatusFruitEaten() const { return m_isTheFruitEaten; }
+    bool getStatusHopelessSituation() const { return m_isHopelessSituation; }
     std::vector<std::vector<TYPE_CELL>>* getVField() { return &m_vField; }
     int getNumberOfCellsPerSide() const { return m_numberOfCellsPerSide; }
     int getFruitX() const { return fruitX; }

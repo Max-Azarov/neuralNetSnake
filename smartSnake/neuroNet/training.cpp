@@ -14,6 +14,8 @@ Training::Training(Net* net)
 }
 
 void Training::forwardPass(const std::vector<int> & in, bool dropout ) {
+    //qDebug() << p_Net->getCountOfInputs();
+    //qDebug() << in.size();
     m_dropout = false;
     if ( p_Net->getCountOfInputs() != in.size() ) {
         std::cerr << "The number of inputs in the training set does not match!" << std::endl;

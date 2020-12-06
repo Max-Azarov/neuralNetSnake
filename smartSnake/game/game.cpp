@@ -131,7 +131,6 @@ void Game::initNet() {
     size_t numOfOutput = m_pSnake->getNumOfOutputsNN();
     std::vector<size_t> vNeuron;
     vNeuron.push_back(numOfInput); // Формируем слой входов в зависимости от выбора способа формирования входных данных class WriteField
-    ui->leNumInputNN->setText(QString::number(numOfInput)); // Записываем число входов в ячейку пользовательского окна
     vNeuron.push_back(ui->leNum1HiddenNN->text().toUInt());
     size_t numHiddenLayers = ui->leNumOfHiddenLayersNN->text().toUInt();
     size_t numNeuronInHiddenLayer = ui->leNum2HiddenNN->text().toUInt();
@@ -139,7 +138,6 @@ void Game::initNet() {
         vNeuron.push_back(numNeuronInHiddenLayer);
     }
     vNeuron.push_back( numOfOutput ); // Формируем слой выходов в зависимости от выбора способа формирования выходных данных class ChoiseDirection
-    ui->leNumOutputNN->setText(QString::number(numOfOutput)); // Записываем число выходов в ячейку пользовательского окна
 
     std::vector<size_t> vSynapse(vNeuron.size() - 1, 1);
 
@@ -165,6 +163,11 @@ void Game::setSnakeSpeed() {
 }
 
 void Game::readSettings(){
+    size_t numOfInput = m_pSnake->getNumOfInputsNN();
+    size_t numOfOutput = m_pSnake->getNumOfOutputsNN();
+    ui->leNumInputNN->setText(QString::number(numOfInput)); // Записываем число входов в ячейку пользовательского окна
+    ui->leNumOutputNN->setText(QString::number(numOfOutput)); // Записываем число выходов в ячейку пользовательского окна
+
     m_settings.beginGroup("/Settings");
     ui->leNum1HiddenNN->setText(m_settings.value("/leNum1HiddenNN", "100").toString());
     ui->leNum2HiddenNN->setText(m_settings.value("/leNum2HiddenNN", "200").toString());
@@ -172,8 +175,8 @@ void Game::readSettings(){
     ui->leA->setText(m_settings.value("/leA", "0.1").toString());
     ui->leE->setText(m_settings.value("/leE", "0.05").toString());
     ui->leAcceptError->setText(m_settings.value("/leAcceptError", "0.02").toString());
-    ui->leNumInputNN->setText(m_settings.value("/leNumInputNN", "-").toString());
-    ui->leNumOutputNN->setText(m_settings.value("/leNumOutputNN", "-").toString());
+    //ui->leNumInputNN->setText(m_settings.value("/leNumInputNN", "-").toString());
+    //ui->leNumOutputNN->setText(m_settings.value("/leNumOutputNN", "-").toString());
     m_settings.endGroup();
 }
 
@@ -185,8 +188,8 @@ void Game::writeSettings() {
     m_settings.setValue("/leA", ui->leA->text());
     m_settings.setValue("/leE", ui->leE->text());
     m_settings.setValue("/leAcceptError", ui->leAcceptError->text());
-    m_settings.setValue("/leNumInputNN", ui->leNumInputNN->text());
-    m_settings.setValue("/leNumOutputNN", ui->leNumOutputNN->text());
+    //m_settings.setValue("/leNumInputNN", ui->leNumInputNN->text());
+    //m_settings.setValue("/leNumOutputNN", ui->leNumOutputNN->text());
     m_settings.endGroup();
     if (m_pSnake->getNet()) m_pSnake->getNet()->training().saveWeightOfSynapses();
 }

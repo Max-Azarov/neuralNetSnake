@@ -13,12 +13,13 @@ Learning::Learning(Snake* pSnake) : m_pSnake { pSnake }
 
 void Learning::learning() {
     if (
-        m_pSnake->getStatusCollision()
-        ||  m_pSnake->getStatusFruitEaten()
+           m_pSnake->getStatusCollision()
+        || m_pSnake->getStatusFruitEaten()
+        || m_pSnake->getStatusHopelessSituation()
         )
     {
         emit m_pSnake->signalRunInfo();
-        if (m_pSnake->getStatusCollision()) {
+        if (m_pSnake->getStatusCollision() || m_pSnake->getStatusHopelessSituation()) {
             badMove();
         }
 
@@ -266,11 +267,141 @@ void LearningType_1::training() {
 //LearningType_2 ==========================================================
 // Выборка прогоняется один раз, начиная с первого опыта к последнему
 LearningType_2::LearningType_2(Snake* pSnake) : Learning(pSnake)
+  , m_allowBad { true }
+  , m_allowGood { true }
+  , m_allowUsually { true }
 {
 
 }
 
+void LearningType_2::learning() {
+//    if (
+//           m_pSnake->getStatusCollision()
+//        || m_pSnake->getStatusFruitEaten()
+//        || m_pSnake->getStatusHopelessSituation()
+//        )
+//    {
+        emit m_pSnake->signalRunInfo();
+        bool allowBad = m_allowBad;
+        bool allowGood = m_allowGood;
+        bool allowUsually = m_allowUsually;
+
+        if ( m_pSnake->getStatusCollision() ) {
+            if ( m_allowBad ) {
+                badMove();
+                m_allowGood = true;
+                m_allowBad = false;
+            }
+        }
+
+        if ( m_pSnake->getStatusHopelessSituation() ) {
+            badMove();
+        }
+
+        if (m_pSnake->getStatusFruitEaten()) {
+            if ( m_allowGood ) {
+                goodMove();
+                m_allowUsually = true;
+                m_allowGood = false;
+            }
+        }
+        if ( !(m_pSnake->getStatusCollision() || m_pSnake->getStatusHopelessSituation() || m_pSnake->getStatusFruitEaten()) ) {
+            if (m_allowUsually) {
+                usuallyMove();
+                m_allowBad = true;
+                m_allowUsually = false;
+            }
+        }
+
+        // Записываем строчки в обучающую выборку
+        if ( allowBad != m_allowBad || allowGood != m_allowGood || allowUsually != m_allowUsually) {
+            addDataToTrainingSet();
+            // Тренируем
+            training();
+        }
+
+
+    //}
+}
+
 void LearningType_2::training() {
+    // >> Обучаем
+    if ( !m_pSnake->getStopStatus() ) {
+        emit m_pSnake->signalStatusInfo("learning");
+        double sumError;
+        double error;
+        size_t countOfSet;
+        size_t count;
+        count = 0;
+        error = 0;
+        countOfSet = 0;
+        sumError = 0;
+
+        auto itOut = std::begin(m_vOutTrainingSet);
+        auto itIn = std::begin(m_vInTrainingSet);
+        for (  ;
+                itIn != std::end(m_vInTrainingSet);
+                ++itIn, ++itOut, ++countOfSet )
+        {
+            qApp->processEvents();
+            //neuroNet->training().forwardPass(*itIn, true); // with dropout
+            m_pSnake->getNet()->training().forwardPass(*itIn); // without dropout
+            error = m_pSnake->getNet()->training().calculateError(*itOut);
+            m_pSnake->getNet()->training().backprop(*itOut);
+            sumError += error;
+            if ( error > m_pSnake->getAcceptError() ) {
+                count++;
+            }
+        }
+        sumError = sumError / countOfSet; // vSize;
+        m_pSnake->setSummError(sumError);
+        m_pSnake->setInfoCount(count);
+        emit m_pSnake->signalErrorInfo();
+
+        // << Обучаем
+        emit m_pSnake->signalStatusInfo("moving");
+        m_pSnake->getNet()->training().saveWeightOfSynapses();
+        m_pSnake->setSetCount(0);
+    }
+}
+
+void LearningType_2::usuallyMove() {
+    auto itOut = std::begin(*m_pSnake->getVOut());
+
+    // #Оставляем мотивацию без изменений (-1.0)
+    // Добавляем мотивацию в выбранное направление (1.0)
+    (*itOut) = 1.0;
+    // Уменьшаем страх 0.0
+    (*(++itOut)) = 0.0;
+}
+
+void LearningType_2::goodMove() {
+
+    auto itOut = std::begin(*m_pSnake->getVOut());
+
+    // Добавляем мотивацию в выбранное направление (1.0)
+    (*itOut) = 1.0;
+    // Уменьшаем страх 0.0
+    (*(++itOut)) = 0.0;
+}
+
+void LearningType_2::badMove() {
+    auto itOut = std::begin(*m_pSnake->getVOut());
+
+    // Мотивацию Уменьшаем 0.0
+    (*itOut) = 0.0;
+    // Добавляем страх неправильному выбору (1.0)
+    (*(++itOut)) = 1.0;
+}
+
+
+//LearningType_3 ==========================================================
+// Выборка прогоняется один раз, начиная с первого опыта к последнему
+LearningType_3::LearningType_3(Snake* pSnake) : Learning(pSnake)
+{
+}
+
+void LearningType_3::training() {
     // >> Обучаем
     if ( !m_pSnake->getStopStatus() ) {
         emit m_pSnake->signalStatusInfo("learning");
@@ -305,10 +436,6 @@ void LearningType_2::training() {
         m_pSnake->setSummError(sumError);
         m_pSnake->setInfoCount(count);
         emit m_pSnake->signalErrorInfo();
-
-            //loopExit++;
-        //}
-        //while (loopExit < 1);
 
         // << Обучаем
         emit m_pSnake->signalStatusInfo("moving");

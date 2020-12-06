@@ -20,8 +20,8 @@ protected:
     QString m_fOutputDataIdeal;
 
 protected:
-    void goodMove();
-    void badMove();
+    virtual void goodMove();
+    virtual void badMove();
     virtual void training() = 0;
     void addDataToTrainingSet();
     void createFile(const QString& fileName, bool clearFile = false);
@@ -32,7 +32,7 @@ public:
     Learning(Snake* pSnake);
     virtual ~Learning() {}
 
-    void learning();
+    virtual void learning();
     void readDataToTrainingSet();
     void clearData();
     size_t getNumTrainingSet() const { return m_vInTrainingSet.size(); }
@@ -47,10 +47,34 @@ public:
     void training() override;
 };
 
+
 class LearningType_2 : public Learning {
     // Вся тренировочная Выборка прогоняется один раз, начиная с первого опыта к последнему
+    // Применяется только совместно с ChoiseDirectionType_2 и WriteInputDataType_2
+private:
+    bool m_allowBad;
+    bool m_allowGood;
+    bool m_allowUsually;
+
+private:
+    void usuallyMove();
+
+protected:
+    void goodMove() override;
+    void badMove() override;
+
 public:
     LearningType_2(Snake* pSnake);
+
+    void training() override;
+    void learning() override;
+};
+
+
+class LearningType_3 : public Learning {
+    // Вся тренировочная Выборка прогоняется один раз, начиная с первого опыта к последнему
+public:
+    LearningType_3(Snake* pSnake);
 
     void training() override;
 };

@@ -28,8 +28,8 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_setCount { 0 }
     , m_bMutex { false }
   , m_bStop { true }
-  , m_pWriteField { new WriteFieldType_1(this) }
-  , m_pChoiseDirection { new ChoiseDirectionType_1(this) }
+  , m_pWriteField { new WriteInputDataType_2(this) }
+  , m_pChoiseDirection { new ChoiseDirectionType_2(this) }
   , m_pLearning { new LearningType_2(this) }
   , neuroNet { nullptr }
 {
@@ -55,7 +55,7 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     averageNumberOfSteps(true);
 
     readDataToTrainingSet(*m_pLearning);
-    writeInputData(*m_pWriteField);
+    writeInputData(*m_pWriteField); // Для вычисления количества необходимых входов НС
 
     initGame();
     pTimer = new QTimer(this);
@@ -92,8 +92,9 @@ void Snake::slotLoop() {
     if ( !m_bMutex ) {
         m_bMutex = true;
         writeInputData(*m_pWriteField);
-        movement();
+        movement(); // с проверкой столкновения
         checkTheFruitEaten(); // съела ли фрукт
+        checkHopelessSituation(); // Попала ли в ловушку
         effects();
         if (!m_freedom) learning(*m_pLearning); // учится
         processingSnakeEvents();
@@ -282,13 +283,10 @@ bool Snake::checkHopelessSituation() {
             }
         }
     }
-
-    //m_isHopelessSituation = false;
     return false;
 }
 
 void Snake::restart() {
-    //slotGrayBackground100msec();
     initGame();
     update();
     emit signalRunInfo();
@@ -336,10 +334,6 @@ void Snake::averageNumberOfSteps(bool restart) {
     m_average = static_cast<double> (m_averageNumberOfSteps.first) /
                 static_cast<double> (m_averageNumberOfSteps.second);
 
-//qDebug() << m_vInTrainingSet.size() << ">>>" << m_stepCount
-//                << "<<<\taverage:" << m_average
-//                << "<<<";
-    //emit signalRunInfo();
     // << Считаем среднее количество шагов
 }
 
@@ -421,12 +415,12 @@ void Snake::choiseDirection(ChoiseDirection& concreteChoise) {
     m_direction = concreteChoise.choise();
 }
 
-void Snake::writeInputData(WriteField& concreteWriteField) {
+void Snake::writeInputData(WriteInputData& concreteWriteField) {
     writeField();
     concreteWriteField.writeInputData();
 }
 
-size_t Snake::getNumOfInputsNN(WriteField& concreteWriteField) {
+size_t Snake::getNumOfInputsNN(WriteInputData& concreteWriteField) {
     return concreteWriteField.getNumInputData();
 }
 
@@ -460,7 +454,6 @@ void Snake::checkBound(int* value, int bound1, int bound2) {
 }
 
 void Snake::writeField() {
-    this->getVIn()->clear();
     // Заполняем входной вектор для подачи в нейросеть. Не использованы private поля, т.к. метод перекочевал из стороннего класса
     // Пустое поле и стены
     std::vector<std::vector<TYPE_CELL>>& vField = *this->getVField(); // Матрица поля игры
@@ -490,6 +483,8 @@ void Snake::writeField() {
                     }
                 }
             }
+
         }
     }
+
 }
