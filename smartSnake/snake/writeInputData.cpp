@@ -66,12 +66,12 @@ void WriteInputDataType_1::writeInputData() {
 
 WriteInputDataType_2::WriteInputDataType_2(Snake* snake) :
     WriteInputData(snake)
-  , m_depth { 2 }  // Дальность зрения depth слоев
+  , m_depth { 3 }  // Дальность зрения depth слоев
 {
 
 }
 
-void WriteInputDataType_2::writeInputData() {
+void WriteInputDataType_2:: writeInputData() {
 
     //std::vector<std::vector<TYPE_CELL>>& vField = *m_pSnake->getVField(); // Матрица поля игры
     m_pSnake->getVIn()->clear();

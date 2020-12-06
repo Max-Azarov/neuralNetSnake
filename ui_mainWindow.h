@@ -671,11 +671,11 @@ public:
 #if QT_CONFIG(tooltip)
         leNum1HiddenNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of neurons in the first hidden layer", nullptr));
 #endif // QT_CONFIG(tooltip)
-        leNum1HiddenNN->setText(QCoreApplication::translate("MainWindow", "32", nullptr));
+        leNum1HiddenNN->setText(QCoreApplication::translate("MainWindow", "15", nullptr));
 #if QT_CONFIG(tooltip)
         leNum2HiddenNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of neurons in the second hidden layer", nullptr));
 #endif // QT_CONFIG(tooltip)
-        leNum2HiddenNN->setText(QCoreApplication::translate("MainWindow", "34", nullptr));
+        leNum2HiddenNN->setText(QCoreApplication::translate("MainWindow", "17", nullptr));
 #if QT_CONFIG(tooltip)
         leNumOutputNN->setToolTip(QCoreApplication::translate("MainWindow", "Count of outputs neural net", nullptr));
 #endif // QT_CONFIG(tooltip)
@@ -722,14 +722,14 @@ public:
         leAcceptError->setText(QCoreApplication::translate("MainWindow", "0.02", nullptr));
         gbSnakeSpeed->setTitle(QString());
 #if QT_CONFIG(tooltip)
-        lblSnakeSpeed->setToolTip(QCoreApplication::translate("MainWindow", "Snake speed in steps per second", nullptr));
+        lblSnakeSpeed->setToolTip(QString());
 #endif // QT_CONFIG(tooltip)
         lblSnakeSpeed->setText(QCoreApplication::translate("MainWindow", "\320\241\320\272\320\276\321\200\320\276\321\201\321\202\321\214\n"
 "\320\267\320\274\320\265\320\271\320\272\320\270", nullptr));
         cbSnakeSpeed->setText(QCoreApplication::translate("MainWindow", "\320\234\320\260\320\272\321\201.\n"
 "\321\201\320\272\320\276\321\200\320\276\321\201\321\202\321\214", nullptr));
 #if QT_CONFIG(tooltip)
-        leSnakeSpeed->setToolTip(QCoreApplication::translate("MainWindow", "Snake speed in steps per second", nullptr));
+        leSnakeSpeed->setToolTip(QCoreApplication::translate("MainWindow", "Steps per second", nullptr));
 #endif // QT_CONFIG(tooltip)
         leSnakeSpeed->setText(QCoreApplication::translate("MainWindow", "10", nullptr));
 #if QT_CONFIG(tooltip)

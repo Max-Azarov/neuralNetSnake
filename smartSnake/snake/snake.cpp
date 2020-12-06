@@ -13,10 +13,10 @@
 #include <QApplication>
 
 Snake::~Snake() {
-    if (neuroNet)           delete neuroNet;
-    if (m_pWriteField)      delete m_pWriteField;
-    if (m_pChoiseDirection) delete m_pChoiseDirection;
-    if (m_pLearning)        delete m_pLearning;
+    delete neuroNet;
+    delete m_pWriteInputData;
+    delete m_pChoiseDirection;
+    delete m_pLearning;
 }
 
 Snake::Snake(QWidget *parent) : QWidget{parent}
@@ -28,7 +28,7 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_setCount { 0 }
     , m_bMutex { false }
   , m_bStop { true }
-  , m_pWriteField { new WriteInputDataType_2(this) }
+  , m_pWriteInputData { new WriteInputDataType_2(this) }
   , m_pChoiseDirection { new ChoiseDirectionType_2(this) }
   , m_pLearning { new LearningType_2(this) }
   , neuroNet { nullptr }
@@ -55,7 +55,7 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     averageNumberOfSteps(true);
 
     readDataToTrainingSet(*m_pLearning);
-    writeInputData(*m_pWriteField); // Для вычисления количества необходимых входов НС
+    writeInputData(*m_pWriteInputData); // Для вычисления количества необходимых входов НС
 
     initGame();
     pTimer = new QTimer(this);
@@ -91,7 +91,7 @@ void Snake::start(bool freedom) {
 void Snake::slotLoop() {
     if ( !m_bMutex ) {
         m_bMutex = true;
-        writeInputData(*m_pWriteField);
+        writeInputData(*m_pWriteInputData);
         movement(); // с проверкой столкновения
         checkTheFruitEaten(); // съела ли фрукт
         checkHopelessSituation(); // Попала ли в ловушку
@@ -192,7 +192,6 @@ void Snake::movement() {
     if (m_direction == RIGHT) snakeX[0]++;
 
     if(collision(snakeX, snakeY)) {
-        averageNumberOfSteps();
         m_collision = true;
     }
 }
@@ -268,9 +267,10 @@ bool Snake::checkTheFruitEaten() {
 }
 
 bool Snake::checkHopelessSituation() {
+    writeField();
     // >>  змейка попала в безвыходную ситуацию
-    for (size_t x = 0; x < m_vField.size(); ++x) {
-        for (size_t y = 0; y < m_vField[x].size(); ++y) {
+    for (size_t x = 1; x < m_vField.size()-1; ++x) {
+        for (size_t y = 1; y < m_vField[x].size()-1; ++y) {
             if ( m_vField[x][y] == TYPE_CELL::HEAD ) {
                 if (    (m_vField[x + 1][y] == WALL || m_vField[x + 1][y] == BODY) &&
                         (m_vField[x - 1][y] == WALL || m_vField[x - 1][y] == BODY) &&
@@ -278,8 +278,11 @@ bool Snake::checkHopelessSituation() {
                         (m_vField[x][y - 1] == WALL || m_vField[x][y - 1] == BODY)    )
                 {
                     m_isHopelessSituation = true;
+
+                    update();
                     return true;
                 }
+                return false;
             }
         }
     }
@@ -287,6 +290,7 @@ bool Snake::checkHopelessSituation() {
 }
 
 void Snake::restart() {
+    averageNumberOfSteps();
     initGame();
     update();
     emit signalRunInfo();
@@ -390,7 +394,7 @@ void Snake::processingSnakeEvents() {
 }
 
 void Snake::effects() {
-    if (m_collision || m_isHopelessSituation) {
+    if (m_collision) {
         slotGrayBackground100msec();
     }
 }
@@ -429,7 +433,7 @@ size_t Snake::getNumOfOutputsNN(ChoiseDirection& concreteChoiseDirection) {
 }
 
 size_t Snake::getNumOfInputsNN() {
-    return getNumOfInputsNN(*m_pWriteField);
+    return getNumOfInputsNN(*m_pWriteInputData);
 }
 
 size_t Snake::getNumOfOutputsNN() {

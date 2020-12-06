@@ -112,7 +112,7 @@ DIRECTION ChoiseDirectionType_2::choise()
 
 void ChoiseDirectionType_2::separateToDirections(std::vector<std::vector<int>>* vDataForDirections)
 {
-    int bindingDataSize = 5; // Количество обязательных данных, которые должна быть в каждом векторе направления
+    int bindingDataSize = 5; // Количество обязательных данных, которые должна быть в каждом векторе направления из метода WriteInputDataType_2::writeInputData()
 
     std::vector<int>& vIn = *m_pSnake->getVIn(); // Вектор, который содержит разделяемые данные
     int baseSize = (int)vIn.size(); // Общий размер разделяемых данных

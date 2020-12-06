@@ -687,7 +687,7 @@
             <enum>Qt::DefaultContextMenu</enum>
            </property>
            <property name="toolTip">
-            <string>Snake speed in steps per second</string>
+            <string/>
            </property>
            <property name="text">
             <string>Скорость
@@ -770,7 +770,7 @@
             </font>
            </property>
            <property name="toolTip">
-            <string>Snake speed in steps per second</string>
+            <string>Steps per second</string>
            </property>
            <property name="text">
             <string>10</string>

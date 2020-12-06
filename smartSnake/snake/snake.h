@@ -76,7 +76,7 @@ private:
     bool m_freedom;
 
 private:
-    WriteInputData* m_pWriteField;
+    WriteInputData* m_pWriteInputData;
     ChoiseDirection* m_pChoiseDirection;
     Learning* m_pLearning;
 

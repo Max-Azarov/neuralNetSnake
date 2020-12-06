@@ -314,7 +314,12 @@ void LearningType_2::learning() {
         }
 
         // Записываем строчки в обучающую выборку
-        if ( allowBad != m_allowBad || allowGood != m_allowGood || allowUsually != m_allowUsually) {
+        if ( allowBad != m_allowBad
+             || allowGood != m_allowGood
+             || allowUsually != m_allowUsually
+             || m_pSnake->getStatusHopelessSituation()
+             )
+        {
             addDataToTrainingSet();
             // Тренируем
             training();
@@ -376,7 +381,6 @@ void LearningType_2::usuallyMove() {
 }
 
 void LearningType_2::goodMove() {
-
     auto itOut = std::begin(*m_pSnake->getVOut());
 
     // Добавляем мотивацию в выбранное направление (1.0)
