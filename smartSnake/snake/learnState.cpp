@@ -1,13 +1,24 @@
 #include "learnState.h"
 
-LearnStateType1::LearnStateType1(Snake* snake) : ILearnState(new WriteInputDataType_1(snake)
-                                                             , new ChoiseDirectionType_1(snake)
-                                                             , new LearningType_1(snake)
+ILearnState::ILearnState(Snake* snake, WriteInputData* writeInputData, ChoiseDirection* choiseDirection, Learning* learning) :
+    m_pWriteInputData { std::move(writeInputData) }
+  , m_pChoiseDirection { std::move(choiseDirection) }
+  , m_pLearning { std::move(learning) }
+{
+    snake->readDataToTrainingSet(*m_pLearning);
+    snake->writeInputData(*m_pWriteInputData); // Для вычисления количества необходимых входов НС
+}
+
+LearnStateType1::LearnStateType1(Snake* snake) : ILearnState(snake,
+                                                             new WriteInputDataType_1(snake),
+                                                             new ChoiseDirectionType_1(snake),
+                                                             new LearningType_1(snake)
                                                              )
 {}
 
-LearnStateType2::LearnStateType2(Snake* snake) : ILearnState(new WriteInputDataType_2(snake)
-                                                             , new ChoiseDirectionType_2(snake)
-                                                             , new LearningType_2(snake)
+LearnStateType2::LearnStateType2(Snake* snake) : ILearnState(snake,
+                                                             new WriteInputDataType_2(snake),
+                                                             new ChoiseDirectionType_2(snake),
+                                                             new LearningType_2(snake)
                                                              )
 {}

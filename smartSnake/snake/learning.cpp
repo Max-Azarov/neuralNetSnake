@@ -12,13 +12,14 @@ Learning::Learning(Snake* pSnake) : m_pSnake { pSnake }
 }
 
 void Learning::learning() {
+    emit m_pSnake->signalRunInfo();
     if (
            m_pSnake->getStatusCollision()
         || m_pSnake->getStatusFruitEaten()
         || m_pSnake->getStatusHopelessSituation()
         )
     {
-        emit m_pSnake->signalRunInfo();
+
         if (m_pSnake->getStatusCollision() || m_pSnake->getStatusHopelessSituation()) {
             badMove();
         }

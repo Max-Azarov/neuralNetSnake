@@ -79,11 +79,6 @@ private:
     bool m_freedom;
 
 private:
-    // Type of Learning
-    //std::unique_ptr<WriteInputData> m_pWriteInputData;
-    //std::unique_ptr<ChoiseDirection> m_pChoiseDirection;
-    //std::unique_ptr<Learning> m_pLearning;
-
     // State of Learning
     std::unique_ptr<ILearnState> m_pLearnState;
 
@@ -106,11 +101,11 @@ private:
     void processingSnakeEvents();
     void effects();
     void learning(Learning&);
-    void readDataToTrainingSet(Learning&);
+
     size_t getNumTrainingSet(Learning&);
     void clearData(Learning&);
     void choiseDirection(ChoiseDirection&);
-    void writeInputData(WriteInputData&);
+
     size_t getNumOfInputsNN(WriteInputData&);
     size_t getNumOfOutputsNN(ChoiseDirection&);
     void manualFruitLocate(int x, int y);
@@ -158,6 +153,10 @@ public:
     size_t getStepFromEating() const { return m_stepFromEating; }
     size_t getNumOfInputsNN();
     size_t getNumOfOutputsNN();
+    void setLearningState1();// // Переключение способа обучения
+    void setLearningState2();// // Переключение способа обучения
+    void readDataToTrainingSet(Learning&);
+    void writeInputData(WriteInputData&);
 
 protected:
     void paintEvent(QPaintEvent*);

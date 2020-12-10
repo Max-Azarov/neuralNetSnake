@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -35,7 +36,7 @@ class Ui_MainWindow
 public:
     QAction *action;
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout_3;
+    QVBoxLayout *verticalLayout_4;
     QGroupBox *gBoxNN;
     QHBoxLayout *horizontalLayout_3;
     QLineEdit *leNumInputNN;
@@ -46,14 +47,21 @@ public:
     QLabel *lblNumOfHiddenLayersNN;
     QLineEdit *leNumOfHiddenLayersNN;
     QGroupBox *gbTrainingSet;
-    QHBoxLayout *horizontalLayout_5;
+    QVBoxLayout *verticalLayout_3;
+    QHBoxLayout *horizontalLayout_11;
     QLabel *lblA;
     QLineEdit *leA;
     QLabel *lblE;
     QLineEdit *leE;
     QCheckBox *cbNewTrainingData;
+    QSpacerItem *horizontalSpacer_3;
     QLabel *lblAcceptError;
     QLineEdit *leAcceptError;
+    QGroupBox *groupBox;
+    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_5;
+    QComboBox *cboLearningType;
+    QSpacerItem *horizontalSpacer_10;
     QHBoxLayout *horizontalLayout_7;
     QGroupBox *gbSnakeSpeed;
     QVBoxLayout *verticalLayout;
@@ -101,14 +109,14 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(685, 712);
+        MainWindow->resize(610, 733);
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
-        MainWindow->setMinimumSize(QSize(685, 712));
-        MainWindow->setMaximumSize(QSize(685, 712));
+        MainWindow->setMinimumSize(QSize(610, 700));
+        MainWindow->setMaximumSize(QSize(610, 733));
         QFont font;
         font.setPointSize(8);
         font.setBold(false);
@@ -120,12 +128,13 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
         centralwidget->setSizePolicy(sizePolicy);
-        centralwidget->setMinimumSize(QSize(0, 0));
-        centralwidget->setMaximumSize(QSize(2000, 1080));
-        verticalLayout_3 = new QVBoxLayout(centralwidget);
-        verticalLayout_3->setSpacing(4);
-        verticalLayout_3->setContentsMargins(6, 6, 6, 6);
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        centralwidget->setMinimumSize(QSize(610, 700));
+        centralwidget->setMaximumSize(QSize(610, 700));
+        verticalLayout_4 = new QVBoxLayout(centralwidget);
+        verticalLayout_4->setSpacing(3);
+        verticalLayout_4->setContentsMargins(6, 6, 6, 6);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        verticalLayout_4->setContentsMargins(3, 3, 3, 3);
         gBoxNN = new QGroupBox(centralwidget);
         gBoxNN->setObjectName(QString::fromUtf8("gBoxNN"));
         gBoxNN->setEnabled(true);
@@ -151,8 +160,8 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(leNumInputNN->sizePolicy().hasHeightForWidth());
         leNumInputNN->setSizePolicy(sizePolicy2);
-        leNumInputNN->setMinimumSize(QSize(50, 26));
-        leNumInputNN->setMaximumSize(QSize(50, 26));
+        leNumInputNN->setMinimumSize(QSize(50, 20));
+        leNumInputNN->setMaximumSize(QSize(50, 20));
         leNumInputNN->setSizeIncrement(QSize(0, 0));
         leNumInputNN->setBaseSize(QSize(0, 0));
         QFont font1;
@@ -168,8 +177,8 @@ public:
         leNum1HiddenNN = new QLineEdit(gBoxNN);
         leNum1HiddenNN->setObjectName(QString::fromUtf8("leNum1HiddenNN"));
         leNum1HiddenNN->setEnabled(false);
-        leNum1HiddenNN->setMinimumSize(QSize(50, 26));
-        leNum1HiddenNN->setMaximumSize(QSize(50, 26));
+        leNum1HiddenNN->setMinimumSize(QSize(50, 20));
+        leNum1HiddenNN->setMaximumSize(QSize(50, 20));
         leNum1HiddenNN->setFont(font1);
         leNum1HiddenNN->setAlignment(Qt::AlignCenter);
 
@@ -178,8 +187,8 @@ public:
         leNum2HiddenNN = new QLineEdit(gBoxNN);
         leNum2HiddenNN->setObjectName(QString::fromUtf8("leNum2HiddenNN"));
         leNum2HiddenNN->setEnabled(false);
-        leNum2HiddenNN->setMinimumSize(QSize(50, 26));
-        leNum2HiddenNN->setMaximumSize(QSize(50, 26));
+        leNum2HiddenNN->setMinimumSize(QSize(50, 20));
+        leNum2HiddenNN->setMaximumSize(QSize(50, 20));
         leNum2HiddenNN->setFont(font1);
         leNum2HiddenNN->setAlignment(Qt::AlignCenter);
 
@@ -188,8 +197,8 @@ public:
         leNumOutputNN = new QLineEdit(gBoxNN);
         leNumOutputNN->setObjectName(QString::fromUtf8("leNumOutputNN"));
         leNumOutputNN->setEnabled(false);
-        leNumOutputNN->setMinimumSize(QSize(50, 26));
-        leNumOutputNN->setMaximumSize(QSize(50, 26));
+        leNumOutputNN->setMinimumSize(QSize(50, 20));
+        leNumOutputNN->setMaximumSize(QSize(50, 20));
         leNumOutputNN->setFont(font1);
         leNumOutputNN->setAlignment(Qt::AlignCenter);
 
@@ -207,10 +216,10 @@ public:
         lblNumOfHiddenLayersNN->setObjectName(QString::fromUtf8("lblNumOfHiddenLayersNN"));
         sizePolicy.setHeightForWidth(lblNumOfHiddenLayersNN->sizePolicy().hasHeightForWidth());
         lblNumOfHiddenLayersNN->setSizePolicy(sizePolicy);
-        lblNumOfHiddenLayersNN->setMinimumSize(QSize(0, 26));
-        lblNumOfHiddenLayersNN->setMaximumSize(QSize(1000, 26));
+        lblNumOfHiddenLayersNN->setMinimumSize(QSize(0, 20));
+        lblNumOfHiddenLayersNN->setMaximumSize(QSize(1000, 20));
         QFont font2;
-        font2.setPointSize(8);
+        font2.setPointSize(7);
         lblNumOfHiddenLayersNN->setFont(font2);
         lblNumOfHiddenLayersNN->setContextMenuPolicy(Qt::DefaultContextMenu);
         lblNumOfHiddenLayersNN->setTextFormat(Qt::AutoText);
@@ -227,33 +236,36 @@ public:
         leNumOfHiddenLayersNN = new QLineEdit(gBoxNN);
         leNumOfHiddenLayersNN->setObjectName(QString::fromUtf8("leNumOfHiddenLayersNN"));
         leNumOfHiddenLayersNN->setEnabled(false);
-        leNumOfHiddenLayersNN->setMinimumSize(QSize(50, 26));
-        leNumOfHiddenLayersNN->setMaximumSize(QSize(50, 26));
+        leNumOfHiddenLayersNN->setMinimumSize(QSize(50, 20));
+        leNumOfHiddenLayersNN->setMaximumSize(QSize(50, 20));
         leNumOfHiddenLayersNN->setFont(font1);
         leNumOfHiddenLayersNN->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_3->addWidget(leNumOfHiddenLayersNN);
 
 
-        verticalLayout_3->addWidget(gBoxNN);
+        verticalLayout_4->addWidget(gBoxNN);
 
         gbTrainingSet = new QGroupBox(centralwidget);
         gbTrainingSet->setObjectName(QString::fromUtf8("gbTrainingSet"));
         gbTrainingSet->setMinimumSize(QSize(0, 55));
-        gbTrainingSet->setMaximumSize(QSize(1000, 80));
-        horizontalLayout_5 = new QHBoxLayout(gbTrainingSet);
-        horizontalLayout_5->setSpacing(4);
-        horizontalLayout_5->setContentsMargins(6, 6, 6, 6);
-        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        gbTrainingSet->setMaximumSize(QSize(1000, 1000));
+        verticalLayout_3 = new QVBoxLayout(gbTrainingSet);
+        verticalLayout_3->setSpacing(4);
+        verticalLayout_3->setContentsMargins(6, 6, 6, 6);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        horizontalLayout_11 = new QHBoxLayout();
+        horizontalLayout_11->setSpacing(4);
+        horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
         lblA = new QLabel(gbTrainingSet);
         lblA->setObjectName(QString::fromUtf8("lblA"));
         sizePolicy.setHeightForWidth(lblA->sizePolicy().hasHeightForWidth());
         lblA->setSizePolicy(sizePolicy);
-        lblA->setMinimumSize(QSize(50, 26));
-        lblA->setMaximumSize(QSize(50, 26));
+        lblA->setMinimumSize(QSize(50, 20));
+        lblA->setMaximumSize(QSize(50, 20));
         lblA->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        horizontalLayout_5->addWidget(lblA);
+        horizontalLayout_11->addWidget(lblA);
 
         leA = new QLineEdit(gbTrainingSet);
         leA->setObjectName(QString::fromUtf8("leA"));
@@ -262,31 +274,31 @@ public:
         sizePolicy3.setVerticalStretch(0);
         sizePolicy3.setHeightForWidth(leA->sizePolicy().hasHeightForWidth());
         leA->setSizePolicy(sizePolicy3);
-        leA->setMinimumSize(QSize(50, 26));
-        leA->setMaximumSize(QSize(50, 26));
+        leA->setMinimumSize(QSize(50, 20));
+        leA->setMaximumSize(QSize(50, 20));
         leA->setFont(font1);
         leA->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout_5->addWidget(leA);
+        horizontalLayout_11->addWidget(leA);
 
         lblE = new QLabel(gbTrainingSet);
         lblE->setObjectName(QString::fromUtf8("lblE"));
-        lblE->setMinimumSize(QSize(50, 26));
-        lblE->setMaximumSize(QSize(50, 26));
+        lblE->setMinimumSize(QSize(50, 20));
+        lblE->setMaximumSize(QSize(50, 20));
         lblE->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        horizontalLayout_5->addWidget(lblE);
+        horizontalLayout_11->addWidget(lblE);
 
         leE = new QLineEdit(gbTrainingSet);
         leE->setObjectName(QString::fromUtf8("leE"));
         sizePolicy3.setHeightForWidth(leE->sizePolicy().hasHeightForWidth());
         leE->setSizePolicy(sizePolicy3);
-        leE->setMinimumSize(QSize(50, 26));
-        leE->setMaximumSize(QSize(50, 26));
+        leE->setMinimumSize(QSize(50, 20));
+        leE->setMaximumSize(QSize(50, 20));
         leE->setFont(font1);
         leE->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout_5->addWidget(leE);
+        horizontalLayout_11->addWidget(leE);
 
         cbNewTrainingData = new QCheckBox(gbTrainingSet);
         cbNewTrainingData->setObjectName(QString::fromUtf8("cbNewTrainingData"));
@@ -294,14 +306,19 @@ public:
         cbNewTrainingData->setMaximumSize(QSize(16666, 15));
         cbNewTrainingData->setChecked(false);
 
-        horizontalLayout_5->addWidget(cbNewTrainingData);
+        horizontalLayout_11->addWidget(cbNewTrainingData);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_11->addItem(horizontalSpacer_3);
 
         lblAcceptError = new QLabel(gbTrainingSet);
         lblAcceptError->setObjectName(QString::fromUtf8("lblAcceptError"));
         sizePolicy.setHeightForWidth(lblAcceptError->sizePolicy().hasHeightForWidth());
         lblAcceptError->setSizePolicy(sizePolicy);
-        lblAcceptError->setMinimumSize(QSize(0, 26));
-        lblAcceptError->setMaximumSize(QSize(36667, 26));
+        lblAcceptError->setMinimumSize(QSize(0, 20));
+        lblAcceptError->setMaximumSize(QSize(36667, 20));
+        lblAcceptError->setFont(font2);
         lblAcceptError->setContextMenuPolicy(Qt::DefaultContextMenu);
         lblAcceptError->setTextFormat(Qt::AutoText);
         lblAcceptError->setScaledContents(false);
@@ -312,21 +329,56 @@ public:
         lblAcceptError->setOpenExternalLinks(false);
         lblAcceptError->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
 
-        horizontalLayout_5->addWidget(lblAcceptError, 0, Qt::AlignRight);
+        horizontalLayout_11->addWidget(lblAcceptError);
 
         leAcceptError = new QLineEdit(gbTrainingSet);
         leAcceptError->setObjectName(QString::fromUtf8("leAcceptError"));
         sizePolicy3.setHeightForWidth(leAcceptError->sizePolicy().hasHeightForWidth());
         leAcceptError->setSizePolicy(sizePolicy3);
-        leAcceptError->setMinimumSize(QSize(50, 26));
-        leAcceptError->setMaximumSize(QSize(50, 26));
+        leAcceptError->setMinimumSize(QSize(50, 20));
+        leAcceptError->setMaximumSize(QSize(50, 20));
         leAcceptError->setFont(font1);
         leAcceptError->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout_5->addWidget(leAcceptError);
+        horizontalLayout_11->addWidget(leAcceptError);
 
 
-        verticalLayout_3->addWidget(gbTrainingSet);
+        verticalLayout_3->addLayout(horizontalLayout_11);
+
+        groupBox = new QGroupBox(gbTrainingSet);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        verticalLayout_2 = new QVBoxLayout(groupBox);
+        verticalLayout_2->setSpacing(4);
+        verticalLayout_2->setContentsMargins(6, 6, 6, 6);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(4);
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        cboLearningType = new QComboBox(groupBox);
+        cboLearningType->addItem(QString());
+        cboLearningType->addItem(QString());
+        cboLearningType->setObjectName(QString::fromUtf8("cboLearningType"));
+        cboLearningType->setEditable(false);
+        cboLearningType->setMaxVisibleItems(10);
+        cboLearningType->setMaxCount(1000);
+        cboLearningType->setModelColumn(0);
+
+        horizontalLayout_5->addWidget(cboLearningType);
+
+        horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_10);
+
+        horizontalLayout_5->setStretch(0, 1);
+        horizontalLayout_5->setStretch(1, 5);
+
+        verticalLayout_2->addLayout(horizontalLayout_5);
+
+
+        verticalLayout_3->addWidget(groupBox);
+
+
+        verticalLayout_4->addWidget(gbTrainingSet);
 
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(4);
@@ -361,6 +413,9 @@ public:
         sizePolicy.setHeightForWidth(cbSnakeSpeed->sizePolicy().hasHeightForWidth());
         cbSnakeSpeed->setSizePolicy(sizePolicy);
         cbSnakeSpeed->setMaximumSize(QSize(16777215, 26));
+        QFont font3;
+        font3.setPointSize(8);
+        cbSnakeSpeed->setFont(font3);
 
         verticalLayout->addWidget(cbSnakeSpeed, 0, Qt::AlignHCenter);
 
@@ -417,6 +472,7 @@ public:
         lblCountOfSetsTitle->setSizePolicy(sizePolicy5);
         lblCountOfSetsTitle->setMinimumSize(QSize(0, 0));
         lblCountOfSetsTitle->setMaximumSize(QSize(16777215, 100));
+        lblCountOfSetsTitle->setFont(font2);
         lblCountOfSetsTitle->setAlignment(Qt::AlignCenter);
 
         horizontalLayout->addWidget(lblCountOfSetsTitle);
@@ -441,6 +497,7 @@ public:
         lblCountOfStepsTitle->setSizePolicy(sizePolicy5);
         lblCountOfStepsTitle->setMinimumSize(QSize(0, 0));
         lblCountOfStepsTitle->setMaximumSize(QSize(16777215, 100));
+        lblCountOfStepsTitle->setFont(font2);
         lblCountOfStepsTitle->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_2->addWidget(lblCountOfStepsTitle);
@@ -463,6 +520,7 @@ public:
         lblCountOfEatenFruitsTitle->setObjectName(QString::fromUtf8("lblCountOfEatenFruitsTitle"));
         lblCountOfEatenFruitsTitle->setMinimumSize(QSize(0, 0));
         lblCountOfEatenFruitsTitle->setMaximumSize(QSize(16777215, 100));
+        lblCountOfEatenFruitsTitle->setFont(font2);
         lblCountOfEatenFruitsTitle->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_4->addWidget(lblCountOfEatenFruitsTitle);
@@ -485,6 +543,7 @@ public:
         lblAverageCountOfSetsTitle->setObjectName(QString::fromUtf8("lblAverageCountOfSetsTitle"));
         lblAverageCountOfSetsTitle->setMinimumSize(QSize(0, 0));
         lblAverageCountOfSetsTitle->setMaximumSize(QSize(16777215, 100));
+        lblAverageCountOfSetsTitle->setFont(font2);
         lblAverageCountOfSetsTitle->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_6->addWidget(lblAverageCountOfSetsTitle);
@@ -504,7 +563,7 @@ public:
         horizontalLayout_7->addLayout(verticalLayout_7);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_7);
+        verticalLayout_4->addLayout(horizontalLayout_7);
 
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setSpacing(4);
@@ -564,7 +623,7 @@ public:
         horizontalLayout_10->setStretch(6, 2);
         horizontalLayout_10->setStretch(7, 3);
 
-        verticalLayout_3->addLayout(horizontalLayout_10);
+        verticalLayout_4->addLayout(horizontalLayout_10);
 
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setSpacing(4);
@@ -603,7 +662,7 @@ public:
         horizontalLayout_8->setStretch(3, 1);
         horizontalLayout_8->setStretch(4, 3);
 
-        verticalLayout_3->addLayout(horizontalLayout_8);
+        verticalLayout_4->addLayout(horizontalLayout_8);
 
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setSpacing(4);
@@ -618,13 +677,13 @@ public:
         horizontalLayout_9->addWidget(lblStatus);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_9);
+        verticalLayout_4->addLayout(horizontalLayout_9);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setEnabled(true);
-        menubar->setGeometry(QRect(0, 0, 685, 21));
+        menubar->setGeometry(QRect(0, 0, 610, 21));
         menu = new QMenu(menubar);
         menu->setObjectName(QString::fromUtf8("menu"));
         MainWindow->setMenuBar(menubar);
@@ -640,11 +699,7 @@ public:
         QWidget::setTabOrder(leNumOutputNN, leNum1HiddenNN);
         QWidget::setTabOrder(leNum1HiddenNN, leNum2HiddenNN);
         QWidget::setTabOrder(leNum2HiddenNN, leNumOfHiddenLayersNN);
-        QWidget::setTabOrder(leNumOfHiddenLayersNN, cbNewTrainingData);
-        QWidget::setTabOrder(cbNewTrainingData, leA);
-        QWidget::setTabOrder(leA, leE);
-        QWidget::setTabOrder(leE, leAcceptError);
-        QWidget::setTabOrder(leAcceptError, cbNewWeights);
+        QWidget::setTabOrder(leNumOfHiddenLayersNN, cbNewWeights);
         QWidget::setTabOrder(cbNewWeights, leNumInputNN);
 
         menubar->addAction(menu->menuAction());
@@ -652,6 +707,9 @@ public:
         toolBar->addSeparator();
 
         retranslateUi(MainWindow);
+
+        cboLearningType->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -720,6 +778,11 @@ public:
         lblAcceptError->setText(QCoreApplication::translate("MainWindow", "\320\224\320\276\320\277\321\203\321\201\321\202\320\270\320\274\320\260\321\217\n"
 "\320\276\321\210\320\270\320\261\320\272\320\260", nullptr));
         leAcceptError->setText(QCoreApplication::translate("MainWindow", "0.02", nullptr));
+        groupBox->setTitle(QCoreApplication::translate("MainWindow", "\320\242\320\270\320\277\321\213 \320\276\320\261\321\203\321\207\320\265\320\275\320\270\321\217", nullptr));
+        cboLearningType->setItemText(0, QCoreApplication::translate("MainWindow", "\320\242\320\270\320\277 \342\204\2261", nullptr));
+        cboLearningType->setItemText(1, QCoreApplication::translate("MainWindow", "\320\242\320\270\320\277 \342\204\2262", nullptr));
+
+        cboLearningType->setCurrentText(QCoreApplication::translate("MainWindow", "\320\242\320\270\320\277 \342\204\2261", nullptr));
         gbSnakeSpeed->setTitle(QString());
 #if QT_CONFIG(tooltip)
         lblSnakeSpeed->setToolTip(QString());

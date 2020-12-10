@@ -28,10 +28,7 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_setCount { 0 }
     , m_bMutex { false }
   , m_bStop { true }
-  //, m_pWriteInputData { new WriteInputDataType_2(this) }
-  //, m_pChoiseDirection { new ChoiseDirectionType_2(this) }
-  //, m_pLearning { new LearningType_2(this) }
-  , m_pLearnState { new LearnStateType1(this) }
+  , m_pLearnState { nullptr }
   , neuroNet { nullptr }
 {
     static bool startRandom = false;
@@ -55,8 +52,10 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
 
     averageNumberOfSteps(true);
 
-    readDataToTrainingSet(*m_pLearnState->getLearning());
-    writeInputData(*m_pLearnState->getWriteInputData()); // Для вычисления количества необходимых входов НС
+    setLearningState1();
+
+    //readDataToTrainingSet(*m_pLearnState->getLearning());
+    //writeInputData(*m_pLearnState->getWriteInputData()); // Для вычисления количества необходимых входов НС
 
     initGame();
     pTimer = new QTimer(this);
@@ -439,6 +438,14 @@ size_t Snake::getNumOfInputsNN() {
 
 size_t Snake::getNumOfOutputsNN() {
     return getNumOfOutputsNN(*m_pLearnState->getChoiseDirection());
+}
+
+void Snake::setLearningState1() {
+    m_pLearnState.reset(new LearnStateType1(this));
+}
+
+void Snake::setLearningState2() {
+    m_pLearnState.reset(new LearnStateType2(this));
 }
 
 void Snake::mousePressEvent(QMouseEvent* e) {

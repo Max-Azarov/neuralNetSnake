@@ -800,6 +800,7 @@ debug\moc_game.cpp: smartSnake\game\game.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QAction \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QApplication \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QCheckBox \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QComboBox \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QGroupBox \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QHBoxLayout \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLabel \
@@ -1596,6 +1597,7 @@ debug\game.obj: smartSnake\game\game.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidg
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QAction \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QApplication \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QCheckBox \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QComboBox \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QGroupBox \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QHBoxLayout \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLabel \
@@ -2170,6 +2172,7 @@ debug\main.obj: smartSnake\main.cpp D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\Q
 		ui_mainWindow.h \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QAction \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QCheckBox \
+		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QComboBox \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QGroupBox \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QHBoxLayout \
 		D:\Qt\5.13.2\msvc2017_64\include\QtWidgets\QLabel \

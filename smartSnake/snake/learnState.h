@@ -26,11 +26,8 @@ protected:
     ILearnState&& operator= (ILearnState&&) = delete;
 
 public:
-    ILearnState(WriteInputData* writeInputData, ChoiseDirection* choiseDirection, Learning* learning) :
-        m_pWriteInputData { std::move(writeInputData) }
-      , m_pChoiseDirection { std::move(choiseDirection) }
-      , m_pLearning { std::move(learning) }
-    {}
+    ILearnState(Snake* snake, WriteInputData* writeInputData, ChoiseDirection* choiseDirection, Learning* learning);
+
     virtual ~ILearnState() {}
 
     WriteInputData* getWriteInputData() const { return m_pWriteInputData.get(); }

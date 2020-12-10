@@ -5,9 +5,9 @@ enum TYPE_CELL
 {
     EMPTY = 0,
     BODY = 1,
-    WALL = 2,
-    HEAD = 4,
-    FRUIT = -2
+    WALL = 1,
+    HEAD = 2,
+    FRUIT = -1
 };
 
 enum DIRECTION

@@ -17,7 +17,6 @@ Game::Game(QWidget *parent) : QMainWindow{parent}
     connect(m_pSnake, SIGNAL(signalRunInfo()), this, SLOT(slotRunInfo()));
     connect(m_pSnake, SIGNAL(signalErrorInfo()), this, SLOT(slotErrorInfo()));
     connect(m_pSnake, SIGNAL(signalStatusInfo(const QString&)), this, SLOT(slotStatusInfo(const QString&)));
-
 }
 
 Game::~Game() {
@@ -58,6 +57,7 @@ void Game::on_cbSnakeSpeed_stateChanged(int state) {
         setSnakeSpeed(ui->sldSnakeSpeed->value());
     }
 }
+
 
 void Game::on_btnStart_released() {
     if (m_bStart) {
@@ -117,6 +117,7 @@ void Game::on_cbNewWeights_stateChanged(int state) {
         ui->leNumOfHiddenLayersNN->setEnabled(true);
         m_bNewSynapseWeights = true;
         m_bIsInitNet = false;
+        ui->cbNewWeights->setCheckState(Qt::Checked);
     }
     if (!state) {
         // Qt::unchecked
@@ -124,6 +125,29 @@ void Game::on_cbNewWeights_stateChanged(int state) {
         ui->leNum2HiddenNN->setEnabled(false);
         ui->leNumOfHiddenLayersNN->setEnabled(false);
     }
+}
+
+void Game::on_cbNewTrainingData_stateChanged(int state) {
+    if (state) {
+        m_pSnake->clearFiles(ui->cbNewTrainingData->checkState());
+        ui->cbNewTrainingData->setCheckState(Qt::Checked);
+    }
+}
+
+void Game::on_cboLearningType_currentIndexChanged(int index) {
+    switch (index) {
+    case 0 :
+        m_pSnake->setLearningState1();
+        break;
+    case 1:
+        m_pSnake->setLearningState2();
+        break;
+    default:
+        return;
+    }
+
+    on_cbNewWeights_stateChanged(Qt::Checked);
+    on_cbNewTrainingData_stateChanged(Qt::Checked);
 }
 
 void Game::initNet() {
@@ -198,7 +222,7 @@ void Game::setTrainingParameters() {
     m_pSnake->getNet()->parameters().setA(ui->leA->text().toDouble());
     m_pSnake->getNet()->parameters().setE(ui->leE->text().toDouble());
     m_pSnake->setAcceptError(ui->leAcceptError->text().toDouble());
-    m_pSnake->clearFiles(ui->cbNewTrainingData->checkState());
+    //m_pSnake->clearFiles(ui->cbNewTrainingData->checkState());
 }
 
 void Game::slotRunInfo() {
