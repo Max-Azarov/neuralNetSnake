@@ -5,6 +5,7 @@
 #include <QImage>
 #include <QTimer>
 #include <QMouseEvent>
+#include <memory>
 
 #include "snake/enums.h"
 #include "neuroNet/net.h"
@@ -12,10 +13,12 @@
 #include "snake/choiseDirection.h"
 #include "snake/learning.h"
 #include "logOut.h"
+#include "learnState.h"
 
 class WriteInputData;
 class ChoiseDirection;
 class Learning;
+class ILearnState;
 
 class Snake : public QWidget {
     Q_OBJECT
@@ -76,9 +79,13 @@ private:
     bool m_freedom;
 
 private:
-    WriteInputData* m_pWriteInputData;
-    ChoiseDirection* m_pChoiseDirection;
-    Learning* m_pLearning;
+    // Type of Learning
+    //std::unique_ptr<WriteInputData> m_pWriteInputData;
+    //std::unique_ptr<ChoiseDirection> m_pChoiseDirection;
+    //std::unique_ptr<Learning> m_pLearning;
+
+    // State of Learning
+    std::unique_ptr<ILearnState> m_pLearnState;
 
 private:
     void loadTextures();

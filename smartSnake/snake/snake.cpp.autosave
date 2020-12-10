@@ -28,9 +28,6 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
     , m_setCount { 0 }
     , m_bMutex { false }
   , m_bStop { true }
-  //, m_pWriteInputData { new WriteInputDataType_2(this) }
-  //, m_pChoiseDirection { new ChoiseDirectionType_2(this) }
-  //, m_pLearning { new LearningType_2(this) }
   , m_pLearnState { new LearnStateType1(this) }
   , neuroNet { nullptr }
 {

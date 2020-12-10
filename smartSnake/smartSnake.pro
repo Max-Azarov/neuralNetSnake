@@ -31,6 +31,7 @@ SOURCES += \
     neuroNet/synapse.cpp \
     neuroNet/training.cpp \
     snake/choiseDirection.cpp \
+    snake/learnState.cpp \
     snake/learning.cpp \
     snake/snake.cpp \
     snake/writeInputData.cpp
@@ -51,6 +52,7 @@ HEADERS += \
     neuroNet/training.h \
     snake/choiseDirection.h \
     snake/enums.h \
+    snake/learnState.h \
     snake/learning.h \
     snake/snake.h \
     snake/writeInputData.h
