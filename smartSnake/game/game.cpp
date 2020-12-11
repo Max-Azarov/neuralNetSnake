@@ -9,18 +9,21 @@ Game::Game(QWidget *parent) : QMainWindow{parent}
   , m_bIsInitNet { false }
   , m_settings {"monstr", "smartSnake", this }
   , m_bNewSynapseWeights { false }
+  , m_load { true }
 {
     ui->setupUi(this);
     m_pSnake = ui->snake;
-    readSettings();
+    loadSettings();
 
     connect(m_pSnake, SIGNAL(signalRunInfo()), this, SLOT(slotRunInfo()));
     connect(m_pSnake, SIGNAL(signalErrorInfo()), this, SLOT(slotErrorInfo()));
     connect(m_pSnake, SIGNAL(signalStatusInfo(const QString&)), this, SLOT(slotStatusInfo(const QString&)));
+
+    m_load = false;
 }
 
 Game::~Game() {
-    writeSettings();
+    saveSettings();
     delete ui;
 }
 
@@ -117,7 +120,6 @@ void Game::on_cbNewWeights_stateChanged(int state) {
         ui->leNumOfHiddenLayersNN->setEnabled(true);
         m_bNewSynapseWeights = true;
         m_bIsInitNet = false;
-        ui->cbNewWeights->setCheckState(Qt::Checked);
     }
     if (!state) {
         // Qt::unchecked
@@ -125,13 +127,15 @@ void Game::on_cbNewWeights_stateChanged(int state) {
         ui->leNum2HiddenNN->setEnabled(false);
         ui->leNumOfHiddenLayersNN->setEnabled(false);
     }
+    ui->cbNewWeights->setCheckState((Qt::CheckState)state);
 }
 
 void Game::on_cbNewTrainingData_stateChanged(int state) {
     if (state) {
         m_pSnake->clearFiles(ui->cbNewTrainingData->checkState());
-        ui->cbNewTrainingData->setCheckState(Qt::Checked);
+
     }
+    ui->cbNewTrainingData->setCheckState((Qt::CheckState)state);
 }
 
 void Game::on_cboLearningType_currentIndexChanged(int index) {
@@ -146,8 +150,22 @@ void Game::on_cboLearningType_currentIndexChanged(int index) {
         return;
     }
 
-    on_cbNewWeights_stateChanged(Qt::Checked);
-    on_cbNewTrainingData_stateChanged(Qt::Checked);
+    m_bIsInitNet = false;
+    if (!m_load) {
+        on_cbNewTrainingData_stateChanged(Qt::Checked);
+        on_cbNewWeights_stateChanged(Qt::Checked);
+        displayDefaultNN();
+    }
+}
+
+void Game::displayDefaultNN() {
+    size_t numOfInput = m_pSnake->getNumOfInputsNN();
+    size_t numOfOutput = m_pSnake->getNumOfOutputsNN();
+    ui->leNumInputNN->setText(QString::number(numOfInput)); // Записываем число входов в ячейку пользовательского окна
+    ui->leNumOutputNN->setText(QString::number(numOfOutput)); // Записываем число выходов в ячейку пользовательского окна
+    ui->leNum1HiddenNN->setText(QString::number(numOfInput + 2));
+    ui->leNum2HiddenNN->setText(QString::number(numOfInput + 4));
+    ui->leNumOfHiddenLayersNN->setText(QString::number(2));
 }
 
 void Game::initNet() {
@@ -166,6 +184,8 @@ void Game::initNet() {
     std::vector<size_t> vSynapse(vNeuron.size() - 1, 1);
 
     m_pSnake->setNN(vNeuron, vSynapse, m_bNewSynapseWeights);
+
+
 }
 
 void Game::setSnakeSpeed(int speed) {
@@ -186,34 +206,31 @@ void Game::setSnakeSpeed() {
     }
 }
 
-void Game::readSettings(){
-    size_t numOfInput = m_pSnake->getNumOfInputsNN();
-    size_t numOfOutput = m_pSnake->getNumOfOutputsNN();
-    ui->leNumInputNN->setText(QString::number(numOfInput)); // Записываем число входов в ячейку пользовательского окна
-    ui->leNumOutputNN->setText(QString::number(numOfOutput)); // Записываем число выходов в ячейку пользовательского окна
-
+void Game::loadSettings(){
     m_settings.beginGroup("/Settings");
+    ui->leNumInputNN->setText(m_settings.value("/leNumInputNN", "-").toString());
+    ui->leNumOutputNN->setText(m_settings.value("/leNumOutputNN", "-").toString());
     ui->leNum1HiddenNN->setText(m_settings.value("/leNum1HiddenNN", "100").toString());
     ui->leNum2HiddenNN->setText(m_settings.value("/leNum2HiddenNN", "200").toString());
     ui->leNumOfHiddenLayersNN->setText(m_settings.value("/leNumOfHiddenLayersNN", "2").toString());
     ui->leA->setText(m_settings.value("/leA", "0.1").toString());
     ui->leE->setText(m_settings.value("/leE", "0.05").toString());
     ui->leAcceptError->setText(m_settings.value("/leAcceptError", "0.02").toString());
-    //ui->leNumInputNN->setText(m_settings.value("/leNumInputNN", "-").toString());
-    //ui->leNumOutputNN->setText(m_settings.value("/leNumOutputNN", "-").toString());
+    ui->cboLearningType->setCurrentIndex(m_settings.value("/cboLearningType", "1").toInt());
     m_settings.endGroup();
 }
 
-void Game::writeSettings() {
+void Game::saveSettings() {
     m_settings.beginGroup("/Settings");
+    m_settings.setValue("/leNumInputNN", ui->leNumInputNN->text());
+    m_settings.setValue("/leNumOutputNN", ui->leNumOutputNN->text());
     m_settings.setValue("/leNum1HiddenNN", ui->leNum1HiddenNN->text());
     m_settings.setValue("/leNum2HiddenNN", ui->leNum2HiddenNN->text());
     m_settings.setValue("/leNumOfHiddenLayersNN", ui->leNumOfHiddenLayersNN->text());
     m_settings.setValue("/leA", ui->leA->text());
     m_settings.setValue("/leE", ui->leE->text());
     m_settings.setValue("/leAcceptError", ui->leAcceptError->text());
-    //m_settings.setValue("/leNumInputNN", ui->leNumInputNN->text());
-    //m_settings.setValue("/leNumOutputNN", ui->leNumOutputNN->text());
+    m_settings.setValue("/cboLearningType", ui->cboLearningType->currentIndex());
     m_settings.endGroup();
     if (m_pSnake->getNet()) m_pSnake->getNet()->training().saveWeightOfSynapses();
 }
@@ -222,7 +239,6 @@ void Game::setTrainingParameters() {
     m_pSnake->getNet()->parameters().setA(ui->leA->text().toDouble());
     m_pSnake->getNet()->parameters().setE(ui->leE->text().toDouble());
     m_pSnake->setAcceptError(ui->leAcceptError->text().toDouble());
-    //m_pSnake->clearFiles(ui->cbNewTrainingData->checkState());
 }
 
 void Game::slotRunInfo() {

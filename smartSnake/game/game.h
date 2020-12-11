@@ -20,6 +20,7 @@ private:
     QStringList m_infoCount;
     QStringList m_infoError;
     bool m_bNewSynapseWeights;
+    bool m_load; // Закончилось ли выполнение конструктора (загрузка объекта)
 
 public:
     Game(QWidget *parent = nullptr);
@@ -48,10 +49,11 @@ private:
     void setSnakeSpeed(int);
     void setSnakeSpeed();
     void initNet();
-    void readSettings();
-    void writeSettings();
+    void loadSettings();
+    void saveSettings();
     void setTrainingParameters();
     void intValidate(QLineEdit* const le, const QString& valueForInvalid);
+    void displayDefaultNN();
 
 //public slots:
 
