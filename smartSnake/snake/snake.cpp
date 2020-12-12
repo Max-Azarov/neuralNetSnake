@@ -52,11 +52,6 @@ Snake::Snake(QWidget *parent) : QWidget{parent}
 
     averageNumberOfSteps(true);
 
-    setLearningState1();
-
-    //readDataToTrainingSet(*m_pLearnState->getLearning());
-    //writeInputData(*m_pLearnState->getWriteInputData()); // Для вычисления количества необходимых входов НС
-
     initGame();
     pTimer = new QTimer(this);
     connect(pTimer, SIGNAL(timeout()), SLOT(slotLoop()));
@@ -440,12 +435,12 @@ size_t Snake::getNumOfOutputsNN() {
     return getNumOfOutputsNN(*m_pLearnState->getChoiseDirection());
 }
 
-void Snake::setLearningState1() {
-    m_pLearnState.reset(new LearnStateType1(this));
+void Snake::setLearningState1(int sizeOfArea) {
+    m_pLearnState.reset(new LearnStateType1(this, sizeOfArea));
 }
 
-void Snake::setLearningState2() {
-    m_pLearnState.reset(new LearnStateType2(this));
+void Snake::setLearningState2(int depthOfVision) {
+    m_pLearnState.reset(new LearnStateType2(this, depthOfVision));
 }
 
 void Snake::mousePressEvent(QMouseEvent* e) {

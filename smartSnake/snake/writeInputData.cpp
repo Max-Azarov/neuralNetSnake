@@ -18,6 +18,11 @@ size_t WriteInputData::getNumInputData() {
 // WriteFieldType_1 =====================================================
 // На входы НС подаются: координаты головы, координаты фрукта, голод, область 5х5 вокруг головы
 
+WriteInputDataType_1::WriteInputDataType_1(Snake* snake, int sizeOfArea) :
+    WriteInputData(snake)
+  , m_sizeOfArea { sizeOfArea }
+{}
+
 void WriteInputDataType_1::writeInputData() {
 
     std::vector<std::vector<TYPE_CELL>>& vField = *m_pSnake->getVField(); // Матрица поля игры
@@ -37,12 +42,12 @@ void WriteInputDataType_1::writeInputData() {
     m_pSnake->getVIn()->push_back((int)m_pSnake->getStepFromEating());
 
     // Подаем вокруг головы
-    int sizeSquare = 5; // Размер области зрения змейки 5х5
-    int correction = -sizeSquare/2;
+    // m_SizeArea; // Размер области зрения змейки 5х5 вокруг головы
+    int correction = -m_sizeOfArea/2; // корректировка для вычисления локальных координат
     int xG; // глобальные координаты
     int yG; // глобальные координаты
-    for (int x = 0; x < sizeSquare; ++x) {
-        for (int y = 0; y < sizeSquare; ++y) {
+    for (int x = 0; x < m_sizeOfArea; ++x) {
+        for (int y = 0; y < m_sizeOfArea; ++y) {
             xG = xHead + correction + x;
             checkBound(&xG, (int)vField.size()-1); // Если вышли за границу, присваиваем значение границы
             yG = yHead + correction + y;
@@ -64,9 +69,9 @@ void WriteInputDataType_1::writeInputData() {
 // Количество входов НС в четыре раза меньше, чем сформированные здесь данные, т.к. данные симметричны.
 // Также подается голод
 
-WriteInputDataType_2::WriteInputDataType_2(Snake* snake) :
+WriteInputDataType_2::WriteInputDataType_2(Snake* snake, int depth) :
     WriteInputData(snake)
-  , m_depth { 3 }  // Дальность зрения depth слоев
+  , m_depth { depth }  // Дальность зрения depth слоев
 {
 
 }

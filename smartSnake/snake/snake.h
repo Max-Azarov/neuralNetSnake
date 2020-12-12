@@ -153,8 +153,8 @@ public:
     size_t getStepFromEating() const { return m_stepFromEating; }
     size_t getNumOfInputsNN();
     size_t getNumOfOutputsNN();
-    void setLearningState1();// // Переключение способа обучения
-    void setLearningState2();// // Переключение способа обучения
+    void setLearningState1(int sizeOfArea);// // Переключение способа обучения
+    void setLearningState2(int depthOfVision);// // Переключение способа обучения
     void readDataToTrainingSet(Learning&);
     void writeInputData(WriteInputData&);
 

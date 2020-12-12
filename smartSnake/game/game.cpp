@@ -79,6 +79,9 @@ void Game::on_btnStart_released() {
         // Текущее состояние "Стоп" меняем на состояние "Старт"
         m_bStart = true;
         if (!m_bIsInitNet) {
+            int learningParam = ui->leParamLearning->text().toInt();
+            int index = ui->cboLearningType->currentIndex();
+            changeTypeOfLearning(index, learningParam);
             initNet();
             m_bIsInitNet = true;
         }
@@ -141,24 +144,55 @@ void Game::on_cbNewTrainingData_stateChanged(int state) {
 void Game::on_cboLearningType_currentIndexChanged(int index) {
     switch (index) {
     case 0 :
-        m_pSnake->setLearningState1();
+        if (!m_load) ui->leParamLearning->setText("5");
         break;
     case 1:
-        m_pSnake->setLearningState2();
+        if (!m_load) ui->leParamLearning->setText("2");
         break;
     default:
         return;
     }
-
     m_bIsInitNet = false;
+    int learningParam = ui->leParamLearning->text().toInt();
+    changeTypeOfLearning(index, learningParam);
+
     if (!m_load) {
         on_cbNewTrainingData_stateChanged(Qt::Checked);
         on_cbNewWeights_stateChanged(Qt::Checked);
-        displayDefaultNN();
+        displayDefaultParameters();
     }
 }
 
-void Game::displayDefaultNN() {
+void Game::on_leParamLearning_editingFinished() {
+    intValidate(ui->leParamLearning, "1"); // Валидация ввода
+    int learningParam = ui->leParamLearning->text().toInt();
+    int index = ui->cboLearningType->currentIndex();
+    changeTypeOfLearning(index, learningParam);
+    m_bIsInitNet = false;
+
+    if (!m_load) {
+        on_cbNewTrainingData_stateChanged(Qt::Checked);
+        on_cbNewWeights_stateChanged(Qt::Checked);
+        displayDefaultParameters();
+    }
+}
+
+void Game::changeTypeOfLearning(int index, int learningParam) {
+    switch (index) {
+    case 0 :
+        ui->lblParamLearning->setText("Размер области зрения вокруг головы");
+        m_pSnake->setLearningState1(learningParam);
+        break;
+    case 1:
+        ui->lblParamLearning->setText("Дальность зрения в каждую сторону");
+        m_pSnake->setLearningState2(learningParam);
+        break;
+    default:
+        return;
+    }
+}
+
+void Game::displayDefaultParameters() {
     size_t numOfInput = m_pSnake->getNumOfInputsNN();
     size_t numOfOutput = m_pSnake->getNumOfOutputsNN();
     ui->leNumInputNN->setText(QString::number(numOfInput)); // Записываем число входов в ячейку пользовательского окна
@@ -166,6 +200,8 @@ void Game::displayDefaultNN() {
     ui->leNum1HiddenNN->setText(QString::number(numOfInput + 2));
     ui->leNum2HiddenNN->setText(QString::number(numOfInput + 4));
     ui->leNumOfHiddenLayersNN->setText(QString::number(2));
+
+    //ui->leParamLearning->setText(QString::number(learnigParam));
 }
 
 void Game::initNet() {
@@ -216,7 +252,9 @@ void Game::loadSettings(){
     ui->leA->setText(m_settings.value("/leA", "0.1").toString());
     ui->leE->setText(m_settings.value("/leE", "0.05").toString());
     ui->leAcceptError->setText(m_settings.value("/leAcceptError", "0.02").toString());
-    ui->cboLearningType->setCurrentIndex(m_settings.value("/cboLearningType", "1").toInt());
+    ui->cboLearningType->setCurrentIndex(m_settings.value("/cboLearningType", "0").toInt());
+    ui->leParamLearning->setText(m_settings.value("/leParamLearning", "3").toString());
+    ui->lblParamLearning->setText(m_settings.value("/lblParamLearning", "").toString());
     m_settings.endGroup();
 }
 
@@ -231,6 +269,8 @@ void Game::saveSettings() {
     m_settings.setValue("/leE", ui->leE->text());
     m_settings.setValue("/leAcceptError", ui->leAcceptError->text());
     m_settings.setValue("/cboLearningType", ui->cboLearningType->currentIndex());
+    m_settings.setValue("/leParamLearning", ui->leParamLearning->text());
+    m_settings.setValue("/lblParamLearning", ui->lblParamLearning->text());
     m_settings.endGroup();
     if (m_pSnake->getNet()) m_pSnake->getNet()->training().saveWeightOfSynapses();
 }

@@ -38,6 +38,7 @@ private slots:
     void on_leNum1HiddenNN_editingFinished();
     void on_leNum2HiddenNN_editingFinished();
     void on_leNumOfHiddenLayersNN_editingFinished();
+    void on_leParamLearning_editingFinished();
     void on_cbNewWeights_stateChanged(int state);
     void on_cbNewTrainingData_stateChanged(int state);
     void on_cboLearningType_currentIndexChanged(int index);
@@ -53,7 +54,8 @@ private:
     void saveSettings();
     void setTrainingParameters();
     void intValidate(QLineEdit* const le, const QString& valueForInvalid);
-    void displayDefaultNN();
+    void displayDefaultParameters();
+    void changeTypeOfLearning(int index, int learningParam);
 
 //public slots:
 

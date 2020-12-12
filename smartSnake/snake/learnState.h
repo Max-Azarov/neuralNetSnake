@@ -39,14 +39,14 @@ public:
 class LearnStateType1 : public ILearnState {
 
 public:
-    LearnStateType1(Snake* snake);
+    LearnStateType1(Snake* snake, int sizeOfArea);
 
 };
 
 class LearnStateType2 : public ILearnState {
 
 public:
-    LearnStateType2(Snake* snake);
+    LearnStateType2(Snake* snake, int depthOfVision);
 
 };
 

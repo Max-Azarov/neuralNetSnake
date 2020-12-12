@@ -61,7 +61,9 @@ public:
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_5;
     QComboBox *cboLearningType;
-    QSpacerItem *horizontalSpacer_10;
+    QSpacerItem *horizontalSpacer_8;
+    QLineEdit *leParamLearning;
+    QLabel *lblParamLearning;
     QHBoxLayout *horizontalLayout_7;
     QGroupBox *gbSnakeSpeed;
     QVBoxLayout *verticalLayout;
@@ -358,6 +360,8 @@ public:
         cboLearningType->addItem(QString());
         cboLearningType->addItem(QString());
         cboLearningType->setObjectName(QString::fromUtf8("cboLearningType"));
+        cboLearningType->setMinimumSize(QSize(100, 20));
+        cboLearningType->setMaximumSize(QSize(100, 20));
         cboLearningType->setEditable(false);
         cboLearningType->setMaxVisibleItems(10);
         cboLearningType->setMaxCount(1000);
@@ -365,12 +369,30 @@ public:
 
         horizontalLayout_5->addWidget(cboLearningType);
 
-        horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer_8 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
-        horizontalLayout_5->addItem(horizontalSpacer_10);
+        horizontalLayout_5->addItem(horizontalSpacer_8);
+
+        leParamLearning = new QLineEdit(groupBox);
+        leParamLearning->setObjectName(QString::fromUtf8("leParamLearning"));
+        leParamLearning->setMinimumSize(QSize(50, 20));
+        leParamLearning->setMaximumSize(QSize(50, 20));
+        QFont font3;
+        font3.setPointSize(10);
+        leParamLearning->setFont(font3);
+        leParamLearning->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_5->addWidget(leParamLearning);
+
+        lblParamLearning = new QLabel(groupBox);
+        lblParamLearning->setObjectName(QString::fromUtf8("lblParamLearning"));
+
+        horizontalLayout_5->addWidget(lblParamLearning);
 
         horizontalLayout_5->setStretch(0, 1);
-        horizontalLayout_5->setStretch(1, 5);
+        horizontalLayout_5->setStretch(1, 1);
+        horizontalLayout_5->setStretch(2, 1);
+        horizontalLayout_5->setStretch(3, 5);
 
         verticalLayout_2->addLayout(horizontalLayout_5);
 
@@ -413,9 +435,9 @@ public:
         sizePolicy.setHeightForWidth(cbSnakeSpeed->sizePolicy().hasHeightForWidth());
         cbSnakeSpeed->setSizePolicy(sizePolicy);
         cbSnakeSpeed->setMaximumSize(QSize(16777215, 26));
-        QFont font3;
-        font3.setPointSize(8);
-        cbSnakeSpeed->setFont(font3);
+        QFont font4;
+        font4.setPointSize(8);
+        cbSnakeSpeed->setFont(font4);
 
         verticalLayout->addWidget(cbSnakeSpeed, 0, Qt::AlignHCenter);
 
@@ -426,6 +448,7 @@ public:
         leSnakeSpeed->setMinimumSize(QSize(50, 26));
         leSnakeSpeed->setMaximumSize(QSize(50, 26));
         leSnakeSpeed->setFont(font1);
+        leSnakeSpeed->setToolTipDuration(-1);
         leSnakeSpeed->setAlignment(Qt::AlignCenter);
 
         verticalLayout->addWidget(leSnakeSpeed, 0, Qt::AlignHCenter);
@@ -783,6 +806,7 @@ public:
         cboLearningType->setItemText(1, QCoreApplication::translate("MainWindow", "\320\242\320\270\320\277 \342\204\2262", nullptr));
 
         cboLearningType->setCurrentText(QCoreApplication::translate("MainWindow", "\320\242\320\270\320\277 \342\204\2261", nullptr));
+        lblParamLearning->setText(QString());
         gbSnakeSpeed->setTitle(QString());
 #if QT_CONFIG(tooltip)
         lblSnakeSpeed->setToolTip(QString());
