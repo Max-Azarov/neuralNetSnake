@@ -16,7 +16,7 @@ size_t WriteInputData::getNumInputData() {
 }
 
 // WriteFieldType_1 =====================================================
-// На входы НС подаются: координаты головы, координаты фрукта, голод, область 5х5 вокруг головы
+// На входы НС подаются: координаты головы, координаты фрукта, голод, область вокруг головы
 
 WriteInputDataType_1::WriteInputDataType_1(Snake* snake, int sizeOfArea) :
     WriteInputData(snake)
@@ -78,14 +78,12 @@ WriteInputDataType_2::WriteInputDataType_2(Snake* snake, int depth) :
 
 void WriteInputDataType_2:: writeInputData() {
 
-    //std::vector<std::vector<TYPE_CELL>>& vField = *m_pSnake->getVField(); // Матрица поля игры
     m_pSnake->getVIn()->clear();
 
     // Координаты головы змейки
     int xHead = m_pSnake->getSnakeX()[0];
     int yHead = m_pSnake->getSnakeY()[0];
 
-    //int bindingData; // количество входов, которые должны подаваться в каждое направление
     // Голод
     m_pSnake->getVIn()->push_back((int)m_pSnake->getStepFromEating());
 
@@ -149,4 +147,56 @@ void WriteInputDataType_2::readField(int x, int y) {
     checkBound(&x, (int)vField.size()-1); // Если вышли за границу, присваиваем значение границы
     checkBound(&y, (int)vField[x].size()-1); // Если вышли за границу, присваиваем значение границы
     m_pSnake->getVIn()->push_back(vField[x][y]);
+}
+
+// WriteFieldType_3 =====================================================
+// На входы НС подаются: координаты головы, координаты фрукта, голод, область вокруг головы(ситуация). 4 возможных направления для выбора (действия)
+// Количество выходов 1.
+
+WriteInputDataType_3::WriteInputDataType_3(Snake* snake, int sizeOfArea) :
+    WriteInputData(snake)
+  , m_sizeOfArea { sizeOfArea }
+{}
+
+void WriteInputDataType_3::writeInputData() {
+
+    std::vector<std::vector<TYPE_CELL>>& vField = *m_pSnake->getVField(); // Матрица поля игры
+    m_pSnake->getVIn()->clear();
+
+    // Координаты головы змейки
+    int xHead = m_pSnake->getSnakeX()[0];
+    int yHead = m_pSnake->getSnakeY()[0];
+
+    // Подаем на входы координаты головы и фрукта
+    m_pSnake->getVIn()->push_back(xHead);
+    m_pSnake->getVIn()->push_back(yHead);
+    m_pSnake->getVIn()->push_back(m_pSnake->getFruitX());
+    m_pSnake->getVIn()->push_back(m_pSnake->getFruitY());
+
+    // Голод
+    m_pSnake->getVIn()->push_back((int)m_pSnake->getStepFromEating());
+
+    // Подаем вокруг головы
+    // m_SizeArea; // Размер области зрения змейки 5х5 вокруг головы
+    int correction = -m_sizeOfArea/2; // корректировка для вычисления локальных координат
+    int xG; // глобальные координаты
+    int yG; // глобальные координаты
+    for (int x = 0; x < m_sizeOfArea; ++x) {
+        for (int y = 0; y < m_sizeOfArea; ++y) {
+            xG = xHead + correction + x;
+            checkBound(&xG, (int)vField.size()-1); // Если вышли за границу, присваиваем значение границы
+            yG = yHead + correction + y;
+            checkBound(&yG, (int)vField[xG].size()-1); // Если вышли за границу, присваиваем значение границы
+            m_pSnake->getVIn()->push_back(vField[xG][yG]);
+        }
+    }
+
+    // Подаем на входы одно из возможных направлений
+    m_pSnake->getVIn()->push_back(1); // up
+    m_pSnake->getVIn()->push_back(0); // left
+    m_pSnake->getVIn()->push_back(0); // down
+    m_pSnake->getVIn()->push_back(0); // right
+
+    // Обязательная инициализация поля m_sizeInputData
+    m_sizeInputData = m_pSnake->getVIn()->size();
 }

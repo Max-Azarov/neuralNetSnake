@@ -112,6 +112,7 @@ private:
     void checkBound(int* value, int bound1, int bound2);
     void writeField(); // Заполняем вектор поля
 
+
 public:
     Snake(QWidget *parent = nullptr);
     void setDelay(size_t delay);// { m_delay = delay; }
@@ -157,6 +158,7 @@ public:
     void setLearningState2(int depthOfVision);// // Переключение способа обучения
     void readDataToTrainingSet(Learning&);
     void writeInputData(WriteInputData&);
+
 
 protected:
     void paintEvent(QPaintEvent*);

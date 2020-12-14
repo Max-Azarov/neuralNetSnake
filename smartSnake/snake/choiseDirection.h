@@ -70,4 +70,30 @@ public:
     DIRECTION choise() override;
 };
 
+// class ChoiseDirectionType_3 :
+// Змейка может выбрать одно из 4х направлений и оказаться в одной из 4 ситуаций.
+// В каждой из 4х ситуаций также образуется выбор из 4х направлений.
+// Ищем максимальное значение выхода НС из 4х ситуаций в каждой по 4 значения направлений (подаем 16 ситуаций и действий, выбираем максимальное из 16 значений выходов НС)
+// Идем туда, где максимальное значение. Обучаем НС. Входы: текущая ситуация и выбранное действие, Выход: найденное максимальное значение
+class ChoiseDirectionType_3 : public ChoiseDirection
+{
+
+public:
+    ChoiseDirectionType_3(Snake* pSnake);
+
+    DIRECTION choise() override;
+
+private:
+    void copyData();
+
+private:
+    std::vector<std::vector<TYPE_CELL>> m_vField; // В векторе содержатся типы клеток поля в координатах х, у
+    int snakeX[8*8];
+    int snakeY[8*8];
+    int fruitX;
+    int fruitY;
+    int m_snakeLength;
+
+};
+
 #endif // CHOISEDIRECTION_H

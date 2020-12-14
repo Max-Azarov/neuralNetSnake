@@ -490,8 +490,6 @@ void Snake::writeField() {
                     }
                 }
             }
-
         }
     }
-
 }

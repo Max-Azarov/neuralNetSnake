@@ -25,15 +25,15 @@ public:
 };
 
 class WriteInputDataType_1 : public WriteInputData {
-    // На входы НС подаются координаты головы, координаты фрукта, голод, область 5х5 вокруг головы
-    // 30 входов НС
+    // На входы НС подаются координаты головы, координаты фрукта, голод, область размером (sizeOfArea х sizeOfArea) вокруг головы
+    //
 public:
-    WriteInputDataType_1(Snake* snake, int sizeOfArea);// : WriteInputData(snake) {}
+    WriteInputDataType_1(Snake* snake, int sizeOfArea);
 
     virtual void writeInputData() override;
 
 private:
-    int m_sizeOfArea;
+    int m_sizeOfArea; // Размер просматриваемой области вокруг головы размером (sizeOfArea х sizeOfArea)
 };
 
 class WriteInputDataType_2 : public WriteInputData {
@@ -51,6 +51,24 @@ public:
     int getBindingData() const { return m_bindingData; }
 
     virtual void writeInputData() override;
+};
+
+
+// class WriteInputDataType_3. На входы НС подаются: координаты головы, координаты фрукта, голод, область вокруг головы(ситуация). 4 возможных направления для выбора (действия)
+// Количество выходов 1. (целевая функция)
+// Змейка может выбрать одно из 4х направлений и оказаться в одной из 4 ситуаций.
+// В каждой из 4х ситуаций также образуется выбор из 4х направлений.
+// Ищем максимальное значение выхода НС из 4х ситуаций в каждой по 4 значения направлений ( выбираем максимальное из 16 значений )
+// Идем туда, где максимальное значение. Обучаем НС. Входы: текущая ситуация и выбранное действие, Выход: найденное максимальное значение
+class WriteInputDataType_3 : public WriteInputData {
+
+public:
+    WriteInputDataType_3(Snake* snake, int sizeOfArea);
+
+    virtual void writeInputData() override;
+
+private:
+    int m_sizeOfArea; // Размер просматриваемой области вокруг головы размером (sizeOfArea х sizeOfArea)
 };
 
 #endif // WRITEDATA_H
