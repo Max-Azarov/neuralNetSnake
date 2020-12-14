@@ -19,6 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     game/game.cpp \
+    game/uiState.cpp \
     logOut.cpp \
     main.cpp \
     neuroNet/biasNeuron.cpp \
@@ -38,6 +39,7 @@ SOURCES += \
 
 HEADERS += \
     game/game.h \
+    game/uiState.h \
     logOut.h \
     neuroNet/_neuronet.h \
     neuroNet/biasNeuron.h \

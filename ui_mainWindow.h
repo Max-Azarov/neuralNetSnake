@@ -62,8 +62,8 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QComboBox *cboLearningType;
     QSpacerItem *horizontalSpacer_8;
-    QLineEdit *leParamLearning;
-    QLabel *lblParamLearning;
+    QLineEdit *leLearningParam;
+    QLabel *lblLearningParam;
     QHBoxLayout *horizontalLayout_7;
     QGroupBox *gbSnakeSpeed;
     QVBoxLayout *verticalLayout;
@@ -373,21 +373,21 @@ public:
 
         horizontalLayout_5->addItem(horizontalSpacer_8);
 
-        leParamLearning = new QLineEdit(groupBox);
-        leParamLearning->setObjectName(QString::fromUtf8("leParamLearning"));
-        leParamLearning->setMinimumSize(QSize(50, 20));
-        leParamLearning->setMaximumSize(QSize(50, 20));
+        leLearningParam = new QLineEdit(groupBox);
+        leLearningParam->setObjectName(QString::fromUtf8("leLearningParam"));
+        leLearningParam->setMinimumSize(QSize(50, 20));
+        leLearningParam->setMaximumSize(QSize(50, 20));
         QFont font3;
         font3.setPointSize(10);
-        leParamLearning->setFont(font3);
-        leParamLearning->setAlignment(Qt::AlignCenter);
+        leLearningParam->setFont(font3);
+        leLearningParam->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout_5->addWidget(leParamLearning);
+        horizontalLayout_5->addWidget(leLearningParam);
 
-        lblParamLearning = new QLabel(groupBox);
-        lblParamLearning->setObjectName(QString::fromUtf8("lblParamLearning"));
+        lblLearningParam = new QLabel(groupBox);
+        lblLearningParam->setObjectName(QString::fromUtf8("lblLearningParam"));
 
-        horizontalLayout_5->addWidget(lblParamLearning);
+        horizontalLayout_5->addWidget(lblLearningParam);
 
         horizontalLayout_5->setStretch(0, 1);
         horizontalLayout_5->setStretch(1, 1);
@@ -806,7 +806,7 @@ public:
         cboLearningType->setItemText(1, QCoreApplication::translate("MainWindow", "\320\242\320\270\320\277 \342\204\2262", nullptr));
 
         cboLearningType->setCurrentText(QCoreApplication::translate("MainWindow", "\320\242\320\270\320\277 \342\204\2261", nullptr));
-        lblParamLearning->setText(QString());
+        lblLearningParam->setText(QString());
         gbSnakeSpeed->setTitle(QString());
 #if QT_CONFIG(tooltip)
         lblSnakeSpeed->setToolTip(QString());

@@ -758,7 +758,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLineEdit" name="leParamLearning">
+             <widget class="QLineEdit" name="leLearningParam">
               <property name="minimumSize">
                <size>
                 <width>50</width>
@@ -782,7 +782,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lblParamLearning">
+             <widget class="QLabel" name="lblLearningParam">
               <property name="text">
                <string/>
               </property>
