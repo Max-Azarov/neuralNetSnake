@@ -194,7 +194,6 @@ void Game::slotErrorInfo() {
         m_infoError.removeLast();
     }
     ui->lblError->setText(m_infoError.join('\n'));
-    //ui->lblStatus->setText("Змейка спит. Закончится обучение и она проснётся");
 }
 
 void Game::closeEvent(QCloseEvent* event)

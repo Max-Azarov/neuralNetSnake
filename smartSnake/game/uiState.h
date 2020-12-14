@@ -10,8 +10,8 @@
 class Game;
 
 // ==================== IUIState ==================
-class IUIState : public QWidget {
-    Q_OBJECT
+class IUIState {
+
 private:
     IUIState(const IUIState&) = delete;
     IUIState& operator= (const IUIState&) = delete;
@@ -54,7 +54,6 @@ public:
 
     void setUIStateStop() override;
     void setUIStateStart() override;
-    //void readTypeOfLearning() override; // читает индекс и параметр типа обучения из UI
 };
 
 // ==================== UIStateStop ==================
@@ -66,7 +65,6 @@ public:
     }
 
     void setUIStateStart() override;
-    //void setTypeOfLearning() override;
 };
 
 // ==================== UIStateStart ==================
