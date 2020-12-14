@@ -221,7 +221,7 @@ LearningType_1::LearningType_1(Snake* pSnake) : Learning(pSnake)
 void LearningType_1::training() {
     // >> Обучаем
     if ( !m_pSnake->getStopStatus() ) {
-        emit m_pSnake->signalStatusInfo("learning");
+        //emit m_pSnake->signalStatusInfo("learning");
         double sumError;
         double error;
         size_t countOfSet;
@@ -259,7 +259,7 @@ void LearningType_1::training() {
         //while (loopExit < 1);
 
         // << Обучаем
-        emit m_pSnake->signalStatusInfo("moving");
+        //emit m_pSnake->signalStatusInfo("moving");
         m_pSnake->getNet()->training().saveWeightOfSynapses();
         m_pSnake->setSetCount(0);
     }
@@ -333,7 +333,7 @@ void LearningType_2::learning() {
 void LearningType_2::training() {
     // >> Обучаем
     if ( !m_pSnake->getStopStatus() ) {
-        emit m_pSnake->signalStatusInfo("learning");
+        //emit m_pSnake->signalStatusInfo("learning");
         double sumError;
         double error;
         size_t countOfSet;
@@ -365,7 +365,7 @@ void LearningType_2::training() {
         emit m_pSnake->signalErrorInfo();
 
         // << Обучаем
-        emit m_pSnake->signalStatusInfo("moving");
+        //emit m_pSnake->signalStatusInfo("moving");
         m_pSnake->getNet()->training().saveWeightOfSynapses();
         m_pSnake->setSetCount(0);
     }
@@ -409,7 +409,7 @@ LearningType_3::LearningType_3(Snake* pSnake) : Learning(pSnake)
 void LearningType_3::training() {
     // >> Обучаем
     if ( !m_pSnake->getStopStatus() ) {
-        emit m_pSnake->signalStatusInfo("learning");
+        //emit m_pSnake->signalStatusInfo("learning");
         double sumError;
         double error;
         size_t countOfSet;
@@ -443,7 +443,7 @@ void LearningType_3::training() {
         emit m_pSnake->signalErrorInfo();
 
         // << Обучаем
-        emit m_pSnake->signalStatusInfo("moving");
+        //emit m_pSnake->signalStatusInfo("moving");
         m_pSnake->getNet()->training().saveWeightOfSynapses();
         m_pSnake->setSetCount(0);
     }

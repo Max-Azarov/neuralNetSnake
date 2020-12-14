@@ -114,6 +114,24 @@ void IUIState::cbSnakeSpeedStateChanged(int state) {
     ui->leSnakeSpeed->setEnabled(!((bool)state));
 }
 
+void IUIState::statusInfo(const QString& status) {
+    QString setStatus;
+    if ( status == "learning") {
+        setStatus = "Змейка спит. Закончится обучение и она проснётся";
+    }
+    if ( status == "moving" ) {
+        setStatus = "Змейка получает опыт";
+    }
+    if ( status == "stop" ) {
+        setStatus = "Стоп";
+    }
+    if ( status == "start" ) {
+        setStatus = "Старт";
+    }
+
+    ui->lblStatus->setText(setStatus);
+}
+
 // <<  ==================== IUIState ==================
 
 
@@ -147,11 +165,20 @@ UIStateStop::UIStateStop(Game* game) : IUIState(game)
     ui->cbNewWeights->setCheckState(Qt::Unchecked);
     ui->cbNewTrainingData->setCheckState(Qt::Unchecked);
     ui->cbFreedom->setEnabled(true);
-    m_game->slotStatusInfo("stop");
+    statusInfo("stop");
 }
 
 void UIStateStop::setUIStateStart() {
     m_game->pUIState.reset(new UIStateStart(m_game));
+}
+
+void UIStateStop::statusInfo(const QString& status) {
+    QString setStatus;
+    if ( status == "stop" ) {
+        setStatus = "Стоп";
+    }
+
+    ui->lblStatus->setText(setStatus);
 }
 
 // ==================== UIStateStart ==================
@@ -164,9 +191,24 @@ UIStateStart::UIStateStart(Game* game) : IUIState(game)
     m_game->getUI()->gbTrainingSet->setEnabled(false);
     m_game->getUI()->leNum1HiddenNN->setText(m_game->getUI()->leNum1HiddenNN->text());
     m_game->getUI()->cbFreedom->setEnabled(false);
-    m_game->slotStatusInfo("start");
+    statusInfo("start");
 }
 
 void UIStateStart::setUIStateStop() {
     m_game->pUIState.reset(new UIStateStop(m_game));
+}
+
+void UIStateStart::statusInfo(const QString& status) {
+    QString setStatus;
+    if ( status == "learning") {
+        setStatus = "Змейка спит. Закончится обучение и она проснётся";
+    }
+    if ( status == "moving" ) {
+        setStatus = "Змейка получает опыт";
+    }
+    if ( status == "start" ) {
+        setStatus = "Старт";
+    }
+
+    ui->lblStatus->setText(setStatus);
 }

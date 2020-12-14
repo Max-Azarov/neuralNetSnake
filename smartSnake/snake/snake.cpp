@@ -14,9 +14,6 @@
 
 Snake::~Snake() {
     delete neuroNet;
-    //delete m_pWriteInputData;
-    //delete m_pChoiseDirection;
-    //delete m_pLearning;
 }
 
 Snake::Snake(QWidget *parent) : QWidget{parent}
@@ -153,6 +150,7 @@ void Snake::loadTextures() {
 }
 
 void Snake::movement() {
+
     if (m_isTheFruitEaten) {
         ++m_snakeLength;
         m_isTheFruitEaten = false;
@@ -395,7 +393,9 @@ void Snake::effects() {
 }
 
 void Snake::learning(Learning& concreteLearning) {
+    emit signalStatusInfo("learning");
     concreteLearning.learning();
+    emit signalStatusInfo("moving");
 }
 
 void Snake::readDataToTrainingSet(Learning& concreteLearning) {

@@ -26,12 +26,13 @@ public:
     virtual void setUIStateStop() {}
     virtual void setUIStateStart() {}
 
-    // читает индекс и параметр типа обучения из UI, вызывает displayDefaultParameters(), создает нужный объект способа обучения в snake,
-    virtual void readTypeOfLearning();
-    virtual void setTypeOfLearning();
+
+    virtual void readTypeOfLearning();// читает индекс и параметр типа обучения из UI создает нужный объект способа обучения в snake
+    virtual void setTypeOfLearning();// читает индекс и параметр типа обучения из UI, вызывает displayDefaultParameters(), создает нужный объект способа обучения в snake
     virtual void cbNewWeightsStateChanged(int state);
     virtual void cbSnakeSpeedStateChanged(int state);
-    virtual void displayDefaultParameters();
+
+    virtual void statusInfo(const QString& status);
 
 protected:
     Game* m_game;
@@ -41,6 +42,7 @@ protected:
 protected:
     virtual void loadSettings();
     virtual void saveSettings();
+    virtual void displayDefaultParameters();
 
 };
 
@@ -65,6 +67,7 @@ public:
     }
 
     void setUIStateStart() override;
+    void statusInfo(const QString& status) override;
 };
 
 // ==================== UIStateStart ==================
@@ -76,6 +79,7 @@ public:
     }
 
     void setUIStateStop() override;
+    void statusInfo(const QString& status) override;
 };
 
 #endif // GAMESTATE_H

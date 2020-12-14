@@ -170,7 +170,6 @@ void Game::slotRunInfo() {
     ui->lblCountOfSteps->setText(QString::number(m_pSnake->getStepCount()));
     ui->lblAverageCountOfSets->setText(QString::number(m_pSnake->getAverage(), 'f', 2));
     ui->lblCountOfEatenFruits->setText(QString::number(m_pSnake->getNumFruitEaten()));
-    slotStatusInfo("moving");
 }
 
 void Game::intValidate(QLineEdit* const le, const QString& valueForInvalid ) {
@@ -204,24 +203,7 @@ void Game::closeEvent(QCloseEvent* event)
 }
 
 void Game::slotStatusInfo(const QString& status) {
-    QString setStatus;
-    if ( status == "learning") {
-        setStatus = "Змейка спит. Закончится обучение и она проснётся";
-    }
-    if ( status == "moving" && ui->cbFreedom->checkState() ) {
-        setStatus = "Змейка просто гуляет, опыт не получает";
-    }
-    if ( status == "moving" && !ui->cbFreedom->checkState() ) {
-        setStatus = "Змейка получает опыт";
-    }
-    if ( (status == "stop") || (status == "moving" && !m_bStart) ) {
-        setStatus = "Стоп";
-    }
-    if ( status == "start" ) {
-        setStatus = "Старт";
-    }
-
-    ui->lblStatus->setText(setStatus);
+    pUIState->statusInfo(status);
 }
 
 void Game::setUIStateStop() {
