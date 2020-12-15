@@ -5,9 +5,11 @@
 
 #include "snake/snake.h"
 #include "snake/enums.h"
+#include "writeInputData.h"
 
 class LogOut;
 class Snake;
+class WriteInputDataType_3;
 
 class ChoiseDirection {
 protected:
@@ -84,15 +86,12 @@ public:
     DIRECTION choise() override;
 
 private:
-    void copyData();
+    void calcVVOut(const std::vector<std::vector<int>>& vvInNN, std::vector<double>* vvOut); // Инициализируем vvOut путем подачи vvInNN в НС
+    int calcIndexDirection(DIRECTION* direction, const std::vector<double>& vvOut); // Находим индекс максимального элемента vvOut и направление, по которому этот индекс расположен
+    void writeDataInOut(double OutMaxValue, DIRECTION direction, WriteInputDataType_3* const wID); // инициализируем m_pSnake vIn и vOut для последующего обучения НС
 
 private:
-    std::vector<std::vector<TYPE_CELL>> m_vField; // В векторе содержатся типы клеток поля в координатах х, у
-    int snakeX[8*8];
-    int snakeY[8*8];
-    int fruitX;
-    int fruitY;
-    int m_snakeLength;
+
 
 };
 

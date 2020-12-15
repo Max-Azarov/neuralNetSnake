@@ -50,4 +50,11 @@ public:
 
 };
 
+class LearnStateType3 : public ILearnState {
+
+public:
+    LearnStateType3(Snake* snake, int sizeOfArea);
+
+};
+
 #endif // LEARNSTATE_H

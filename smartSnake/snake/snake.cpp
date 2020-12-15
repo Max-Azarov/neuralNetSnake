@@ -84,7 +84,7 @@ void Snake::slotLoop() {
     if ( !m_bMutex ) {
         m_bMutex = true;
         writeInputData(*m_pLearnState->getWriteInputData());
-        movement(); // с проверкой столкновения
+        movement(); // в том числе choiseDirection
         checkTheFruitEaten(); // съела ли фрукт
         checkHopelessSituation(); // Попала ли в ловушку
         effects();
@@ -492,4 +492,14 @@ void Snake::writeField() {
             }
         }
     }
+}
+
+void Snake::copySnake(int* pSnakeX, int* pSnakeY, int* length) const {
+    size_t snakeSize = playFieldSize * playFieldSize;
+    for (size_t i = 0; i < snakeSize; ++i) {
+        pSnakeX[i] = snakeX[i];
+        pSnakeY[i] = snakeY[i];
+    }
+
+    *length = m_snakeLength;
 }

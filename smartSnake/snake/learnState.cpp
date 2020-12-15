@@ -24,3 +24,11 @@ LearnStateType2::LearnStateType2(Snake* snake, int depthOfVision) :
                  , new LearningType_2(snake)
                  )
 {}
+
+LearnStateType3::LearnStateType3(Snake* snake, int sizeOfArea) :
+    ILearnState(snake
+                  , new WriteInputDataType_3(snake, sizeOfArea)
+                  , new ChoiseDirectionType_3(snake)
+                  , new LearningType_3(snake)
+                )
+{}

@@ -52,6 +52,17 @@ void Training::forwardPass(const std::vector<int> & in, bool dropout ) {
     }
 }
 
+void Training::getOutValues(std::vector<double>* outValues) const {
+    auto itLayer = std::crbegin(p_Net->getNeuron()); // Последний слой
+    outValues->resize(itLayer->size());
+    auto itOut = std::begin(*itLayer);
+    auto itOutValues = std::begin(*outValues);
+    for (; itOut != std::end(*itLayer); ++itOut, ++itOutValues) {
+        // Перебираем все нейроны последнего слоя
+        *itOutValues = (*itOut)->getOut();
+    }
+}
+
 double Training::calculateError(const std::vector<double> & idealOut) {
     if ( p_Net->getCountOfOutputs() != idealOut.size() ) {
         std::cerr << "The number of outputs in the training set for calculating the error does not match!" << std::endl;

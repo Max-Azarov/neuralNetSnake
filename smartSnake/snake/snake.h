@@ -31,11 +31,12 @@ private:
     bool m_isHopelessSituation;
     const int WIDTH = 400;
     const int HEIGHT = 400;
-    static const int NUM_CELLS = 100; // Количество клеток, по совместительности количество входов для нейронной сети
+    const int NUM_CELLS = 100; // Количество игровых клеток
     int m_cellSize;
     int m_numberOfCellsPerSide;
-    int snakeX[NUM_CELLS];
-    int snakeY[NUM_CELLS];
+    static const int playFieldSize = 8; // 8x8 - размер игрового поля
+    int snakeX[playFieldSize * playFieldSize];
+    int snakeY[playFieldSize * playFieldSize];
     int fruitX;
     int fruitY;
     size_t m_delay;
@@ -151,6 +152,7 @@ public:
     int getFruitY() const { return fruitY; }
     const int* getSnakeX() const { return snakeX; }
     const int* getSnakeY() const { return snakeY; }
+    void copySnake(int* pSnakeX, int* pSnakeY, int* length) const;
     size_t getStepFromEating() const { return m_stepFromEating; }
     size_t getNumOfInputsNN();
     size_t getNumOfOutputsNN();
@@ -158,7 +160,7 @@ public:
     void setLearningState2(int depthOfVision);// // Переключение способа обучения
     void readDataToTrainingSet(Learning&);
     void writeInputData(WriteInputData&);
-
+    const ILearnState* getLearnState() const { return m_pLearnState.get(); }
 
 protected:
     void paintEvent(QPaintEvent*);

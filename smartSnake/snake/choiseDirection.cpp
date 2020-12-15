@@ -3,6 +3,8 @@
 #include <QDebug>
 #include <QStringList>
 
+
+
 ChoiseDirection::ChoiseDirection(Snake* pSnake, size_t numOfOutputs) :
     m_pSnake { pSnake }
   , m_numOfOutputs { numOfOutputs }
@@ -185,38 +187,47 @@ ChoiseDirectionType_3::ChoiseDirectionType_3(Snake* pSnake) : ChoiseDirection(pS
 }
 
 DIRECTION ChoiseDirectionType_3::choise() {
-    // Подаем данные в нейросеть, ответ записываем в вектор
-    m_pSnake->getNet()->training().forwardPass(*m_pSnake->getVIn());
-    m_pSnake->getNet()->getOut(*m_pSnake->getVOut());
     DIRECTION direction;
 
-    // Ищем максимальную мотивацию и, если она больше своего страха, идем в эту сторону. В противном случае, ищем следующую по значению мотивацию и сравниваем со страхом
-    // Если все мотивации меньше своих страхов, идем туда, где меньше всего страх
-    std::vector<double> vMotivation;
-    std::vector<double> vFear;
-    auto itMedian = std::begin(*m_pSnake->getVOut()) + m_pSnake->getVOut()->size() / 2;
-    vMotivation.assign(std::begin(*m_pSnake->getVOut()), itMedian);
-    vFear.assign(itMedian, std::end(*m_pSnake->getVOut()));
+    // Берем vvInNN из WriteInputDataType_3
+    WriteInputDataType_3* wID = dynamic_cast<WriteInputDataType_3*>(m_pSnake->getLearnState()->getWriteInputData());
+    if (!wID) LogOut::messageOut("ChoiseDirectionType_3: ошибка при попытке dynamic_cast WriteInputDataType_3");
+    std::vector<std::vector<int>>& vvInNN = wID->vvInNN;
 
-    while(true) {
-        size_t maxMotivation = std::max_element(std::begin(vMotivation), std::end(vMotivation)) - std::begin(vMotivation); // индекс максимального элемента
-        if (vMotivation[maxMotivation] == -1.0) {
-            size_t minFear = std::min_element(std::begin(vFear), std::end(vFear)) - std::begin(vFear); // индекс минимального элемента
-            direction = (DIRECTION)minFear;
-            break;
-        }
-        if (vMotivation[maxMotivation] > vFear[maxMotivation]) {
-            direction = (DIRECTION)maxMotivation;
-            break;
-        }
-        else {
-            vMotivation[maxMotivation] = -1.0;
-        }
-    }
+    // Создаем vvOut
+    std::vector<double> vvOut;
+
+    calcVVOut(vvInNN, &vvOut);
+    int indexMax = calcIndexDirection(&direction, vvOut);
+    writeDataInOut(vvOut[indexMax], direction, wID);
 
     return direction;
 }
 
-void ChoiseDirectionType_3::copyData() {
+void ChoiseDirectionType_3::calcVVOut(const std::vector<std::vector<int>>& vvInNN, std::vector<double>* vvOut) {
 
+    vvOut->clear(); // предварительно очищаем целевой вектор
+    std::vector<double> vTemp;
+    // Подаем данные в нейросеть
+    for (auto itIn = std::begin(vvInNN); itIn != std::end(vvInNN); ++itIn) {
+        m_pSnake->getNet()->training().forwardPass(*itIn); // Подаем данные в нейросеть
+        m_pSnake->getNet()->training().getOutValues(&vTemp); // Записываем ответ в vTemp
+        vvOut->push_back(*(vTemp.begin())); // Наполняем vvOut значениями начального элемента vTemp, т.к. в НС этого state используется только 1 выход
+    }
 }
+
+int ChoiseDirectionType_3::calcIndexDirection(DIRECTION* direction, const std::vector<double>& vvOut) {
+    int indexMax = std::max(std::begin(vvOut), std::end(vvOut)) - std::begin(vvOut); // индекс элемента с максимальным значением
+    int numOfDirections = 4;
+    *direction = (DIRECTION)(indexMax / numOfDirections); // indexMax 0-3 -> UP, 4-7 -> LEFT, etc.
+
+    return indexMax;
+}
+
+void ChoiseDirectionType_3::writeDataInOut(double OutMaxValue, DIRECTION direction, WriteInputDataType_3* const wID) {
+    m_pSnake->getVOut()->clear();
+    m_pSnake->getVOut()->push_back(OutMaxValue);
+    wID->copyData();
+    wID->proccesingData(direction, m_pSnake->getVIn());
+}
+

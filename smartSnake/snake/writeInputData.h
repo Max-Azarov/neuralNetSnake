@@ -67,8 +67,26 @@ public:
 
     virtual void writeInputData() override;
 
+public:
+    std::vector<std::vector<int>> vvInNN; // Набор векторов данных для подачи на входы НС
+    void copyData(); // Копировать игровые данные из основного объекта игры (Snake)
+    void proccesingData(DIRECTION direction, std::vector<int>* data); // Формируем входные данные для НС
+
+private:
+    void moveSnake(DIRECTION); // подаем в функцию вектор направления {up, left, down, right}
+    void readData(); // считывать игровые данные в вектор поля m_vField
+
+
 private:
     int m_sizeOfArea; // Размер просматриваемой области вокруг головы размером (sizeOfArea х sizeOfArea)
+
+    // Копии данных текущей игровой ситуации
+    std::vector<std::vector<TYPE_CELL>> m_vField; // В векторе содержатся типы клеток поля в координатах х, у
+    int m_snakeX[8*8];
+    int m_snakeY[8*8];
+    int m_snakeLength;
+    int m_fruitX;
+    int m_fruitY;
 };
 
 #endif // WRITEDATA_H

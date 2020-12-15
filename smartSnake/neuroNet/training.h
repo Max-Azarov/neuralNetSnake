@@ -19,6 +19,7 @@ public:
 
     double getError() const { return m_error; }
     void forwardPass(const std::vector<int> & in, bool dropout = false);
+    void getOutValues(std::vector<double>* outValues) const;
     double calculateError(const std::vector<double> & idealOut);
     void backprop(const std::vector<double> & idealOut);
     void saveWeightOfSynapses();
