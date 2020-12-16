@@ -254,7 +254,7 @@ void WriteInputDataType_3::readData() {
 void WriteInputDataType_3::proccesingData(DIRECTION direction, std::vector<int>* data) {
     data->clear(); // очищаем целевой вектор
     // Голод
-    //m_pSnake->getVIn()->push_back((int)m_pSnake->getStepFromEating());
+    //data->push_back((int)m_pSnake->getStepFromEating());
 
     // Подаем на входы координаты головы и фрукта
     data->push_back(m_snakeX[0]);
@@ -273,7 +273,9 @@ void WriteInputDataType_3::proccesingData(DIRECTION direction, std::vector<int>*
             checkBound(&xG, (int)m_vField.size()-1); // Если вышли за границу, присваиваем значение границы
             yG = m_snakeY[0] + correction + y;
             checkBound(&yG, (int)m_vField[xG].size()-1); // Если вышли за границу, присваиваем значение границы
+            //if (m_vField[xG][yG] != TYPE_CELL::HEAD) {
             data->push_back(m_vField[xG][yG]);
+            //}
         }
     }
 

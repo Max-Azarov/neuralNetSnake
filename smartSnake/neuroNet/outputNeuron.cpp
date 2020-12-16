@@ -41,3 +41,7 @@ void OutputNeuron::calculateInCalculateOut() {
     m_in = sum;
     activationFunction();
 }
+
+void OutputNeuron::setOut(double out) {
+    m_out = out;
+}

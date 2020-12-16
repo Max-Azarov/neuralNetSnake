@@ -359,6 +359,7 @@ public:
         cboLearningType = new QComboBox(groupBox);
         cboLearningType->addItem(QString());
         cboLearningType->addItem(QString());
+        cboLearningType->addItem(QString());
         cboLearningType->setObjectName(QString::fromUtf8("cboLearningType"));
         cboLearningType->setMinimumSize(QSize(100, 20));
         cboLearningType->setMaximumSize(QSize(100, 20));
@@ -804,6 +805,7 @@ public:
         groupBox->setTitle(QCoreApplication::translate("MainWindow", "\320\242\320\270\320\277\321\213 \320\276\320\261\321\203\321\207\320\265\320\275\320\270\321\217", nullptr));
         cboLearningType->setItemText(0, QCoreApplication::translate("MainWindow", "\320\242\320\270\320\277 \342\204\2261", nullptr));
         cboLearningType->setItemText(1, QCoreApplication::translate("MainWindow", "\320\242\320\270\320\277 \342\204\2262", nullptr));
+        cboLearningType->setItemText(2, QCoreApplication::translate("MainWindow", "\320\242\320\270\320\277 \342\204\2263", nullptr));
 
         cboLearningType->setCurrentText(QCoreApplication::translate("MainWindow", "\320\242\320\270\320\277 \342\204\2261", nullptr));
         lblLearningParam->setText(QString());

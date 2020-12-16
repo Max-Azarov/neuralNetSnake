@@ -58,6 +58,8 @@ void IUIState::readTypeOfLearning() {
     case 1:
         ui->snake->setLearningState2(learningParam);
         break;
+    case 2 :
+        ui->snake->setLearningState3(learningParam);
     default:
         return;
     }
@@ -74,6 +76,10 @@ void IUIState::setTypeOfLearning() {
     case 1:
         ui->lblLearningParam->setText("Дальность зрения в каждую сторону");
         ui->snake->setLearningState2(learningParam);
+        break;
+    case 2 :
+        ui->lblLearningParam->setText("Размер области зрения вокруг головы");
+        ui->snake->setLearningState3(learningParam);
         break;
     default:
         return;

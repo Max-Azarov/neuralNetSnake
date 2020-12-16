@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QStringList>
+#include <algorithm>
 
 
 
@@ -217,10 +218,9 @@ void ChoiseDirectionType_3::calcVVOut(const std::vector<std::vector<int>>& vvInN
 }
 
 int ChoiseDirectionType_3::calcIndexDirection(DIRECTION* direction, const std::vector<double>& vvOut) {
-    int indexMax = std::max(std::begin(vvOut), std::end(vvOut)) - std::begin(vvOut); // индекс элемента с максимальным значением
+    int indexMax = std::max_element(std::begin(vvOut), std::end(vvOut)) - std::begin(vvOut); // индекс элемента с максимальным значением
     int numOfDirections = 4;
     *direction = (DIRECTION)(indexMax / numOfDirections); // indexMax 0-3 -> UP, 4-7 -> LEFT, etc.
-
     return indexMax;
 }
 

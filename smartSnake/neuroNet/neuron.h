@@ -34,7 +34,7 @@ protected:
     std::list<Synapse*> v_synapseOut;
     std::list<Synapse*> v_synapseIn;
 
-    void setOut(double out);
+    virtual void setOut(double out);
 
 public:
     Neuron();

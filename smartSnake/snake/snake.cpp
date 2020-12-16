@@ -355,6 +355,14 @@ void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t>
     }
     // <<
 
+
+    // Выходному слою функцию активации RELU
+    //auto ritLayer = std::crbegin(neuroNet->getNeuron());
+    for ( auto it = std::begin(*prevEndIt); it != std::end(*prevEndIt); ++it) {
+        (*it)->setTypeActivation(RELU);
+    }
+
+
     m_vIn.resize(neuroNet->getCountOfInputs());
     m_vOut.resize(neuroNet->getCountOfOutputs());
 }
@@ -393,6 +401,7 @@ void Snake::effects() {
 }
 
 void Snake::learning(Learning& concreteLearning) {
+    emit signalRunInfo();
     emit signalStatusInfo("learning");
     concreteLearning.learning();
     emit signalStatusInfo("moving");
@@ -435,6 +444,7 @@ size_t Snake::getNumOfOutputsNN() {
     return getNumOfOutputsNN(*m_pLearnState->getChoiseDirection());
 }
 
+// Переключение способа обучения
 void Snake::setLearningState1(int sizeOfArea) {
     m_pLearnState.reset(new LearnStateType1(this, sizeOfArea));
 }
@@ -442,6 +452,12 @@ void Snake::setLearningState1(int sizeOfArea) {
 void Snake::setLearningState2(int depthOfVision) {
     m_pLearnState.reset(new LearnStateType2(this, depthOfVision));
 }
+
+void Snake::setLearningState3(int sizeOfArea) {
+    m_pLearnState.reset(new LearnStateType3(this, sizeOfArea));
+}
+// << Переключение способа обучения
+
 
 void Snake::mousePressEvent(QMouseEvent* e) {
     manualFruitLocate(e->localPos().x(), e->localPos().y());
@@ -479,7 +495,7 @@ void Snake::writeField() {
             if ( x == (size_t)this->getFruitX() && y == (size_t)this->getFruitY() ) {
                 vField[x][y] = TYPE_CELL::FRUIT;
             }
-            else if ( x == (size_t)this->getSnakeX()[0] && y == (size_t)this->getSnakeY()[0]) {
+            if ( x == (size_t)this->getSnakeX()[0] && y == (size_t)this->getSnakeY()[0]) {
                 vField[x][y] = TYPE_CELL::HEAD;
             }
             else {

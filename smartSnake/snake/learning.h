@@ -63,6 +63,7 @@ protected:
     void goodMove() override;
     void badMove() override;
 
+
 public:
     LearningType_2(Snake* pSnake);
 
@@ -77,6 +78,12 @@ public:
     LearningType_3(Snake* pSnake);
 
     void training() override;
+    void learning() override;
+
+protected:
+    void goodMove() override;
+    void badMove() override;
+    void usuallyMove();
 };
 
 #endif // SNAKETRAINING_H

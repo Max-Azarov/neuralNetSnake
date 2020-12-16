@@ -18,6 +18,9 @@ public:
     virtual void calculateDelta(Parameters&) override;
     virtual void calculateDelta() override;
     virtual void calculateInCalculateOut() override;
+
+protected:
+    void setOut(double out) override;
 };
 
 #endif // OUTPUTNEURON_H

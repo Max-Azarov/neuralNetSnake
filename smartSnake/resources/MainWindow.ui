@@ -739,6 +739,11 @@
                 <string>Тип №2</string>
                </property>
               </item>
+              <item>
+               <property name="text">
+                <string>Тип №3</string>
+               </property>
+              </item>
              </widget>
             </item>
             <item>

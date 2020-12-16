@@ -12,7 +12,7 @@ Learning::Learning(Snake* pSnake) : m_pSnake { pSnake }
 }
 
 void Learning::learning() {
-    emit m_pSnake->signalRunInfo();
+    //emit m_pSnake->signalRunInfo();
     if (
            m_pSnake->getStatusCollision()
         || m_pSnake->getStatusFruitEaten()
@@ -282,7 +282,7 @@ void LearningType_2::learning() {
 //        || m_pSnake->getStatusHopelessSituation()
 //        )
 //    {
-        emit m_pSnake->signalRunInfo();
+        //emit m_pSnake->signalRunInfo();
         bool allowBad = m_allowBad;
         bool allowGood = m_allowGood;
         bool allowUsually = m_allowUsually;
@@ -400,6 +400,8 @@ void LearningType_2::badMove() {
 }
 
 
+
+
 //LearningType_3 ==========================================================
 // Выборка прогоняется один раз, начиная с первого опыта к последнему
 LearningType_3::LearningType_3(Snake* pSnake) : Learning(pSnake)
@@ -409,42 +411,89 @@ LearningType_3::LearningType_3(Snake* pSnake) : Learning(pSnake)
 void LearningType_3::training() {
     // >> Обучаем
     if ( !m_pSnake->getStopStatus() ) {
-        //emit m_pSnake->signalStatusInfo("learning");
         double sumError;
         double error;
-        size_t countOfSet;
+        size_t countOfSet;  // количество последних тренировочных выборок для обучения
         size_t count;
-        //size_t loopExit = 0;
-        //do {
-        count = 0;
-        error = 0;
-        countOfSet = 0;
-        sumError = 0;
+        size_t loopExit = 0;
+        do {
+            count = 0;
+            error = 0;
+            countOfSet = 0;
+            sumError = 0;
 
-        auto itOut = std::begin(m_vOutTrainingSet);
-        auto itIn = std::begin(m_vInTrainingSet);
-        for (  ;
-                itIn != std::end(m_vInTrainingSet);
-                ++itIn, ++itOut, ++countOfSet )
-        {
-            qApp->processEvents();
-            //neuroNet->training().forwardPass(*itIn, true); // with dropout
-            m_pSnake->getNet()->training().forwardPass(*itIn); // without dropout
-            error = m_pSnake->getNet()->training().calculateError(*itOut);
-            m_pSnake->getNet()->training().backprop(*itOut);
-            sumError += error;
-            if ( error > m_pSnake->getAcceptError() ) {
-                count++;
+            size_t numOfSet = 10;
+
+            auto itOut = std::rbegin(m_vOutTrainingSet);
+            auto itIn = std::rbegin(m_vInTrainingSet);
+            for ( ;
+                    ( itIn != std::rend(m_vInTrainingSet) ) && ( countOfSet < numOfSet );
+                    ++itIn, ++itOut, ++countOfSet )
+            {
+                qApp->processEvents();
+                //neuroNet->training().forwardPass(*itIn, true); // with dropout
+                m_pSnake->getNet()->training().forwardPass(*itIn); // without dropout
+                error = m_pSnake->getNet()->training().calculateError(*itOut);
+                m_pSnake->getNet()->training().backprop(*itOut);
+                sumError += error;
+                if ( error > m_pSnake->getAcceptError() ) {
+                    count++;
+                }
             }
+            sumError = sumError / countOfSet; // vSize;
+            m_pSnake->setSummError(sumError);
+            m_pSnake->setInfoCount(count);
+            emit m_pSnake->signalErrorInfo();
+            loopExit++;
         }
-        sumError = sumError / countOfSet; // vSize;
-        m_pSnake->setSummError(sumError);
-        m_pSnake->setInfoCount(count);
-        emit m_pSnake->signalErrorInfo();
-
+        while (
+                loopExit < 10
+                &&error > m_pSnake->getAcceptError()
+                && !m_pSnake->getStopStatus()
+                );
         // << Обучаем
-        //emit m_pSnake->signalStatusInfo("moving");
         m_pSnake->getNet()->training().saveWeightOfSynapses();
         m_pSnake->setSetCount(0);
     }
+}
+
+void LearningType_3::learning() {
+    usuallyMove();
+    if (m_pSnake->getStatusCollision() || m_pSnake->getStatusHopelessSituation()) {
+        badMove();
+    }
+
+    if (m_pSnake->getStatusFruitEaten()) {
+        goodMove();
+    }
+    // Записываем строчки в обучающую выборку
+    addDataToTrainingSet();
+    // Тренируем
+    training();
+}
+
+void LearningType_3::goodMove() {
+    auto itOut = std::begin(*m_pSnake->getVOut());
+
+    // Поощряем такую ситуацию и действия (1.0)
+    *itOut += 1.0;
+    if (*itOut > 10.0) *itOut = 10.0;
+}
+
+void LearningType_3::badMove() {
+    auto itOut = std::begin(*m_pSnake->getVOut());
+
+    // Осуждаем такую ситуацию и действия (0.0)
+    *itOut = 0.0;
+    //if (*itOut < 0.1) *itOut = 0.1;
+}
+
+void LearningType_3::usuallyMove() {
+    auto itOut = std::begin(*m_pSnake->getVOut());
+
+    // Обычный ход. Выдаем часть награды (0.1)
+    *itOut += 0.5;
+    //if (*itOut > 10.0) *itOut = 10.0;
+    //if (*itOut < 0.4) *itOut = 0.4;
+    //if (*itOut > 0.6) *itOut = 0.6;
 }
