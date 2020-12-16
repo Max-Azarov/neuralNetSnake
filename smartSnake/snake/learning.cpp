@@ -477,7 +477,7 @@ void LearningType_3::goodMove() {
 
     // Поощряем такую ситуацию и действия (1.0)
     *itOut += 1.0;
-    if (*itOut > 10.0) *itOut = 10.0;
+    if (*itOut > 1.0) *itOut = 1.0;
 }
 
 void LearningType_3::badMove() {
@@ -492,8 +492,8 @@ void LearningType_3::usuallyMove() {
     auto itOut = std::begin(*m_pSnake->getVOut());
 
     // Обычный ход. Выдаем часть награды (0.1)
-    *itOut += 0.5;
-    //if (*itOut > 10.0) *itOut = 10.0;
+    //*itOut += 0.5;
+    //if (*itOut > 1.0) *itOut = 1.0;
     //if (*itOut < 0.4) *itOut = 0.4;
     //if (*itOut > 0.6) *itOut = 0.6;
 }

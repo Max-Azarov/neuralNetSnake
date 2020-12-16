@@ -358,10 +358,11 @@ void Snake::setNN(const std::vector<size_t> & vNeuron, const std::vector<size_t>
 
     // Выходному слою функцию активации RELU
     //auto ritLayer = std::crbegin(neuroNet->getNeuron());
+    /*
     for ( auto it = std::begin(*prevEndIt); it != std::end(*prevEndIt); ++it) {
         (*it)->setTypeActivation(RELU);
     }
-
+    */
 
     m_vIn.resize(neuroNet->getCountOfInputs());
     m_vOut.resize(neuroNet->getCountOfOutputs());
