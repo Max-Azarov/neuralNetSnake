@@ -422,7 +422,7 @@ void LearningType_3::training() {
             countOfSet = 0;
             sumError = 0;
 
-            size_t numOfSet = 10;
+            size_t numOfSet = 1;
 
             auto itOut = std::rbegin(m_vOutTrainingSet);
             auto itIn = std::rbegin(m_vInTrainingSet);
@@ -447,8 +447,8 @@ void LearningType_3::training() {
             loopExit++;
         }
         while (
-                loopExit < 10
-                &&error > m_pSnake->getAcceptError()
+                loopExit < 1
+                && error > m_pSnake->getAcceptError()
                 && !m_pSnake->getStopStatus()
                 );
         // << Обучаем

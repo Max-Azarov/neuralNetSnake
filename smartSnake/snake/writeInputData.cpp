@@ -98,6 +98,47 @@ void WriteInputDataType_2:: writeInputData() {
     int minXY;
     int maxXY;
 
+
+    // Смотрим вверх
+    //minXY = maxXY = xHead;
+    for (int y = yHead - 1; y >= yHead - m_depth; --y) {
+        minXY = xHead - m_depth/2;
+        maxXY = xHead + m_depth/2;
+        for (int x = minXY; x <= maxXY; ++x) {
+            readField(x, y);
+        }
+    }
+
+    // Смотрим налево
+    minXY = maxXY = yHead;
+    for (int x = xHead - 1; x >= xHead - m_depth; --x) {
+        minXY = yHead - m_depth/2;
+        maxXY = yHead + m_depth/2;
+        for (int y = maxXY; y >= minXY; --y) {
+            readField(x, y);
+        }
+    }
+
+    // Смотрим вниз
+    minXY = maxXY = xHead;
+    for (int y = yHead + 1; y <= yHead + m_depth; ++y) {
+        minXY = xHead - m_depth/2;
+        maxXY = xHead + m_depth/2;
+        for (int x = maxXY; x >= minXY; --x) {
+            readField(x, y);
+        }
+    }
+
+    // Смотрим вправо
+    minXY = maxXY = yHead;
+    for (int x = xHead + 1; x <= xHead + m_depth; ++x) {
+        minXY = yHead - m_depth/2;
+        maxXY = yHead + m_depth/2;
+        for (int y = minXY; y <= maxXY; ++y) {
+            readField(x, y);
+        }
+    }
+/*
     // Смотрим вверх
     minXY = maxXY = xHead;
     for (int y = yHead - 1; y >= yHead - m_depth; --y) {
@@ -137,7 +178,7 @@ void WriteInputDataType_2:: writeInputData() {
             readField(x, y);
         }
     }
-
+*/
     // Обязательная инициализация поля m_sizeInputData
     m_sizeInputData = m_bindingData + (m_pSnake->getVIn()->size() - m_bindingData) / 4;
 }
@@ -257,10 +298,10 @@ void WriteInputDataType_3::proccesingData(DIRECTION direction, std::vector<int>*
     //data->push_back((int)m_pSnake->getStepFromEating());
 
     // Подаем на входы координаты головы и фрукта
-    data->push_back(m_snakeX[0]);
-    data->push_back(m_snakeY[0]);
-    data->push_back(m_fruitX);
-    data->push_back(m_fruitY);
+    //data->push_back(m_snakeX[0]);
+    //data->push_back(m_snakeY[0]);
+    //data->push_back(m_fruitX);
+    //data->push_back(m_fruitY);
 
     // Подаем область вокруг головы
     // m_SizeArea; Размер области зрения змейки m_SizeArea x m_SizeArea вокруг головы
