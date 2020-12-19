@@ -5,6 +5,7 @@
 
 Game::Game(QWidget *parent) : QMainWindow{parent}
   , ui{ new Ui::MainWindow }
+  , m_pAbout { new About }
   , m_bStart {false}
   , m_bIsInitNet { false }
   , m_bNewSynapseWeights { false }
@@ -17,6 +18,8 @@ Game::Game(QWidget *parent) : QMainWindow{parent}
     connect(ui->snake, SIGNAL(signalRunInfo()), this, SLOT(slotRunInfo()));
     connect(ui->snake, SIGNAL(signalErrorInfo()), this, SLOT(slotErrorInfo()));
     connect(ui->snake, SIGNAL(signalStatusInfo(const QString&)), this, SLOT(slotStatusInfo(const QString&)));
+
+    connect(ui->actAbout, SIGNAL(triggered()), m_pAbout.get(), SLOT(show())); // Вызов информационного материала об игре
 }
 
 Game::~Game() {

@@ -276,17 +276,11 @@ LearningType_2::LearningType_2(Snake* pSnake) : Learning(pSnake)
 }
 
 void LearningType_2::learning() {
-//    if (
-//           m_pSnake->getStatusCollision()
-//        || m_pSnake->getStatusFruitEaten()
-//        || m_pSnake->getStatusHopelessSituation()
-//        )
-//    {
-        //emit m_pSnake->signalRunInfo();
         bool allowBad = m_allowBad;
         bool allowGood = m_allowGood;
         bool allowUsually = m_allowUsually;
 
+        // Столкновение
         if ( m_pSnake->getStatusCollision() ) {
             if ( m_allowBad ) {
                 badMove();
@@ -295,17 +289,21 @@ void LearningType_2::learning() {
             }
         }
 
+        // Попала в безвыходную ситуацию
         if ( m_pSnake->getStatusHopelessSituation() ) {
             badMove();
         }
 
+        // Съела фрукт
         if (m_pSnake->getStatusFruitEaten()) {
             if ( m_allowGood ) {
                 goodMove();
                 m_allowUsually = true;
-                m_allowGood = false;
+                //m_allowGood = false;
             }
         }
+
+        // Обычный ход
         if ( !(m_pSnake->getStatusCollision() || m_pSnake->getStatusHopelessSituation() || m_pSnake->getStatusFruitEaten()) ) {
             if (m_allowUsually) {
                 usuallyMove();

@@ -24,7 +24,6 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include <snake/snake.h>
@@ -34,7 +33,7 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *action;
+    QAction *actAbout;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_4;
     QGroupBox *gBoxNN;
@@ -105,7 +104,6 @@ public:
     QLabel *lblStatus;
     QMenuBar *menubar;
     QMenu *menu;
-    QToolBar *toolBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -124,8 +122,8 @@ public:
         font.setBold(false);
         font.setWeight(50);
         MainWindow->setFont(font);
-        action = new QAction(MainWindow);
-        action->setObjectName(QString::fromUtf8("action"));
+        actAbout = new QAction(MainWindow);
+        actAbout->setObjectName(QString::fromUtf8("actAbout"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
@@ -711,10 +709,6 @@ public:
         menu = new QMenu(menubar);
         menu->setObjectName(QString::fromUtf8("menu"));
         MainWindow->setMenuBar(menubar);
-        toolBar = new QToolBar(MainWindow);
-        toolBar->setObjectName(QString::fromUtf8("toolBar"));
-        toolBar->setEnabled(false);
-        MainWindow->addToolBar(Qt::TopToolBarArea, toolBar);
         QWidget::setTabOrder(btnStart, cbFreedom);
         QWidget::setTabOrder(cbFreedom, cbSnakeSpeed);
         QWidget::setTabOrder(cbSnakeSpeed, sldSnakeSpeed);
@@ -727,8 +721,7 @@ public:
         QWidget::setTabOrder(cbNewWeights, leNumInputNN);
 
         menubar->addAction(menu->menuAction());
-        menu->addAction(action);
-        toolBar->addSeparator();
+        menu->addAction(actAbout);
 
         retranslateUi(MainWindow);
 
@@ -741,7 +734,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "smartSnake", nullptr));
-        action->setText(QCoreApplication::translate("MainWindow", "\320\230\320\275\321\204\320\276\321\200\320\274\320\260\321\206\320\270\321\217 \320\276 \320\277\321\200\320\270\320\273\320\276\320\266\320\265\320\275\320\270\320\270", nullptr));
+        actAbout->setText(QCoreApplication::translate("MainWindow", "\320\230\320\275\321\204\320\276\321\200\320\274\320\260\321\206\320\270\321\217 \320\276 \320\277\321\200\320\270\320\273\320\276\320\266\320\265\320\275\320\270\320\270...", nullptr));
 #if QT_CONFIG(tooltip)
         gBoxNN->setToolTip(QCoreApplication::translate("MainWindow", "Neural net parameters", nullptr));
 #endif // QT_CONFIG(tooltip)
@@ -888,7 +881,6 @@ public:
         btnStart->setText(QCoreApplication::translate("MainWindow", "\320\241\321\202\320\260\321\200\321\202", nullptr));
         lblStatus->setText(QString());
         menu->setTitle(QCoreApplication::translate("MainWindow", "\320\230\320\275\321\204\320\276", nullptr));
-        toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
     } // retranslateUi
 
 };

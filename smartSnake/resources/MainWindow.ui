@@ -1526,28 +1526,13 @@
     <property name="title">
      <string>Инфо</string>
     </property>
-    <addaction name="action"/>
+    <addaction name="actAbout"/>
    </widget>
    <addaction name="menu"/>
   </widget>
-  <widget class="QToolBar" name="toolBar">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="windowTitle">
-    <string>toolBar</string>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="separator"/>
-  </widget>
-  <action name="action">
+  <action name="actAbout">
    <property name="text">
-    <string>Информация о приложении</string>
+    <string>Информация о приложении...</string>
    </property>
   </action>
  </widget>

@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #TEMPLATE = app
 
 SOURCES += \
+    game/about.cpp \
     game/game.cpp \
     game/uiState.cpp \
     logOut.cpp \
@@ -38,6 +39,7 @@ SOURCES += \
     snake/writeInputData.cpp
 
 HEADERS += \
+    game/about.h \
     game/game.h \
     game/uiState.h \
     logOut.h \
@@ -59,7 +61,8 @@ HEADERS += \
     snake/snake.h \
     snake/writeInputData.h
 
-FORMS += resources/mainWindow.ui
+FORMS += resources/mainWindow.ui \
+        resources/about.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -8,6 +8,7 @@
 #include <QValidator>
 #include "snake/snake.h"
 #include "ui_mainWindow.h"
+#include "about.h"
 #include "uiState.h"
 
 class IUIState;
@@ -17,6 +18,8 @@ class Game : public QMainWindow
     Q_OBJECT
 private:
     std::unique_ptr<Ui::MainWindow> ui;
+    std::unique_ptr<About> m_pAbout;
+
     Snake* m_pSnake;
     bool m_bStart;
     int m_delay;
