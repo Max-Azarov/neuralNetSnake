@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>About</class>
+ <widget class="QDialog" name="About">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>483</width>
-    <height>400</height>
+    <width>827</width>
+    <height>338</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
-    <width>400</width>
-    <height>400</height>
+    <width>530</width>
+    <height>330</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>960</width>
+    <height>800</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -28,11 +40,32 @@
   <layout class="QVBoxLayout" name="verticalLayout" stretch="10,1">
    <item>
     <widget class="QLabel" name="lblInfo">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>500</width>
+       <height>300</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>960</width>
+       <height>800</height>
+      </size>
+     </property>
      <property name="text">
-      <string/>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;Приложение позволяет пользователю погрузиться в процесс обучения классической змейки, которой необходимо есть фрукты, чтобы расти, и которой нельзя сталкиваться со стенами и со своим порой длинным телом. &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Количество входов и выходов нейросети (НС) задается автоматически в зависимости от выбранного типа обучения. Типы обучения отличаются друг от друга характером собираемой информации, подаваемой на входы нейросети и способом принятия решения нейросетью о дальнейшем поведении змейки: &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Тип №1 - На входы НС подаюся координаты головы змейки, координаты фрукта, информацию о составе квадратной области вокруг головы змейки. Сторона квадрата области выбирается пользователем. НС имеет 8 выходов, на каждое из возможных 4 (вверх, налево, вниз, направо) направлений по 2 выхода (сила мотивации и сила страха идти в это направление). Выбор направления происходит следующим образом: Находится значение самой большой из 4х мотиваций, сравнивается со страхом идти в это направление, если мотивация больше - выбор сделан, если нет, ищется следующая по значению мотивация. Если все страхи больше своих мотиваций, змейка идет в то направление, где меньше страха.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Тип №2 - На входы НС подаются координаты головы змейки, координаты фрукта, квадратная область видимости змейки в одну из сторон размером, задаваемым пользователем. Для принятия решения на входы НС информация для каждой из сторон подается 4 раза. НС имеет 2 выхода (мотивация и страх). В итоге мы имеем 8 значений - 4 мотивации и 4 страха). Выбор направления происходит аналогично выбору, реализованному в Типе №1. Другими словами змейка смотрит в каждую из сторон и после этого принимает решение, куде ей идти.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Тип №3 - На входы НС подаются координаты головы, координаты фрукта, область вокруг головы размером, который задает пользователь и будущее направление движения (Ситуация и действия). НС имеет один выход - оценка текущей ситуации и действия. Чтобы выбрать направление змейка собирает оценки всех возможных ситуаций и действий на ход вперед, выбирает наилучшую оценку и идет в это направление.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

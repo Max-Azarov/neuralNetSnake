@@ -12,6 +12,7 @@
 #include "uiState.h"
 
 class IUIState;
+class About;
 
 class Game : public QMainWindow
 {
@@ -36,6 +37,8 @@ public:
     std::unique_ptr<IUIState> pUIState;
     Ui::MainWindow* getUI() const { return ui.get(); }
     Snake* getSnake() const { return  (m_pSnake ? m_pSnake : nullptr); }
+    void closeAbout();
+
 
 private slots:
     void on_sldSnakeSpeed_valueChanged(int);
@@ -54,6 +57,7 @@ private slots:
     void on_cbNewTrainingData_stateChanged(int state);
     void on_cboLearningType_currentIndexChanged(int index);
     void on_cboLearningType_activated(int index);
+    void on_actAbout_triggered();
     void slotRunInfo();
     void slotErrorInfo();
 

@@ -5,7 +5,7 @@
 
 Game::Game(QWidget *parent) : QMainWindow{parent}
   , ui{ new Ui::MainWindow }
-  , m_pAbout { new About }
+  , m_pAbout { nullptr }
   , m_bStart {false}
   , m_bIsInitNet { false }
   , m_bNewSynapseWeights { false }
@@ -18,8 +18,6 @@ Game::Game(QWidget *parent) : QMainWindow{parent}
     connect(ui->snake, SIGNAL(signalRunInfo()), this, SLOT(slotRunInfo()));
     connect(ui->snake, SIGNAL(signalErrorInfo()), this, SLOT(slotErrorInfo()));
     connect(ui->snake, SIGNAL(signalStatusInfo(const QString&)), this, SLOT(slotStatusInfo(const QString&)));
-
-    connect(ui->actAbout, SIGNAL(triggered()), m_pAbout.get(), SLOT(show())); // Вызов информационного материала об игре
 }
 
 Game::~Game() {
@@ -110,12 +108,12 @@ void Game::on_cbNewTrainingData_stateChanged(int state) {
     m_clearFiles = (bool)state;
 }
 
-void Game::on_cboLearningType_currentIndexChanged(int index) {
-    Q_UNUSED(index)
+void Game::on_cboLearningType_currentIndexChanged(int ) {
+    //Q_UNUSED(index)
 }
 
-void Game::on_cboLearningType_activated(int index) {
-    Q_UNUSED(index)
+void Game::on_cboLearningType_activated(int ) {
+    //Q_UNUSED(index)
     pUIState->setTypeOfLearning();
     m_bIsInitNet = false;
 }
@@ -124,6 +122,14 @@ void Game::on_leLearningParam_editingFinished() {
     intValidate(ui->leLearningParam, "1"); // Валидация ввода
     pUIState->setTypeOfLearning();
     m_bIsInitNet = false;
+}
+
+void Game::on_actAbout_triggered() {
+    m_pAbout.reset(new About(this));
+}
+
+void Game::closeAbout() {
+    m_pAbout.reset(nullptr);
 }
 
 void Game::initNet() {

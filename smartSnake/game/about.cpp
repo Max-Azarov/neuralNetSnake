@@ -1,15 +1,16 @@
 #include "about.h"
 
 
-About::About() : QDialog(nullptr, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
-    ,  uiDialog { new Ui::Dialog }
+About::About(Game* game) : QDialog(nullptr, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
+  , uiAbout { new Ui::About }
+  , m_pGame { game }
 {
     LogOut::messageOut("create About");
-    uiDialog->setupUi(this);
-    QString info {"Hello!"};
-    uiDialog->lblInfo->setText(info);
+
+    uiAbout->setupUi(this);
+    this->show();
 }
 
 void About::on_btnOk_released() {
-    this->close();
+    m_pGame->closeAbout();
 }
